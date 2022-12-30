@@ -17,17 +17,24 @@ export const useAppStore = defineStore({
           })
           return data
       },
-      setLoad(){
-          this.loading = this.loading == false ? true : false
-          console.log(this.loading)
+      //fazer o search dos produtos
+      setLoad(Valor){
+          this.loading = Valor
       },
       getList(route){
-          const data = Service.getList(route).then((res)=>{
-              this.categorias = res.data
+          const data = Service.getList(route).then(async (res)=>{
+              if(route == 'categorys'){
+                this.setCategorias(res.data)
+              }
           }).catch((error)=>{
               return error
           })
-      }
+      },
+      async setCategorias(payload){
+          this.categorias = await JSON.parse(JSON.stringify(payload));
+
+      },
+
   },
   getters: {
         getLoad(){

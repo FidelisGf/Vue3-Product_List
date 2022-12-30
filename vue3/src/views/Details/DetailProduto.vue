@@ -62,8 +62,49 @@
             </v-row>
 
         </v-col>
-        <v-col cols="12" md="4" class="d-flex">
+        <v-divider></v-divider>
+        <v-col cols="12" md="12" class="d-flex">
 
+            <v-slide-group
+              v-model="model"
+              class="pa-4"
+              selected-class="bg-success"
+              show-arrows
+            >
+              <v-slide-group-item
+                v-for="produto in produtos"
+                :key="produto.ID"
+                v-slot="{toggle, selectedClass }"
+              >
+                <v-card
+                  color="grey-lighten-1"
+                  :class="['ma-4', selectedClass]"
+                  height="250"
+                  width="230"
+                  @click="toggle"
+                >
+                  <v-img :src="produto.IMAGE"
+                  height="120px"
+                  cover></v-img>
+                  <v-card-title class="text-h5"  @click="detailProduct(produto.ID)" >
+                    {{produto.NOME}}
+                  </v-card-title>
+                  <v-card-subtitle class="text-justify text-subtitle-1">
+                    {{produto.DESC}}
+                  </v-card-subtitle>
+                  <v-card-text>
+                    <v-row>
+                      <v-col cols="12" class="text-caption">
+                        <p class="text-body-1">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                        <p>Estoque : {{produto.QUANTIDADE}} unidades </p>
+                        <p>Categoria : {{produto.NOME_C}}</p>
+                      </v-col>
+
+                    </v-row>
+                </v-card-text>
+                </v-card>
+              </v-slide-group-item>
+            </v-slide-group>
         </v-col>
     </v-row>
   </v-container>
@@ -71,6 +112,8 @@
 
 <script >
   import Detail from '@/components/Mixin/CRUD'
+  import { useProdutoStore } from '@/store/produtoStore'
+  const storeApp = useProdutoStore()
   export default{
     data(){
       return{
@@ -80,6 +123,7 @@
             DESC : '',
 
             IMAGE : null,
+            produtos : null
         },
         url : null
       }
@@ -90,8 +134,15 @@
             let payload = {Shop : 'T'}
             this.produto = await this.findById('products', this.$route.params.id, payload)
             this.url = this.produto.IMAGE
+            this.getProdutos()
 
-        }
+        },
+        async getProdutos() {
+            this.listKey += 1;
+            let payload = { current_page: 1, opcao: null, start: null, end: null,
+              search: this.search, Shop: "T", Precos : this.precos, categoria : this.produto.ID_CATEGORIA};
+            this.produtos = await storeApp.getProdutos(payload);
+        },
     },
 
    async created(){
