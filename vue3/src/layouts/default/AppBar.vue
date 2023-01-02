@@ -5,7 +5,7 @@
     <v-spacer></v-spacer>
     <div class="mr-5">
       <v-btn @click="$router.push('/produtos')" class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-store">Loja</v-btn>
-      <v-btn class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-cart">
+      <v-btn @click="$router.push('/carrinho')" class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-cart">
         <v-badge
         v-show="(counter > 0)"
         class="mt-1 mr-3"

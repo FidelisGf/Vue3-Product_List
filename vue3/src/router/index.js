@@ -1,6 +1,6 @@
 // Composables
+import Carrinho from '@/views/Carrinho.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-
 const routes = [
   {
     path: '/',
@@ -17,13 +17,18 @@ const routes = [
       {
         path: 'produtos',
         name: 'Produtos',
-        component: () => import('@/views/Produto.vue')
+        component: () => import(/* webpackChunkName: "home" */  '@/views/Produto.vue'),
       },
       {
         path: 'produto/detalhes/:id',
         name: 'Produto-Detalhe',
-        component: () => import('@/views/Details/DetailProduto.vue')
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Details/DetailProduto.vue')
 
+      },
+      {
+        path: 'carrinho',
+        name: 'Carrinho',
+        component: Carrinho
       }
     ],
   },
