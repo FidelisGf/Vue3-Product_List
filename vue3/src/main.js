@@ -6,7 +6,7 @@
 
 // Components
 import App from './App.vue'
-import { createPinia } from 'pinia'
+import pinia from './store'
 // Composables
 import { createApp } from 'vue'
 
@@ -17,7 +17,7 @@ import axios from '@/Service/Service'
 
 
 const app = createApp(App)
-app.use(createPinia())
+app.use(pinia)
 app.use(VueAxios, axios)
 registerPlugins(app)
 app.mount('#app')

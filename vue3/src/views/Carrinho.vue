@@ -4,7 +4,6 @@
         <v-col cols="12" >
               <v-card
                   dark
-
               >
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
@@ -39,13 +38,17 @@
                           <div class="d-flex flex-column ml-3">
                             <p class="text-h5 font-weight-black">{{produto.NOME}}</p>
                             <p class="text-caption">{{produto.DESC}}</p>
-                            <p class="text-caption text-sm-subtitle-1">R$ {{parseFloat(produto.VALOR).toFixed(2)}}</p>
-                            <p class="text-caption text-sm-subtitle-1">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</p>
+                            <p class="text-caption text-sm-subtitle-1">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                            <p class="text-caption text-sm-subtitle-1">
+                              <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
+                              <span v-else><p class="text-yellow">Sem Estoque</p></span>
+                            </p>
                         </div>
                         <v-spacer></v-spacer>
                         <div class="d-flex flex-column justify-center">
-                          <v-btn icon variant="text" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
-                          <v-btn icon variant="text" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
+                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
+                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
+                          <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
                         </div>
                       </v-col>
                       <v-divider></v-divider>
@@ -78,12 +81,19 @@ export default {
             this.itens = await this.getProdutosCarrinho()
             this.flag = true
         },
-        addQuantidadeProduto(ID){
-          this.addQuantidade(ID)
-          const item = this.itens.find(o => o.ID == ID)
-          if(item){
-            item.QUANTIDADE += 1
+        async addQuantidadeProduto(ID){
+          const dt = await  this.addQuantidade(ID)
+          console.log(dt)
+          if(dt == 'Success'){
+            const item = this.itens.find(o => o.ID == ID)
+            if(item){
+              item.QUANTIDADE += 1
+            }
           }
+        },
+        removeIndis(ID){
+          this.removeIndisponivel(ID)
+          this.itens = this.itens.filter(o => o.ID != ID)
         },
         removeQuantidadeProduto(ID){
           this.removeQuantidade(ID)
@@ -94,16 +104,20 @@ export default {
             }else{
               item.QUANTIDADE -= 1
             }
-
           }
         },
         getValorTotal(){
           if(this.itens != null){
             let total = this.itens.reduce((accumulator, object)=>{
             return parseFloat(accumulator) + (parseFloat(object.VALOR)
-            * parseFloat(object.QUANTIDADE)) // separa parseFloat
+            * (object.QUANTIDADE != 'Indisponivel' ? parseFloat(object.QUANTIDADE) : 1)) // separa parseFloat
             },0)
-            return total
+            if(isNaN(total)){
+              return 0
+            }else{
+              return total
+            }
+
           }else{
             return 0
           }

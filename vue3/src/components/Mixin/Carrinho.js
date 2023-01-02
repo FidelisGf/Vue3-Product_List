@@ -19,11 +19,15 @@ export default{
         },
         addQuantidade(payload){
             let storeApp = useCarrinhoStore()
-            storeApp.addQuantidadeProduto(payload)
+            return storeApp.addQuantidadeProduto(payload)
         },
         removeQuantidade(payload){
             let storeApp = useCarrinhoStore()
             storeApp.removeQuantidadeProduto(payload)
+        },
+        removeIndisponivel(payload){
+          let storeApp = useCarrinhoStore()
+          storeApp.removeIndisponivel(payload)
         }
     }
 }

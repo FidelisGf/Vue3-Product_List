@@ -13,6 +13,7 @@
     "axios": "^1.2.1",
     "core-js": "^3.8.3",
     "pinia": "^2.0.23",
+    "pinia-plugin-persistedstate": "^3.0.2",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",

@@ -1,27 +1,57 @@
 import Service from '@/Service/Service'
 import { defineStore } from 'pinia'
-
+import { useAppStore } from '@/store/app'
+import EstoqueService from '@/Service/EstoqueService'
 export const useCarrinhoStore = defineStore('carrinho', {
   state: () => ({
       itens : []
   }),
+  persist: true,
   actions: {
-      saveInCarrinho(payload){
+      async saveInCarrinho(payload){
+          const storeApp = useAppStore()
           const exist = this.itens.find(o => o.ID == payload.ID)
           if(exist){
-              exist.QUANTIDADE += 1
+              const tmp = await EstoqueService.checkIfHasEstoque(payload.ID).then((res)=>{
+                return res.data
+              }).catch((error)=>{
+                return error
+              })
+              if((exist.QUANTIDADE + 1) > tmp){
+                console.log('Ativou')
+                storeApp.activeSnack('Estoque insuficiente !')
+                return
+              }else{
+                exist.QUANTIDADE += 1
+              }
+              console.log(exist.QUANTIDADE)
           }else{
             let pl = {ID : payload.ID , QUANTIDADE : 1}
             this.itens.push(pl)
-            console.log(this.itens)
           }
+          storeApp.activeSnack('Item adicionado ao carrinho')
+
+
       },
-      addQuantidadeProduto(payload){
+      async addQuantidadeProduto(payload){
+        const storeApp = useAppStore()
           const item = this.itens.find(o => o.ID == payload)
           if(item){
-            item.QUANTIDADE += 1
-            console.log(this.itens)
+            const tmp = await EstoqueService.checkIfHasEstoque(payload).then((res)=>{
+              return res.data
+            }).catch((error)=>{
+              return error
+            })
+            if((item.QUANTIDADE + 1) > tmp){
+              console.log('Ativou')
+              storeApp.activeSnack('Estoque insuficiente !')
+              return 'Error'
+            }else{
+              item.QUANTIDADE += 1
+            }
           }
+          storeApp.activeSnack('Item adicionado ao carrinho')
+          return 'Success'
       },
       removeQuantidadeProduto(payload){
           const item = this.itens.find(o => o.ID == payload)
@@ -32,18 +62,28 @@ export const useCarrinhoStore = defineStore('carrinho', {
                 item.QUANTIDADE -= 1
             }
           }
+          const storeApp = useAppStore()
+          storeApp.activeSnack('Item removido do carrinho')
       },
       async getProdutosCarrinho(){
           let data = []
           let payload = {Shop : 'T'}
           for (const item of this.itens){
              await Service.findById('products', item.ID, payload).then((res)=>{
+                  if(item.QUANTIDADE > res.data.ESTOQUE.QUANTIDADE){
+                      item.QUANTIDADE = 'Indisponivel'
+                  }
                   let dt = res.data
                   dt.QUANTIDADE = item.QUANTIDADE
                   data.push(dt)
               })
           }
           return data
+      },
+      removeIndisponivel(payload){
+        this.itens = this.itens.filter(o => o.ID != payload)
+        const storeApp = useAppStore()
+        storeApp.activeSnack('Item removido do carrinho')
       }
   },
   getters: {
@@ -55,5 +95,6 @@ export const useCarrinhoStore = defineStore('carrinho', {
         }
 
       }
-  }
+  },
+
 })

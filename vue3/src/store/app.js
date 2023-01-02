@@ -7,7 +7,10 @@ export const useAppStore = defineStore({
   state: () => ({
       loading : false,
       categorias : [],
-      filtros : null
+      filtros : null,
+      msg : '',
+      snack : false,
+      timeout : 1500,
   }),
   actions: {
       async findById(route, id, payload){
@@ -18,7 +21,13 @@ export const useAppStore = defineStore({
           })
           return data
       },
-
+      activeSnack(msg){
+          this.msg = msg
+          this.snack = true
+      },
+      closeSnack(){
+          this.snack = false
+      },
       setFiltros(payload){
         this.filtros = payload
       },
@@ -49,6 +58,15 @@ export const useAppStore = defineStore({
         },
         getFiltros(){
             return this.filtros
+        },
+        getSnack(){
+            return this.snack
+        },
+        getMsg(){
+            return this.msg
+        },
+        getTime(){
+            return this.timeout
         }
   }
 })
