@@ -6,7 +6,8 @@ export const useAppStore = defineStore({
   id: "normalApp",
   state: () => ({
       loading : false,
-      categorias : []
+      categorias : [],
+      filtros : null
   }),
   actions: {
       async findById(route, id, payload){
@@ -17,12 +18,18 @@ export const useAppStore = defineStore({
           })
           return data
       },
+
+      setFiltros(payload){
+        this.filtros = payload
+      },
+
       //fazer o search dos produtos
+
       setLoad(Valor){
           this.loading = Valor
       },
-      getList(route){
-          const data = Service.getList(route).then(async (res)=>{
+      getList(route, payload){
+          const data = Service.getList(route, payload).then(async (res)=>{
               if(route == 'categorys'){
                 this.setCategorias(res.data)
               }
@@ -39,6 +46,9 @@ export const useAppStore = defineStore({
   getters: {
         getLoad(){
             return this.loading
+        },
+        getFiltros(){
+            return this.filtros
         }
   }
 })

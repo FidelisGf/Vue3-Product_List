@@ -12,8 +12,8 @@ export default{
               let data = await storeApp.findById(route, id, payload)
               return data
         },
-        async getAllList(route){
-          storeApp.getList(route)
+        async getAllList(route, payload){
+          storeApp.getList(route, payload)
         }
     }
 }

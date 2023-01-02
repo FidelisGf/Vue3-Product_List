@@ -5,7 +5,16 @@
     <v-spacer></v-spacer>
     <div class="mr-5">
       <v-btn @click="$router.push('/produtos')" class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-store">Loja</v-btn>
-      <v-btn class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-cart">Carrinho</v-btn>
+      <v-btn class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-cart">
+        <v-badge
+        v-show="(counter > 0)"
+        class="mt-1 mr-3"
+        color="teal-darken-2"
+        :content="counter"
+        >
+        </v-badge>
+        Carrinho
+      </v-btn>
       <v-btn class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-account">Conta</v-btn>
     </div>
 
@@ -36,12 +45,19 @@
 <script>
   import { def } from '@vue/shared';
   import { ref } from 'vue'
+  import { useCarrinhoStore } from '@/store/CarrinhoStore'
+  const storeApp = useCarrinhoStore()
 
   export default {
       data(){
           return {
             theme : ref('light'),
             dialog : false
+          }
+      },
+      computed:{
+          counter : function(){
+              return storeApp.getCountCarrinho
           }
       }
   }

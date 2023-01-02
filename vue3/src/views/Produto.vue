@@ -33,7 +33,7 @@
                           <v-btn class="ml-n1" @click="detailProduct(produto.ID)" color="blue accent-2" icon="mdi-information-outline">
 
                           </v-btn>
-                          <v-btn color="teal accent-2" @click="check = false" icon="mdi-cart-outline">
+                          <v-btn color="teal accent-2" @click="saveInCarrinho(produto.ID)" icon="mdi-cart-outline">
 
                           </v-btn>
                         </v-col>
@@ -54,6 +54,7 @@
   import { useProdutoStore } from '@/store/produtoStore'
   import Detail from '@/components/Mixin/CRUD'
   import Filtro from '@/components/Filtro.vue'
+import Carrinho from '@/components/Mixin/Carrinho'
   const storeApp = useProdutoStore()
 
 
@@ -69,13 +70,18 @@
             categoria : null,
         };
     },
-    mixins: [Detail],
+    mixins: [Detail, Carrinho],
     methods: {
         async getProdutos() {
             this.listKey += 1;
             let payload = { current_page: 1, opcao: null, start: null, end: null,
               search: this.search, Shop: "T", Precos : this.precos, categoria : this.categoria};
             this.produtos = await storeApp.getProdutos(payload);
+
+        },
+        async getCategorias(){
+          let payload = {Shop: "T", Precos : this.precos, categoria : this.categoria};
+          await this.getAllList("categorys", payload);
         },
         detailProduct(id) {
             this.$router.push({ path: `/produto/detalhes/${id}` });
@@ -84,19 +90,18 @@
             this.search = e.search.toString()
             this.precos = e.check
             this.categoria = e.categoria
-            console.log(this.categoria)
             this.getProdutos()
         }
     },
     async created() {
-        await this.getAllList("categorys");
-        this.getProdutos();
+        this.getProdutos()
+        this.getCategorias()
     },
     components: { Filtro }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .cards:hover{
     transform: translate(0px, -1.0px);
     transition: 1.2s;

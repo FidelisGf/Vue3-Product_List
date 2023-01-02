@@ -43,7 +43,7 @@
               ></v-autocomplete>
         </v-list-item>
         <v-list-item class="mt-n2">
-            <v-btn color="green darken-4"   block >
+            <v-btn color="green darken-4" @click="searchFilter"   block >
               <v-icon>
                 mdi-magnify
               </v-icon>Pesquisar</v-btn>
@@ -66,11 +66,11 @@
               <v-col>
                 <p>Valores</p>
                 <v-radio-group inline v-model="check" title="Valores">
-                  <v-radio label="Todos" value="0"></v-radio>
-                  <v-radio label="1 a 25" value="1"></v-radio>
-                  <v-radio label="25 a 50" value="2"></v-radio>
-                  <v-radio label="50 a 100" value="3"></v-radio>
-                  <v-radio label="Acima de 100" value="4"></v-radio>
+                  <v-radio label="Todos" :value="0" ></v-radio>
+                  <v-radio label="1 a 25" :value="1"></v-radio>
+                  <v-radio label="25 a 50" :value="2"></v-radio>
+                  <v-radio label="50 a 100" :value="3"></v-radio>
+                  <v-radio label="Acima de 100" :value="4"></v-radio>
                 </v-radio-group>
               </v-col>
               <v-col>
@@ -102,6 +102,7 @@
                   <v-btn class="ma-2"
                   variant="text"
                   icon="mdi-magnify"
+                  @click="searchFilter"
                   color="green-darken-3">
 
                   </v-btn>
@@ -109,13 +110,10 @@
                     variant="text"
                     icon="mdi-delete"
                     color="blue-darken-3" @click="clear">
-
                   </v-btn>
                 </v-col>
             </v-row>
-
           </v-expansion-panel-text>
-
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
@@ -133,20 +131,49 @@ export default {
       return {
           search : '',
           categoria : null,
-          check : '',
+          check : 0,
           tmp : '',
           tmpLenght : null
 
       }
     },
+    created(){
+        this.setFiltrosStore()
+    },
     methods:{
-      clear(){
-          console.log(this.check)
+      async clear(){
           this.search = ''
           this.check = null,
           this.categoria = null
+          let payload = {search : this.search.toString(), check : parseFloat(this.check)}
+          this.$emit('search', payload)
       },
-
+      async setFiltrosStore(){
+          let filtros = await genericApp.getFiltros
+          if(filtros != null){
+            let payload = null
+            this.search = filtros.search
+            this.check = String(filtros.check)
+            this.categoria = filtros.categoria
+            if(this.categoria != null){
+                payload = {search : this.search.toString(), check : parseFloat(this.check), categoria : this.categoria.ID_CATEGORIA}
+              }else{
+                payload = {search : this.search.toString(), check : parseFloat(this.check)}
+            }
+            this.$emit('search', payload)
+          }
+      },
+      searchFilter(){
+        let payload = null
+        if(this.categoria != null){
+            payload = {search : this.search.toString(), check : parseFloat(this.check), categoria : this.categoria.ID_CATEGORIA}
+          }else{
+            payload = {search : this.search.toString(), check : parseFloat(this.check)}
+        }
+        this.$emit('search', payload)
+        payload.categoria = this.categoria
+        genericApp.setFiltros(payload)
+      }
     },
     computed:{
         categorias : function(){
@@ -176,8 +203,8 @@ export default {
             }
             this.tmpLenght = val.toString().length
           }
-
-
+          payload.categoria = this.categoria
+          genericApp.setFiltros(payload)
         }
     },
 }
