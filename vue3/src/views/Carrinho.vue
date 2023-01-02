@@ -19,7 +19,7 @@
                       <p class="ml-2 text-md-h6 text-caption mt-3 mt-sm-0">Valor total : {{parseFloat(getValorTotal()).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </div>
                   <v-spacer></v-spacer>
-                  <v-btn prepend-icon="mdi-cash" variant="text" class="text-teal-lighten-1 mt-sm-0  mt-2">
+                  <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text" class="text-teal-lighten-1 mt-sm-0  mt-2">
                       Finalizar Compra
                   </v-btn>
                   </div>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { useCarrinhoStore } from '@/store/CarrinhoStore'
+import { useAppStore } from '@/store/app'
 import Carrinho from '@/components/Mixin/Carrinho'
 export default {
     data(){
@@ -105,6 +105,14 @@ export default {
               item.QUANTIDADE -= 1
             }
           }
+        },
+        finalizarPedido(){
+            const storeApp = useAppStore()
+            for(const item of this.itens){
+                if(item.QUANTIDADE == 'Indisponivel'){
+                  storeApp.activeSnack('O carrinho possui itens sem estoque !')
+                }
+            }
         },
         getValorTotal(){
           if(this.itens != null){
