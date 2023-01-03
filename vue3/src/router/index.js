@@ -1,6 +1,8 @@
 // Composables
-import Carrinho from '@/views/Carrinho.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import Guard from "../plugins/AuthGuard"
+import axios from "axios"
+import { useAppStore } from '@/store/app'
 const routes = [
   {
     path: '/',
@@ -28,7 +30,40 @@ const routes = [
       {
         path: 'carrinho',
         name: 'Carrinho',
-        component: Carrinho
+        beforeEnter(to, from, next){
+          if(localStorage.getItem('token') == null || localStorage.getItem('token') == undefined){
+            const genericApp = useAppStore()
+            genericApp.activeSnack('Esteja logado para isso !')
+            next({name: 'Login'})
+          }else{
+            axios.get("/auth/validateTkn").then((res)=>{
+              next()
+            }).catch((error)=>{
+                const access_token = localStorage.getItem("token");
+                if(error.response.status == 401 && access_token){
+                    localStorage.setItem('token', error.response.data)
+                    axios.defaults.headers.common['Authorization'] = 'Bearer' + e.response.data
+                    next()
+                }else{
+                    const genericApp = useAppStore()
+                    genericApp.activeSnack('Esteja logado para isso !')
+                    next({name: 'Login'})
+                }
+            })
+          }
+
+        },
+        component:() => import(/* webpackChunkName: "home" */ '@/views/Carrinho.vue')
+      },
+      {
+        path: 'cadastro',
+        name: 'Cadastro',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/RegisterCliente.vue')
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/LoginCliente.vue')
       }
     ],
   },

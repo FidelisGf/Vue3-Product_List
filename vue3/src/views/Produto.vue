@@ -1,7 +1,6 @@
 <template>
   <v-container class="fill-height" fluid>
         <Filtro @search="makeSearch"></Filtro>
-
         <v-row   class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
 
             <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
@@ -91,11 +90,23 @@ import Carrinho from '@/components/Mixin/Carrinho'
             this.precos = e.check
             this.categoria = e.categoria
             this.getProdutos()
+        },
+        exibeList(){
+            if(this.produtos == null){
+              console.log('aa')
+            }
+
         }
     },
     async created() {
         this.getProdutos()
         this.getCategorias()
+    },
+    computed:{
+        produtin : function(){
+            this.exibeList()
+            return 'aaa'
+        }
     },
     components: { Filtro }
 }

@@ -66,11 +66,11 @@
               <v-col>
                 <p>Valores</p>
                 <v-radio-group inline v-model="check" title="Valores">
-                  <v-radio label="Todos" :value="0" ></v-radio>
-                  <v-radio label="1 a 25" :value="1"></v-radio>
-                  <v-radio label="25 a 50" :value="2"></v-radio>
-                  <v-radio label="50 a 100" :value="3"></v-radio>
-                  <v-radio label="Acima de 100" :value="4"></v-radio>
+                  <v-radio label="Todos" value="0"></v-radio>
+                  <v-radio label="0 a 25" value="1"></v-radio>
+                  <v-radio label="25 a 50" value="2"></v-radio>
+                  <v-radio label="50 a 100" value="3"></v-radio>
+                  <v-radio label="Acima de 100" value="4"></v-radio>
                 </v-radio-group>
               </v-col>
               <v-col>

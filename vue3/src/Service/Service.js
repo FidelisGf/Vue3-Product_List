@@ -1,9 +1,11 @@
 import axios from "axios"
 import { useAppStore } from '@/store/app'
 
-axios.defaults.baseURL = 'http://laravelempresarial.test/api/';
-axios.defaults.headers.common['Authorization'] =
-      'Bearer' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4LjAuMTQwXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjcyNjU2OTExLCJleHAiOjE2NzI2NjA1MTEsIm5iZiI6MTY3MjY1NjkxMSwianRpIjoiNlp1SUkxeFBHeW5MbVRIZCIsInN1YiI6NjUsInBydiI6IjBiMGNmNTBhZjEyM2Q4NTA2ZTE2ZWJhN2NiNjc2Mjk3NGRhM2FjM2EifQ.MecFDvrOHlUVuJ7x58fHm0gXsidwEXdvw0N3LSLYeHw'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+if(localStorage.getItem('token') !=null || localStorage.getItem('token') != undefined){
+  axios.defaults.headers.common['Authorization'] =
+  'Bearer' + localStorage.getItem('token')
+}
 axios.interceptors.request.use((config)=>{
   const storeApp = useAppStore()
      storeApp.setLoad(true)
@@ -20,10 +22,10 @@ axios.interceptors.request.use((config)=>{
   },async function (error) {
     const storeApp = useAppStore()
     const access_token = localStorage.getItem("token");
-      // if (error.response.status === 401 && access_token) {
-      //   localStorage.setItem('token', error.response.data)
-      //   axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
-      // }
+    if (error.response.status === 401 && access_token) {
+        localStorage.setItem('token', error.response.data)
+        axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
+    }
     storeApp.setLoad(false)
     return Promise.reject(error);
 })

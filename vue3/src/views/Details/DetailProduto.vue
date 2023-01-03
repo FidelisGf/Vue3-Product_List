@@ -1,11 +1,13 @@
 <template>
   <v-container fluid>
-    <v-row class="mt-n3">
+    <!-- <v-row class="mt-n3">
       <v-col cols="12">
-          <v-btn icon @click="returnStore" variant="text"><v-icon color="red-accent-2">mdi-arrow-left</v-icon></v-btn>
+
       </v-col>
-    </v-row>
-    <v-row class="d-flex justify-space-between mt-0 mt-md-9 flex-column flex-sm-row mt-n4">
+    </v-row> -->
+
+    <v-row class="d-flex justify-space-between mt-0 mt-md-0 flex-column flex-sm-row mt-n4">
+        <v-col class="mt-md-n6" cols=12><v-btn icon @click="returnStore" class="ml-md-n1" variant="text" ><v-icon color="blue-accent-2">mdi-arrow-left</v-icon></v-btn></v-col>
         <v-col cols="12" md="8" class="d-flex flex-sm-row flex-column-reverse ">
           <v-row class="d-flex">
             <v-col  cols="1" class="d-flex flex-md-column flex-row ">
@@ -38,18 +40,19 @@
         <v-col cols="12" md="4" class="d-flex ">
             <v-row>
               <v-col cols="12">
-                <v-btn block color="green-darken-4" class="ml-sm-n2 ml-0">
+                <v-btn @click="saveInCarrinho(produto.ID)" block color="green-darken-4" class="ml-sm-n2 ml-0 mt-md-3">
                   <v-icon
                     left
                     dark
                     class="mr-6"
                     color="white"
+
                   >
                     mdi-cart
                   </v-icon>
                   <p class="mr-5">Adicionar ao Carrinho</p>
                 </v-btn>
-                <v-btn block color="green-darken-4" class="ml-sm-n2 ml-0 mt-5">
+                <v-btn block @click="buyNow(produto.ID)" color="green-darken-4" class="ml-sm-n2 ml-0 mt-5">
                   <v-icon
                     left
                     dark
@@ -71,13 +74,10 @@
                   <p class="ml-6 text-white">Tirar duvidas sobre o item</p>
                 </v-btn>
               </v-col>
-
             </v-row>
-
         </v-col>
         <v-divider class="mt-2"></v-divider>
         <v-col cols="12" md="12" class="d-flex">
-
             <v-slide-group
               class="pa-4 slides"
               selected-class="bg-success"
@@ -93,9 +93,8 @@
                 <v-card
                   color="dark"
                   :class="['ma-4', selectedClass, 'cards'] "
-                  height="340"
-
-                  width="310"
+                  max-height="340"
+                  max-width="310"
                   @click="toggle"
 
                 >
@@ -127,7 +126,8 @@
 </template>
 
 <script >
-  import Detail from '@/components/Mixin/CRUD'
+  import Carrinho from '@/components/Mixin/Carrinho'
+import Detail from '@/components/Mixin/CRUD'
   import { useProdutoStore } from '@/store/produtoStore'
   const storeApp = useProdutoStore()
   export default{
@@ -144,7 +144,7 @@
         produtos : []
       }
     },
-    mixins: [Detail],
+    mixins: [Detail, Carrinho],
     methods:{
         async findProduto(){
             let payload = {Shop : 'T'}
@@ -165,6 +165,10 @@
         },
         returnStore(){
             this.$router.push({path : `/produtos` });
+        },
+        buyNow(ID){
+          this.saveInCarrinho(ID)
+          this.$router.push({path : `/carrinho` });
         }
     },
 
