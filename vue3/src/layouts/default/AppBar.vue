@@ -15,7 +15,7 @@
         </v-badge>
         Carrinho
       </v-btn>
-      <v-btn class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-account">Conta</v-btn>
+      <v-btn @click="$router.push('/login')" class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-account">Conta</v-btn>
     </div>
 
     <v-dialog
@@ -31,9 +31,12 @@
               <v-btn @click="dialog = false"><v-icon>mdi-close</v-icon></v-btn>
           </v-card-actions>
           <v-card-text class="d-flex flex-column">
-            <v-btn text class="text-caption text-md-body-1" prepend-icon="mdi-store">Loja</v-btn>
-            <v-btn class="text-caption text-md-body-1" prepend-icon="mdi-cart">Carrinho</v-btn>
-            <v-btn class="text-caption text-md-body-1" prepend-icon="mdi-account">Conta</v-btn>
+            <v-btn text class="text-caption text-md-body-1" prepend-icon="mdi-store"
+            @click="$router.push('/produtos')">Loja</v-btn>
+            <v-btn class="text-caption text-md-body-1" prepend-icon="mdi-cart"
+            @click="$router.push('/carrinho')">Carrinho</v-btn>
+            <v-btn class="text-caption text-md-body-1" prepend-icon="mdi-account"
+            @click="$router.push('/login')">Conta</v-btn>
           </v-card-text>
         </v-card>
 

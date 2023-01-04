@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid>
+  <v-container fluid :key="restart">
+
     <!-- <v-row class="mt-n3">
       <v-col cols="12">
 
@@ -24,8 +25,9 @@
             <v-col cols="12" md="5">
               <v-img :src="url"
               class="imagem"
-              max-height="450px"
-              max-width="450px"
+              max-height="420px"
+              max-width="420px"
+
               cover></v-img>
             </v-col>
             <v-col cols="12" md="5">
@@ -93,8 +95,10 @@
                 <v-card
                   color="dark"
                   :class="['ma-4', selectedClass, 'cards'] "
-                  max-height="340"
-                  max-width="310"
+                  min-height="340"
+                  max-width="300"
+                  min-width="300"
+
                   @click="toggle"
 
                 >
@@ -125,57 +129,86 @@
   </v-container>
 </template>
 
-<script >
-  import Carrinho from '@/components/Mixin/Carrinho'
-import Detail from '@/components/Mixin/CRUD'
+<script setup>
+  import {ref, watch} from 'vue'
+  import Carrinho from '@/CompositionAP/Carrinho'
+  import Detail from '@/CompositionAP/CRUD'
   import { useProdutoStore } from '@/store/produtoStore'
-  const storeApp = useProdutoStore()
-  export default{
-    data(){
-      return{
-        produto : {
-            NOME : '',
-            VALOR : 0,
-            DESC : '',
-            model : true,
-            IMAGE : null,
-        },
-        url : null,
-        produtos : []
-      }
-    },
-    mixins: [Detail, Carrinho],
-    methods:{
-        async findProduto(){
-            let payload = {Shop : 'T'}
-            this.produto = await this.findById('products', this.$route.params.id, payload)
-            this.url = this.produto.IMAGE
-            this.getProdutos()
-        },
-        async getProdutos() {
-            this.listKey += 1;
-            let payload = { current_page: 1, opcao: null, start: null, end: null,
-              search: this.search, Shop: "T", Precos : this.precos, categoria : this.produto.ID_CATEGORIA};
-            this.produtos = await storeApp.getProdutos(payload);
-            this.produtos = this.produtos.filter(o => o.ID !== this.produto.ID)
-        },
-        async detailProduct(id) {
-            await this.$router.push({ path: `/produto/detalhes/${id}` });
-            window.location.reload()
-        },
-        returnStore(){
-            this.$router.push({path : `/produtos` });
-        },
-        buyNow(ID){
-          this.saveInCarrinho(ID)
-          this.$router.push({path : `/carrinho` });
-        }
-    },
+  import { useRouter } from 'vue-router';
+  import { useRoute } from 'vue-router';
 
-   async created(){
-        await this.findProduto()
-    }
+  const router = useRouter()
+
+  const storeApp =
+  useProdutoStore()
+
+  const {saveInCarrinho} =
+  Carrinho()
+
+  const {findById} =
+  Detail()
+
+  const route = useRoute()
+
+  const produto = ref(null)
+  const url = ref(null)
+  const produtos = ref([])
+  const tmpAuxiliar = ref([])
+  const restart = ref(0)
+  const flag = ref(false)
+
+
+  await findProduto()
+
+  async function findProduto(){
+      let payload = {Shop : 'T'}
+      produto.value = await findById('products', route.params.id,
+      payload)
+      url.value = await produto.value.IMAGE
+      getProdutos()
+      restart.value += 1
   }
+
+  async function getProdutos(){
+
+    let payload = { current_page: 1, opcao: null,
+    start: null, end: null, search: null,
+    Shop: "T", Precos : null,
+    categoria : produto.value.ID_CATEGORIA};
+
+
+    if(flag.value){
+      produtos.value = tmpAuxiliar.value
+      produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
+    }else{
+      produtos.value = await storeApp.getProdutos(payload)
+      tmpAuxiliar.value = produtos.value
+      produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
+    }
+    flag.value = true
+
+  }
+
+  async function detailProduct(id){
+      console.log(id)
+      await router.push({name: 'Produto-Detalhe', params: {id : id}})
+      findProduto()
+  }
+
+  function returnStore(){
+
+    router.push({path : `/produtos`})
+  }
+
+  function buyNow(ID){
+      saveInCarrinho(ID)
+      router.push({path : `/carrinho`})
+  }
+
+
+
+
+
 </script>
 
 <style lang="scss" >

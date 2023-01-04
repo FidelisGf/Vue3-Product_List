@@ -16,7 +16,7 @@
                       mt-md-0 ml-0 ml-sm-6">
                       mdi-cash
                     </v-icon>
-                      <p class="ml-2 text-md-h6 text-caption mt-3 mt-sm-0">Valor total : {{parseFloat(getValorTotal()).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <p class="ml-2 text-md-h6 text-caption mt-3 mt-sm-0">Valor total : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </div>
                   <v-spacer></v-spacer>
                   <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text" class="text-teal-lighten-1 mt-sm-0  mt-2">
@@ -60,82 +60,84 @@
   </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue'
 import { useAppStore } from '@/store/app'
-import Carrinho from '@/components/Mixin/Carrinho'
-export default {
-    data(){
-      return {
-          itens : [],
-          width : 150,
-          height : 250,
-          flag : false
-      }
-    },
-    async created(){
-        this.itens = await this.getProdutosCarrinho()
-    },
-    mixins: [Carrinho],
-    methods:{
-        async getCarrinho(){
-            this.itens = await this.getProdutosCarrinho()
-            this.flag = true
-        },
-        async addQuantidadeProduto(ID){
-          const dt = await  this.addQuantidade(ID)
-          console.log(dt)
-          if(dt == 'Success'){
-            const item = this.itens.find(o => o.ID == ID)
-            if(item){
-              item.QUANTIDADE += 1
-            }
-          }
-        },
-        removeIndis(ID){
-          this.removeIndisponivel(ID)
-          this.itens = this.itens.filter(o => o.ID != ID)
-        },
-        removeQuantidadeProduto(ID){
-          this.removeQuantidade(ID)
-          const item = this.itens.find(o => o.ID == ID)
-          if(item){
-            if(item.QUANTIDADE == 1){
-              this.itens = this.itens.filter(o => o.ID != ID)
-            }else{
-              item.QUANTIDADE -= 1
-            }
-          }
-        },
-        finalizarPedido(){
-            const storeApp = useAppStore()
-            for(const item of this.itens){
-                if(item.QUANTIDADE == 'Indisponivel'){
-                  storeApp.activeSnack('O carrinho possui itens sem estoque !')
-                }
-            }
-        },
-        getValorTotal(){
-          if(this.itens != null){
-            let total = this.itens.reduce((accumulator, object)=>{
-            return parseFloat(accumulator) + (parseFloat(object.VALOR)
-            * (object.QUANTIDADE != 'Indisponivel' ? parseFloat(object.QUANTIDADE) : 1)) // separa parseFloat
-            },0)
-            if(isNaN(total)){
-              return 0
-            }else{
-              return total
-            }
+import Carrinho from '@/CompositionAP/Carrinho'
+const {getProdutosCarrinho
+, addQuantidade, removeQuantidade, removeIndisponivel} =
+Carrinho()
 
-          }else{
-            return 0
-          }
+const itens = ref([])
+const flag = ref(false)
+const vlTotal = computed(()=>
+    getValorTotal()
+)
 
+getCarrinho()
+
+
+async function getCarrinho(){
+    itens.value = await getProdutosCarrinho()
+    flag.value = true
+}
+async function addQuantidadeProduto(ID){
+    const dt = await addQuantidade(ID)
+    if(dt == 'Success'){
+        const item = itens.value.find(o => o.ID == ID )
+        if(item){
+            item.QUANTIDADE += 1
         }
-
-    },
-
+    }
+}
+function finalizarPedido(){
+  const storeApp = useAppStore()
+  for(const item of itens.value){
+    if(item.QUANTIDADE == 'Indisponivel'){
+      storeApp.activeSnack('O carrinho possui itens sem estoque !')
+    }else{
+      console.log('safe')
+    }
+  }
+}
+function removeIndis(ID){
+    removeIndisponivel(ID)
+    itens.value = itens.value.filter(o => o.ID != ID)
 
 }
+
+function removeQuantidadeProduto(ID){
+    removeQuantidade(ID)
+    const item = itens.value.find(o => o.ID == ID)
+    if(item){
+      if(item.QUANTIDADE == 1){
+          itens.value = itens.value.filter(o => o.ID != ID)
+      }else{
+        item.QUANTIDADE -= 1
+      }
+    }
+}
+function getValorTotal(){
+  if(itens.value != null){
+    let total = itens.value.reduce((accumulator, object)=>{
+    return parseFloat(accumulator) + (parseFloat(object.VALOR)
+      * (object.QUANTIDADE != 'Indisponivel' ? parseFloat(object.QUANTIDADE) : 1)) // separa parseFloat
+    },0)
+    if(isNaN(total)){
+      return 0
+    }else{
+      return total
+    }
+  }else{
+      return 0
+    }
+  }
+
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>

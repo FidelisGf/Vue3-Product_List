@@ -49,67 +49,77 @@
   </v-container>
 </template>
 
-<script >
+<script setup>
+  import {ref} from 'vue'
   import { useProdutoStore } from '@/store/produtoStore'
-  import Detail from '@/components/Mixin/CRUD'
+  import Detail from '@/CompositionAP/CRUD'
   import Filtro from '@/components/Filtro.vue'
-import Carrinho from '@/components/Mixin/Carrinho'
-  const storeApp = useProdutoStore()
+  import Carrinho from '@/CompositionAP/Carrinho'
+  import { useRouter } from 'vue-router';
+
+  const router =
+  useRouter()
+
+  const storeApp =
+  useProdutoStore()
+
+  const {saveInCarrinho} =
+  Carrinho()
+
+  const {getAllList} =
+  Detail()
+
+  const produtos = ref(null)
+  const tmp = ref("")
+  const check = ref("red")
+  const listKey = ref(0)
+  const search = ref('')
+  const precos = ref('')
+  const categoria = ref(null)
+
+  getProdutos()
+  getCategorias()
 
 
-  export default{
-    data() {
-        return {
-            produtos: null,
-            tmp: "",
-            check: "red",
-            listKey: 0,
-            search : '',
-            precos : '',
-            categoria : null,
-        };
-    },
-    mixins: [Detail, Carrinho],
-    methods: {
-        async getProdutos() {
-            this.listKey += 1;
-            let payload = { current_page: 1, opcao: null, start: null, end: null,
-              search: this.search, Shop: "T", Precos : this.precos, categoria : this.categoria};
-            this.produtos = await storeApp.getProdutos(payload);
+  async function getProdutos(){
+    listKey.value += 1;
+    let payload = { current_page: 1, opcao: null, start: null, end: null,
+    search: search.value, Shop: "T", Precos : precos.value, categoria : categoria.value};
+    produtos.value = await storeApp.getProdutos(payload);
+  }
 
-        },
-        async getCategorias(){
-          let payload = {Shop: "T", Precos : this.precos, categoria : this.categoria};
-          await this.getAllList("categorys", payload);
-        },
-        detailProduct(id) {
-            this.$router.push({ path: `/produto/detalhes/${id}` });
-        },
-        makeSearch(e){
-            this.search = e.search.toString()
-            this.precos = e.check
-            this.categoria = e.categoria
-            this.getProdutos()
-        },
-        exibeList(){
-            if(this.produtos == null){
-              console.log('aa')
-            }
+  async function getCategorias(){
+    let payload = {Shop: "T", Precos : precos.value, categoria : categoria.value};
+    await getAllList("categorys", payload);
+  }
 
-        }
-    },
-    async created() {
-        this.getProdutos()
-        this.getCategorias()
-    },
-    computed:{
-        produtin : function(){
-            this.exibeList()
-            return 'aaa'
-        }
-    },
-    components: { Filtro }
-}
+  function detailProduct(id){
+    router.push({name: 'Produto-Detalhe', params: {id : id}})
+  }
+
+  function makeSearch(e){
+      search.value = e.search.toString()
+      precos.value = e.check
+      categoria.value = e.categoria
+      getProdutos()
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <style lang="scss">

@@ -31,27 +31,32 @@ const routes = [
         path: 'carrinho',
         name: 'Carrinho',
         beforeEnter(to, from, next){
-          if(localStorage.getItem('token') == null || localStorage.getItem('token') == undefined){
-            const genericApp = useAppStore()
-            genericApp.activeSnack('Esteja logado para isso !')
-            next({name: 'Login'})
-          }else{
-            axios.get("/auth/validateTkn").then((res)=>{
-              next()
-            }).catch((error)=>{
+          if(localStorage.getItem('token') != null ||
+            localStorage.getItem('token') != undefined){
+              axios.defaults.headers.common['Authorization'] = 'Bearer' +
+              localStorage.getItem('token')
+              axios.get("/auth/validateTkn").then((res)=>{
+                next()
+              }).catch((error)=>{
                 const access_token = localStorage.getItem("token");
-                if(error.response.status == 401 && access_token){
-                    localStorage.setItem('token', error.response.data)
-                    axios.defaults.headers.common['Authorization'] = 'Bearer' + e.response.data
-                    next()
+
+                if(error.response.status == 401 &&
+                  access_token && error.response.data != 'token_invalid'){
+                  localStorage.setItem('token', error.response.data)
+
+                  axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
+                  next()
                 }else{
                     const genericApp = useAppStore()
                     genericApp.activeSnack('Esteja logado para isso !')
                     next({name: 'Login'})
                 }
-            })
+              })
+          }else{
+              const genericApp = useAppStore()
+              genericApp.activeSnack('Esteja logado para isso !')
+              next('/login')
           }
-
         },
         component:() => import(/* webpackChunkName: "home" */ '@/views/Carrinho.vue')
       },
