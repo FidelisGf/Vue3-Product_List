@@ -3,21 +3,39 @@ import { defineStore } from 'pinia'
 
 export const useProdutoStore = defineStore('produto', {
   state: () => ({
-      produtos : []
+      produtos : [],
+      current_page : 1,
+      total_page : 2
   }),
   actions: {
     async  getProdutos(payload){
-          let data = Service.getPaginado('products', payload).then((res)=>{
-              if(res.data.data == undefined || res.data.data == null){
-                  let arrayLista = null
-                  arrayLista.push(res.data)
-                  res.data.data = arrayLista
-              }
-              return res.data.data
-          }).catch((error)=>{
-              return error
-          })
-          return data
-      }
+      let data = Service.getPaginado('products', payload)
+      .then((res)=>{
+
+        this.current_page = res.data.current_page
+        this.total_page = res.data.last_page
+
+        if(res.data.data == undefined || res.data.data == null){
+          let arrayLista = null
+          this.setPages(resposta)
+          arrayLista.push(res.data)
+          res.data.data = arrayLista
+        }
+          return res.data.data
+      }).catch((error)=>{
+        return error
+      })
+      return data
+    },
+
+  },
+  getters: {
+    getCurrent_Page(){
+      return this.current_page
+    },
+    getLastPage(){
+      return this.total_page
+    }
   }
+
 })

@@ -89,7 +89,7 @@
                       </v-form>
                     </v-card-text>
                     <v-card-actions class="d-flex justify-end mt-n3">
-                        <v-btn variant="text" color="red-darken-1" >Voltar</v-btn>
+                        <v-btn variant="text" color="red-darken-1" @click="voltar" >Voltar</v-btn>
                         <v-btn variant="text" color="teal-darken-1" @click="test" >Cadastrar</v-btn>
                     </v-card-actions>
                 </v-card>
@@ -100,7 +100,11 @@
 
 <script setup>
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router';
   import  UserComp from '@/CompositionAP/UserComp'
+
+  const route = useRouter()
+
   const image_file = ref(null)
   const image_url = ref(null)
   const image_colocada = ref(false)
@@ -150,6 +154,9 @@
       image_url.value = null
       image_file.value = null
 
+  }
+  function voltar(){
+      route.back()
   }
 </script>
 

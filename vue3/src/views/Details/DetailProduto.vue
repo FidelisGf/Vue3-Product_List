@@ -160,6 +160,8 @@
 
   await findProduto()
 
+
+
   async function findProduto(){
       let payload = {Shop : 'T'}
       produto.value = await findById('products', route.params.id,

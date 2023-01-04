@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height" fluid>
-        <Filtro @search="makeSearch"></Filtro>
+        <Filtro @search="makeSearch" @searchPage="filterOnPage"></Filtro>
         <v-row   class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
 
             <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
@@ -46,11 +46,23 @@
               </v-card>
             </v-col>
         </v-row>
+        <v-row class="d-flex flex-row">
+            <v-col cols="12" class="d-flex flex-row justify-center">
+              <v-pagination
+                color="teal lighten-1"
+                v-model="current_page"
+                  :length="storeApp.getLastPage"
+                  :total-visible="5"
+                >
+              </v-pagination>
+            </v-col>
+        </v-row>
+
   </v-container>
 </template>
 
 <script setup>
-  import {ref} from 'vue'
+  import {ref, shallowRef, computed, watch} from 'vue'
   import { useProdutoStore } from '@/store/produtoStore'
   import Detail from '@/CompositionAP/CRUD'
   import Filtro from '@/components/Filtro.vue'
@@ -66,26 +78,68 @@
   const {saveInCarrinho} =
   Carrinho()
 
-  const {getAllList} =
+  const {getAllList, applyFilter} =
   Detail()
 
-  const produtos = ref(null)
-  const tmp = ref("")
+  const current_page = ref(1)
+  current_page.value = storeApp.getCurrent_Page
+
+  const totalPage = computed(()=>
+    storeApp.getLastPage
+  )
+
+  const produtos = shallowRef(null)
+  const tmp = shallowRef(null)
   const check = ref("red")
   const listKey = ref(0)
   const search = ref('')
   const precos = ref('')
-  const categoria = ref(null)
+  const categoria = shallowRef(null)
 
-  getProdutos()
+  watch(current_page, (val) => {
+    getProdutos()
+  })
+
   getCategorias()
 
 
+  function makeSearch(e){
+
+      if(e == undefined || e == null){
+        search.value = null
+        precos.value = null
+        categoria.value = null
+      }else{
+        if(e.search != null){
+          search.value = e.search.toString()
+        }
+        precos.value = e.check
+        categoria.value = e.categoria
+
+      }
+      getProdutos()
+
+  }
+
+
   async function getProdutos(){
+
     listKey.value += 1;
-    let payload = { current_page: 1, opcao: null, start: null, end: null,
+    let payload = { current_page: current_page.value, opcao: null, start: null, end: null,
     search: search.value, Shop: "T", Precos : precos.value, categoria : categoria.value};
     produtos.value = await storeApp.getProdutos(payload);
+  }
+
+  function filterOnPage(e){
+      if(tmp.value == null){
+
+          let sub = applyFilter(e, produtos.value)
+          tmp.value = produtos.value
+          produtos.value = sub
+
+      }else{
+          produtos.value = applyFilter(e, tmp.value)
+      }
   }
 
   async function getCategorias(){
@@ -97,12 +151,7 @@
     router.push({name: 'Produto-Detalhe', params: {id : id}})
   }
 
-  function makeSearch(e){
-      search.value = e.search.toString()
-      precos.value = e.check
-      categoria.value = e.categoria
-      getProdutos()
-  }
+
 
 
 

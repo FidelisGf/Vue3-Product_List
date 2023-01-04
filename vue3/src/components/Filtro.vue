@@ -122,92 +122,96 @@
 
 </template>
 
-<script>
-import { useAppStore } from '@/store/app'
-const genericApp = useAppStore()
+<script setup>
+  import { useAppStore } from '@/store/app'
+  import {ref, watch, computed, onMounted, onBeforeMount} from 'vue'
+  const genericApp = useAppStore()
 
-export default {
-    data(){
-      return {
-          search : '',
-          categoria : null,
-          check : 0,
-          tmp : '',
-          tmpLenght : null
+  const search = ref('')
+  const categoria = ref(null)
+  const check = ref(0)
+  const tmp = ref('')
+  const tmpLenght = ref(null)
+  const emit = defineEmits(['search', 'searchPage'])
 
-      }
-    },
-    created(){
-        this.setFiltrosStore()
-    },
-    methods:{
-      async clear(){
-          this.search = ''
-          this.check = null,
-          this.categoria = null
-          let payload = {search : this.search.toString(), check : parseFloat(this.check)}
-          this.$emit('search', payload)
-      },
-      async setFiltrosStore(){
-          let filtros = await genericApp.getFiltros
-          if(filtros != null){
-            let payload = null
-            this.search = filtros.search
-            this.check = String(filtros.check)
-            this.categoria = filtros.categoria
-            if(this.categoria != null){
-                payload = {search : this.search.toString(), check : parseFloat(this.check), categoria : this.categoria.ID_CATEGORIA}
-              }else{
-                payload = {search : this.search.toString(), check : parseFloat(this.check)}
-            }
-            this.$emit('search', payload)
-          }
-      },
-      searchFilter(){
-        let payload = null
-        if(this.categoria != null){
-            payload = {search : this.search.toString(), check : parseFloat(this.check), categoria : this.categoria.ID_CATEGORIA}
-          }else{
-            payload = {search : this.search.toString(), check : parseFloat(this.check)}
-        }
-        this.$emit('search', payload)
-        payload.categoria = this.categoria
-        genericApp.setFiltros(payload)
-      }
-    },
-    computed:{
-        categorias : function(){
-            return  JSON.parse(JSON.stringify(genericApp.categorias))
-        }
-    },
-    watch: {
-        search : function(val) {
-          console.log(this.categoria)
+  const categorias = computed(()=>
+    JSON.parse(JSON.stringify(genericApp.categorias))
+  )
+
+  onBeforeMount(async ()=>{
+    await setFiltrosStore()
+  })
+
+
+
+  async function clear(){
+      search.value = ''
+      check.value = null
+      categoria.value = null
+      let payload = {search : search.value.toString(),
+      check : parseFloat(check.value)}
+      emit('search', payload)
+  }
+  async function setFiltrosStore(){
+      console.log('deu')
+      let filtros = await genericApp.getFiltros
+      if(filtros != null){
           let payload = null
-          if(this.categoria != null){
-            payload = {search : val.toString(), check : parseFloat(this.check), categoria : this.categoria.ID_CATEGORIA}
+          search.value = filtros.search
+          check.value = String(filtros.check)
+          categoria.value = filtros.categoria
+          if(categoria.value != null){
+            payload = {search : search.value.toString(),
+            check : parseFloat(check.value),
+            categoria : categoria.value.ID_CATEGORIA}
           }else{
-            payload = {search : val.toString(), check : parseFloat(this.check)}
+            payload = {search : search.value.toString(),
+            check : parseFloat(check.value)}
           }
-
-          if(val.toString().length == 0){
-            this.$emit('search', payload)
-          }else{
-            if(val.toString().length >= this.tmpLenght){
-              if (val.toString().length > 2 ) {
-                  this.$emit('search', payload)
-              }else if(val != this.tmp){
-                  this.$emit('search', payload)
-              }
-              this.tmp = val
-            }
-            this.tmpLenght = val.toString().length
-          }
-          payload.categoria = this.categoria
-          genericApp.setFiltros(payload)
+          emit('search', payload)
+      }else{
+          let payload = {search : null, check : null, categoria : null}
+          emit('search', payload)
+      }
+  }
+  function searchFilter(){
+    let payload = null
+    if(categoria.value != null){
+      payload = {search : search.value.toString(),
+      check : parseFloat(check.value),
+      categoria : categoria.value.ID_CATEGORIA}
+    }else{
+      payload = {search : search.value.toString(),
+      check : parseFloat(check.value)}
+    }
+    emit('search', payload)
+    payload.categoria = categoria.value
+    genericApp.setFiltros(payload)
+  }
+  watch(search, (val) => {
+    let payload = {search : search.value.toString(), type : 'Search'}
+    if(val.toString().length == 0){
+      emit('searchPage', payload)
+    }else{
+      if(val.toString().length >= tmpLenght.value){
+        if(val.toString().length > 2){
+          emit('searchPage', payload)
+        }else if(val != tmp.value){
+          emit('searchPage', payload)
         }
-    },
-}
+        tmp.value = val
+      }
+      tmpLenght.value = val.toString().length
+    }
+    payload.categoria = categoria.value
+    genericApp.setFiltros(payload)
+  })
+  watch(check, (val)=>{
+    let payload = {check : val, type : 'Check'}
+    emit('searchPage', payload)
+  })
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -10,7 +10,7 @@ export const useAppStore = defineStore({
       filtros : null,
       msg : '',
       snack : false,
-      timeout : 1500,
+      timeout : 1500
   }),
   actions: {
       async findById(route, id, payload){
