@@ -1,27 +1,32 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container class="fill-height bg-real" fluid>
         <Filtro @search="makeSearch" @searchPage="filterOnPage"></Filtro>
-        <v-row   class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
+        <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
 
             <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
-              <v-card width="300px"
-                    class="cards mx-auto"
+              <v-card   width="320px"
+                    class="cards mx-auto corpo-card"
+                    elevation="1"
+
                 >
                   <v-img :src="produto.IMAGE"
-                  height="200px"
+                  height="230px"
+                  class="img-card"
                   cover @click="detailProduct(produto.ID)"></v-img>
-                  <v-card-title class="text-h5"  @click="detailProduct(produto.ID)" >
+                  <v-card-title class="text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}
                   </v-card-title>
-                  <v-card-subtitle class="text-justify text-subtitle-1">
+                  <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
                     {{produto.DESC}}
                   </v-card-subtitle>
-                  <v-card-text @click="detailProduct(produto.ID)">
+                  <v-card-text  @click="detailProduct(produto.ID)"
+
+                  >
                       <v-row>
                         <v-col cols="12" class="text-caption">
-                          <p class="text-body-1">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                          <p>Estoque : {{produto.QUANTIDADE}} unidades </p>
-                          <p>Categoria : {{produto.NOME_C}}</p>
+                          <p class="text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                          <p class="font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
+                          <p class="font-weight-medium">Categoria : {{produto.NOME_C}}</p>
                         </v-col>
 
                       </v-row>
@@ -29,17 +34,17 @@
                   <v-card-actions>
                       <v-row>
                         <v-col cols="6">
-                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)" color="blue accent-2" icon="mdi-information-outline">
+                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)" color="blue-darken-4" icon="mdi-information-outline">
 
                           </v-btn>
-                          <v-btn color="teal accent-2" @click="saveInCarrinho(produto.ID)" icon="mdi-cart-outline">
+                          <v-btn color="teal-darken-3" @click="saveInCarrinho(produto.ID)" icon="mdi-cart-outline">
 
                           </v-btn>
                         </v-col>
 
                         <v-spacer></v-spacer>
                         <v-col>
-                          <v-btn class="ml-4" color="green" icon="mdi-whatsapp"></v-btn>
+                          <v-btn class="ml-4" color="green-darken-3" icon="mdi-whatsapp"></v-btn>
                         </v-col>
                       </v-row>
                   </v-card-actions>
@@ -226,11 +231,20 @@
 
 <style lang="scss">
   .cards:hover{
-    transform: translate(0px, -1.0px);
+    transform: translate(1px, -2.0px);
     transition: 1.2s;
-    box-shadow: 1px 1.8px 8px #69F0AE;
+    box-shadow: 2px 5.2px 8px #141414 !important;
   }
+  .corpo-card{
+    background: #E1EBEE !important;
 
+  }
+  .img-card{
+    background: white !important;
+  }
+  .bg-real{
+    background : #F0F8FF !important
+  }
 
 
 

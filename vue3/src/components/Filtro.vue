@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-navigation-drawer>
+    <v-navigation-drawer color="#f0f8ff">
       <v-list>
         <v-list-item>
-            <v-list-item-title class="text-h6">
+            <v-list-item-title class="text-h6 auto">
               Filtros
             </v-list-item-title>
         </v-list-item>
@@ -13,6 +13,7 @@
           solo
           placeholder="Procure por um produto"
           v-model="search"
+          class="auto"
           variant="underlined"
           prepend-inner-icon="mdi-magnify"
           ></v-text-field>
@@ -21,8 +22,8 @@
           <v-list-item-title>
               Valores
           </v-list-item-title>
-          <v-radio-group v-model="check">
-            <v-radio label="Todos" value="0"></v-radio>
+          <v-radio-group v-model="check" class="auto">
+            <v-radio class="auto text-black" label="Todos" value="0"></v-radio>
             <v-radio label="0 a 25" value="1"></v-radio>
             <v-radio label="25 a 50" value="2"></v-radio>
             <v-radio label="50 a 100" value="3"></v-radio>
@@ -33,41 +34,43 @@
               <v-autocomplete
                   variant="underlined"
                   v-model="categoria"
-                  class="mt-2"
+                  class="mt-2 auto"
                   item-title="NOME_C"
                   solo
                   item-children="ID"
                   :items="categorias"
                   return-object
                   clearable
+
                   label="Categorias"
               ></v-autocomplete>
 
         </v-list-item>
         <v-list-item class="mt-n2">
-            <v-btn color="green darken-4" @click="searchFilter"   block >
+            <v-btn color="green-darken-4" @click="searchFilter"   block >
               <v-icon>
                 mdi-magnify
               </v-icon>Pesquisar</v-btn>
         </v-list-item>
         <v-list-item>
-          <v-btn color="#01579B" @click="clear"  block >
+          <v-btn color="blue-darken-4 "  @click="clear"  block >
             <v-icon >
               mdi-delete
             </v-icon>Limpar</v-btn>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-row class="hidden-lg-and-up">
-      <v-expansion-panels >
+    <v-row class="hidden-lg-and-up" color="#f0f8ff">
+      <v-expansion-panels color="#f0f8ff" >
         <v-expansion-panel
           title="Filtros"
+          color="#f0f8ff"
         >
-          <v-expansion-panel-text>
-            <v-row class="d-flex flex-row">
-              <v-col>
+          <v-expansion-panel-text color="#f0f8ff">
+            <v-row  color="#f0f8ff" class="d-flex flex-row">
+              <v-col color="#f0f8ff">
                 <p>Valores</p>
-                <v-radio-group inline v-model="check" title="Valores">
+                <v-radio-group  inline v-model="check" title="Valores">
                   <v-radio label="Todos" value="0"></v-radio>
                   <v-radio label="0 a 25" value="1"></v-radio>
                   <v-radio label="25 a 50" value="2"></v-radio>
@@ -105,17 +108,17 @@
                 </v-col>
 
                 <v-col cols="6" class="">
-                  <v-btn class="ma-2"
+                  <v-btn class="ma-2 auto"
                   variant="text"
                   icon="mdi-magnify"
                   @click="searchFilter"
-                  color="green-darken-3">
+                  color="green-darken-4">
 
                   </v-btn>
-                  <v-btn class="ma-2"
+                  <v-btn class="ma-2 auto"
                     variant="text"
                     icon="mdi-delete"
-                    color="blue-darken-3" @click="clear">
+                    color="blue-darken-4 "  @click="clear">
                   </v-btn>
                 </v-col>
             </v-row>
@@ -251,5 +254,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .auto{
+    color : rgb(0, 0, 0) !important
+  }
 </style>

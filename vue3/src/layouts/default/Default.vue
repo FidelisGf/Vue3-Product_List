@@ -1,6 +1,6 @@
 <template>
 
-  <v-app :theme="theme">
+  <v-app :theme="theme" >
     <Loading class="d-flex justify-center align-center"></Loading>
     <default-bar @modeOn="onclickMode"/>
     <default-view/>
@@ -13,7 +13,7 @@
   import { ref } from 'vue'
 import Loading from '@/components/Loading.vue';
 
-  const theme = ref('dark')
+  const theme = ref('light')
 
 
 

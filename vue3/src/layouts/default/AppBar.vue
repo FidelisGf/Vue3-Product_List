@@ -1,7 +1,25 @@
 <template>
-  <v-app-bar>
+  <v-app-bar color="#f0f8ff">
     <v-app-bar-nav-icon class="hidden-sm-and-up" @click="dialog = true"></v-app-bar-nav-icon>
-    <v-toolbar-title class="hidden-sm-and-down">WebShop</v-toolbar-title>
+
+
+
+      <v-toolbar-title class="hidden-sm-and-down">
+            <v-img
+              width="70px"
+              height="100px"
+              src="@/assets/6803408.png"
+
+            >
+
+            </v-img>
+
+
+
+
+      </v-toolbar-title>
+
+
     <v-spacer></v-spacer>
     <div class="mr-5">
       <v-btn @click="$router.push('/produtos')" class="text-sm-body-1 hidden-sm-and-down" prepend-icon="mdi-store">Loja</v-btn>
@@ -67,3 +85,11 @@
 
 
 </script>
+<style lang="scss">
+  .titulo{
+      width: 100px !important;
+  }
+
+
+
+</style>
