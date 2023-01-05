@@ -29,7 +29,7 @@
             <v-radio label="Acima de 100" value="4"></v-radio>
           </v-radio-group>
         </v-list-item>
-        <v-list-item class="mt-n2">
+        <v-list-item class="mt-n2 ">
               <v-autocomplete
                   variant="underlined"
                   v-model="categoria"
@@ -39,8 +39,10 @@
                   item-children="ID"
                   :items="categorias"
                   return-object
+                  clearable
                   label="Categorias"
               ></v-autocomplete>
+
         </v-list-item>
         <v-list-item class="mt-n2">
             <v-btn color="green darken-4" @click="searchFilter"   block >
@@ -84,10 +86,11 @@
               </v-col>
             </v-row>
             <v-row class="d-flex flex-row">
-                <v-col cols="12">
+                <v-col cols="12" class="d-flex flex-row">
                   <v-autocomplete
                     variant="underlined"
                     v-model="categoria"
+                    clearable="true"
                     class="mt-2"
                     item-title="NOME_C"
                     solo
@@ -96,6 +99,9 @@
                     return-object
                     label="Categorias"
                   ></v-autocomplete>
+                  <v-btn class="mt-5"  variant="text" icon>
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
                 </v-col>
 
                 <v-col cols="6" class="">
@@ -161,6 +167,7 @@
           check.value = String(filtros.check)
           categoria.value = filtros.categoria
           if(categoria.value != null){
+            console.log(categoria)
             payload = {search : search.value.toString(),
             check : parseFloat(check.value),
             categoria : categoria.value.ID_CATEGORIA}
@@ -170,7 +177,7 @@
           }
           emit('search', payload)
       }else{
-          let payload = {search : null, check : null, categoria : null}
+          let payload = {search : '', check : null, categoria : null}
           emit('search', payload)
       }
   }
@@ -190,6 +197,12 @@
   }
   watch(search, (val) => {
     let payload = {search : search.value.toString(), type : 'Search'}
+    if(check.value != null){
+      payload.check = check.value
+    }
+    if(categoria.value != null){
+      payload.categoria = categoria.value.ID_CATEGORIA
+    }
     if(val.toString().length == 0){
       emit('searchPage', payload)
     }else{
@@ -208,7 +221,30 @@
   })
   watch(check, (val)=>{
     let payload = {check : val, type : 'Check'}
+    if(search.value.toString() != ''){
+      payload.search = search.value.toString()
+    }
+    if(categoria.value != null){
+      payload.categoria = categoria.value.ID_CATEGORIA
+    }
     emit('searchPage', payload)
+  })
+  watch(categoria, (val)=>{
+      let payload = null
+      if(val != null){
+        payload = {categoria : val.ID_CATEGORIA, type : 'Cat'}
+      }else{
+        payload = {categoria : null, type : 'Cat'}
+      }
+      if(search.value.toString() != ''){
+          payload.search = search.value.toString()
+      }
+      if(check.value != null){
+          payload.check = check.value
+      }
+      emit('searchPage', payload)
+
+
   })
 
 

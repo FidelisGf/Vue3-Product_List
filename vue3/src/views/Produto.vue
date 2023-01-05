@@ -69,6 +69,7 @@
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
 
+
   const router =
   useRouter()
 
@@ -95,6 +96,8 @@
   const search = ref('')
   const precos = ref('')
   const categoria = shallowRef(null)
+  const flagFiltroPagina = ref(false)
+
 
   watch(current_page, (val) => {
     getProdutos()
@@ -109,6 +112,7 @@
         search.value = null
         precos.value = null
         categoria.value = null
+        tmp.value = null
       }else{
         if(e.search != null){
           search.value = e.search.toString()
@@ -132,13 +136,62 @@
 
   function filterOnPage(e){
       if(tmp.value == null){
-
           let sub = applyFilter(e, produtos.value)
           tmp.value = produtos.value
           produtos.value = sub
-
       }else{
-          produtos.value = applyFilter(e, tmp.value)
+
+          if(e.type != 'Check' && flagFiltroPagina.value == false
+          && e.check == 0 && e.categoria != null){
+            console.log('1')
+            produtos.value = applyFilter(e, tmp.value)
+          }else{
+
+            if(e.search != undefined && e.check != ''
+            ){
+              console.log('2')
+              let pl = {search : e.search, type : 'Search'}
+              let pl2 = {check : e.check, type : 'Check'}
+              produtos.value = applyFilter(pl, tmp.value)
+              produtos.value = applyFilter(pl2, produtos.value)
+
+              if(e.categoria != null || e.categoria != undefined){
+                  let pl3 = {categoria : e.categoria, type : 'Cat'}
+                  produtos.value = applyFilter(pl3, produtos.value)
+              }
+
+
+            }else if(e.search == undefined && e.categoria != null){
+
+
+              let pl = {check : e.check, type : 'Check'}
+              produtos.value = applyFilter(pl, tmp.value)
+              let pl3 = {categoria : e.categoria, type : 'Cat'}
+              produtos.value = applyFilter(pl3, produtos.value)
+
+
+            }else if(e.check == undefined && e.categoria != null ){
+
+              let pl2 = {check : e.check, type : 'Check'}
+              produtos.value = applyFilter(pl2, produtos.value)
+              let pl3 = {categoria : e.categoria, type : 'Cat'}
+              produtos.value = applyFilter(pl3, produtos.value)
+            }else if( e.categoria == null
+            && e.search == undefined ){
+              let pl2 = {check : e.check, type : 'Check'}
+              produtos.value = applyFilter(pl2, tmp.value)
+            }
+            else{
+
+
+              if(e.categoria != null){
+                let pl3 = {categoria : e.categoria, type : 'Cat'}
+                produtos.value = applyFilter(pl3, tmp.value)
+              }else{
+                produtos.value = tmp.value
+              }
+            }
+          }
       }
   }
 
