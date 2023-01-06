@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :key="restart">
+  <v-container fluid :key="restart" class="princip">
 
     <!-- <v-row class="mt-n3">
       <v-col cols="12">
@@ -17,44 +17,48 @@
                   :color="cor.HASH"
                   height="40"
                   width="40"
+                  elevation="2"
                   class="ml-md-0 ml-2 cores"
               ></v-sheet>
               <br/>
               </div>
             </v-col>
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="5" xl="3">
               <v-img :src="url"
               class="imagem"
-              max-height="420px"
-              max-width="420px"
+              min-height="250px"
+              min-width="300px"
+              max-width="330px"
+              max-height="280px"
+
 
               cover></v-img>
             </v-col>
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="5" xl="4">
               <div class="d-flex flex-column  ml-0">
-                <p class="text-h5 font-weight-bold ">{{produto.NOME}}</p>
+                <p class="text-md-h5 text-sm-body-1 font-weight-bold ">{{produto.NOME}}</p>
                 <p class="text-justify text-subtitle-1 ml-2 font-weight-medium">{{produto.DESC}}...</p>
               </div>
             </v-col>
           </v-row>
         </v-col>
-        <v-spacer></v-spacer>
+        <v-spacer ></v-spacer>
         <v-col cols="12" md="4" class="d-flex ">
             <v-row>
               <v-col cols="12">
-                <v-btn @click="saveInCarrinho(produto.ID)" block color="green-darken-4" class="ml-sm-n2 ml-0 mt-md-3">
+                <v-btn @click="saveInCarrinho(produto.ID)" block color="teal-lighten-3" class="ml-sm-n2 ml-0 mt-md-3">
                   <v-icon
                     left
                     dark
                     class="mr-6"
-                    color="white"
+                    color="black"
 
                   >
                     mdi-cart
                   </v-icon>
                   <p class="mr-5">Adicionar ao Carrinho</p>
                 </v-btn>
-                <v-btn block @click="buyNow(produto.ID)" color="green-darken-4" class="ml-sm-n2 ml-0 mt-5">
+                <v-btn block @click="buyNow(produto.ID)" color="teal-lighten-2" class="ml-sm-n2 ml-0 mt-5 text-black">
                   <v-icon
                     left
                     dark
@@ -64,24 +68,24 @@
                   </v-icon>
                   <p class="mr-16">Comprar Agora</p>
                 </v-btn>
-                <v-btn block color="green-lighten-1" class="ml-sm-n2 ml-0 mt-5">
+                <v-btn block color="teal-lighten-3" class="text-black ml-sm-n2 ml-0 mt-5">
                   <v-icon
                     left
                     dark
                     class="ml-3"
-                    color="white"
+                    color="black"
                   >
                     mdi-whatsapp
                   </v-icon>
-                  <p class="ml-6 text-white">Tirar duvidas sobre o item</p>
+                  <p class="ml-6 ">Tirar duvidas sobre o item</p>
                 </v-btn>
               </v-col>
             </v-row>
         </v-col>
-        <v-divider class="mt-2"></v-divider>
+        <v-divider ></v-divider>
         <v-col cols="12" md="12" class="d-flex">
             <v-slide-group
-              class="pa-4 slides"
+              class=""
               selected-class="bg-success"
               show-arrows
               center-active
@@ -94,29 +98,31 @@
               >
                 <v-card
                   color="dark"
-                  :class="['ma-4', selectedClass, 'cards'] "
-                  min-height="340"
-                  max-width="300"
-                  min-width="300"
+                  :class="['ma-4', selectedClass, 'cards', 'corpo-card'] "
+                  min-height="350"
+                  max-width="240"
+                  min-width="220"
+                  max-height="380"
 
                   @click="toggle"
 
                 >
                   <v-img :src="produto.IMAGE"
-                  height="180px"
-                  cover @click="detailProduct(produto.ID)"></v-img>
-                  <v-card-title class="text-h5"  @click="detailProduct(produto.ID)" >
+                  height="200px"
+
+                  cover @click="detailProduct(produto.ID)" class="img-card"></v-img>
+                  <v-card-title class="text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}
                   </v-card-title>
-                  <v-card-subtitle class="text-justify text-subtitle-1">
+                  <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
                     {{produto.DESC}}
                   </v-card-subtitle>
                   <v-card-text>
                     <v-row>
                       <v-col cols="12" class="text-caption">
-                        <p class="text-body-1">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                        <p>Estoque : {{produto.QUANTIDADE}} unidades </p>
-                        <p>Categoria : {{produto.NOME_C}}</p>
+                        <p class="text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                        <p class="font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
+                        <p class="font-weight-medium">Categoria : {{produto.NOME_C}}</p>
                       </v-col>
 
                     </v-row>
@@ -130,7 +136,7 @@
 </template>
 
 <script setup>
-  import {ref, watch} from 'vue'
+  import {ref, watch, shallowRef} from 'vue'
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
   import { useProdutoStore } from '@/store/produtoStore'
@@ -152,7 +158,7 @@
 
   const produto = ref(null)
   const url = ref(null)
-  const produtos = ref([])
+  const produtos = shallowRef([])
   const tmpAuxiliar = ref([])
   const restart = ref(0)
   const flag = ref(false)
@@ -216,9 +222,10 @@
 <style lang="scss" >
   .imagem{
     transition: transform .2s;
-    box-shadow: rgba(141, 141, 141, 0.397) 0px 5px 15px;
+    box-shadow: rgba(141, 141, 141, 0.397) 0px 10px 14px;
   }
   .cores{
+
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
   .imagem:hover{
@@ -228,8 +235,7 @@
   }
   .cores:hover{
     transform: translate(0px, -0.9px);
-    height: 45px !important;
-    width: 45px !important;
+
     transition: 0.1s;
     box-shadow: rgba(226, 222, 222, 0.397) 0px 0px 15px;
   }
@@ -237,4 +243,8 @@
   .slides{
       width: 100% !important;
   }
+  .princip{
+    background : #dbe5ee !important
+  }
+
 </style>

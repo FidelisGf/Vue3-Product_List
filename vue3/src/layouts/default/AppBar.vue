@@ -6,10 +6,10 @@
 
       <v-toolbar-title class="hidden-sm-and-down">
             <v-img
-              width="70px"
-              height="100px"
+              width="50px"
+              height="50px"
               src="@/assets/6803408.png"
-
+              class="ml-n2"
             >
 
             </v-img>

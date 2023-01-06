@@ -47,13 +47,13 @@
 
         </v-list-item>
         <v-list-item class="mt-n2">
-            <v-btn color="green-darken-4" @click="searchFilter"   block >
+            <v-btn color="#66CDAA" @click="searchFilter"   block >
               <v-icon>
                 mdi-magnify
               </v-icon>Pesquisar</v-btn>
         </v-list-item>
         <v-list-item>
-          <v-btn color="blue-darken-4 "  @click="clear"  block >
+          <v-btn color="#B9D9EB"  @click="clear"  block >
             <v-icon >
               mdi-delete
             </v-icon>Limpar</v-btn>
@@ -61,10 +61,10 @@
       </v-list>
     </v-navigation-drawer>
     <v-row class="hidden-lg-and-up" color="#f0f8ff">
-      <v-expansion-panels color="#f0f8ff" >
+      <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
-          color="#f0f8ff"
+          class="bg-fundo"
         >
           <v-expansion-panel-text color="#f0f8ff">
             <v-row  color="#f0f8ff" class="d-flex flex-row">
@@ -93,18 +93,16 @@
                   <v-autocomplete
                     variant="underlined"
                     v-model="categoria"
-                    clearable="true"
                     class="mt-2"
                     item-title="NOME_C"
                     solo
+                    clearable
                     item-children="ID"
                     :items="categorias"
                     return-object
                     label="Categorias"
                   ></v-autocomplete>
-                  <v-btn class="mt-5"  variant="text" icon>
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
+
                 </v-col>
 
                 <v-col cols="6" class="">
@@ -112,13 +110,13 @@
                   variant="text"
                   icon="mdi-magnify"
                   @click="searchFilter"
-                  color="green-darken-4">
+                  color="#66CDAA">
 
                   </v-btn>
                   <v-btn class="ma-2 auto"
                     variant="text"
                     icon="mdi-delete"
-                    color="blue-darken-4 "  @click="clear">
+                    color="#B9D9EB"  @click="clear">
                   </v-btn>
                 </v-col>
             </v-row>
@@ -138,7 +136,7 @@
 
   const search = ref('')
   const categoria = ref(null)
-  const check = ref(0)
+  const check = ref(null)
   const tmp = ref('')
   const tmpLenght = ref(null)
   const emit = defineEmits(['search', 'searchPage'])
@@ -256,5 +254,8 @@
 <style lang="scss" scoped>
   .auto{
     color : rgb(0, 0, 0) !important
+  }
+  .bg-fundo{
+    background: #f0f8ff !important;
   }
 </style>

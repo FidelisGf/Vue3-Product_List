@@ -1,25 +1,28 @@
 <template>
-  <v-container class="fill-height">
+  <v-container class="fill-height bg-carrinho" fluid>
     <v-row >
         <v-col cols="12" >
               <v-card
                   dark
+                  elevation="4"
+                  color="#F0F8FF"
               >
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
                     <div class="d-flex flex-row">
-                      <v-icon color="green-darken-1" class="mt-sm-0 mt-n1">mdi-cart</v-icon>
+                      <v-icon color="#228B22" class="mt-sm-0 mt-n1">mdi-cart</v-icon>
                       <p class="text-md-h6 text-caption font-weight-bold ml-3 mt-0">Meu Carrinho...</p>
                     </div>
                   <div class="d-flex flex-row">
-                    <v-icon color="green" class="mt-sm-0 mt-2 mt-sm-n1
+                    <v-icon color="#228B22" class="mt-sm-0 mt-2 mt-sm-n1
                       mt-md-0 ml-0 ml-sm-6">
                       mdi-cash
                     </v-icon>
-                      <p class="ml-2 text-md-h6 text-caption mt-3 mt-sm-0">Valor total : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <p class="ml-2 text-md-h6 text-caption font-weight-bold mt-3 mt-sm-0">Valor total : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </div>
                   <v-spacer></v-spacer>
-                  <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text" class="text-teal-lighten-1 mt-sm-0  mt-2">
+                  <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text"
+                  class="finalizar mt-sm-0  mt-2">
                       Finalizar Compra
                   </v-btn>
                   </div>
@@ -27,28 +30,28 @@
                 <v-card-text>
                   <v-row v-for="produto in itens" :key="produto.ID" class="mt-2">
                     <v-col  cols="12" class="d-flex flex-row justify-start" >
-                      <div>
+                      <div class="bg-img">
                         <v-img :src="produto.IMAGE"
                           @click="detailProduct(produto.ID)"
-                          width="130"
-                          height="130"
+
+                          width="125"
+                          height="125"
                           class="imagem"
                         >
                         </v-img>
                         </div>
                           <div class="d-flex flex-column ml-3">
                             <p class="text-h5 font-weight-black">{{produto.NOME}}</p>
-                            <p class="text-caption">{{produto.DESC}}</p>
-                            <p class="text-caption text-sm-subtitle-1">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                            <p class="text-caption text-sm-subtitle-1">
+                            <p class="text-caption text-sm-subtitle-1 font-weight-bold">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                            <p class="text-caption text-sm-subtitle-1 font-weight-bold">
                               <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
                               <span v-else><p class="text-yellow">Sem Estoque</p></span>
                             </p>
                         </div>
                         <v-spacer></v-spacer>
                         <div class="d-flex flex-column justify-center">
-                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
-                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
+                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
+                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
                           <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
                         </div>
                       </v-col>
@@ -147,12 +150,21 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .imagem{
     box-shadow: 1px 1.8px 8px #080808;
+    background: white !important;
   }
   .imagem:hover{
     transform: scale(1.05);
     transition: 1.2s;
   }
+  .bg-carrinho{
+    background: #B9D9EB !important;
+
+  }
+  .finalizar{
+      color : #228B22 !important;
+  }
+
 </style>

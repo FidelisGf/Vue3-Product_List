@@ -1,8 +1,9 @@
 <template>
-  <v-container class="fill-height d-flex justify-center align-center" >
+  <v-container class="fill-height d-flex justify-center align-center bg-login" fluid>
 
-    <div class="fundo " color="red">
-        <v-card class="d-flex flex-sm-row flex-column justify-center card">
+    <div class="fundo d-flex justify-center align-center " color="red">
+        <v-card class="d-flex flex-sm-row flex-column justify-center card"
+        color="#F0F8FF" >
             <div class="conteudo">
               <img
                 class="mt-0 mt-sm-0 img"
@@ -36,8 +37,8 @@
                 <a class="link" @click="$router.push('/cadastro')">Cadastre-se aqui</a>
               </v-card-text>
               <v-card-actions class="d-flex justify-center flex-row">
-                <v-btn variant="text" color="red-darken-1" >Voltar</v-btn>
-                <v-btn variant="text" color="teal-darken-1" @click="login" >Logar</v-btn>
+                <v-btn variant="text" color="#E32636" >Voltar</v-btn>
+                <v-btn variant="text" color="#018749" @click="login" >Logar</v-btn>
               </v-card-actions>
             </div>
 
@@ -84,6 +85,9 @@
     .link {
         cursor: pointer;
         text-decoration: underline;
-        color : white
+        color : rgb(15, 15, 15)
+    }
+    .bg-login{
+      background: #B9D9EB;
     }
 </style>

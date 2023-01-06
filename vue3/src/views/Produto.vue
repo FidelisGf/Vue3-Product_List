@@ -34,17 +34,17 @@
                   <v-card-actions>
                       <v-row>
                         <v-col cols="6">
-                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)" color="blue-darken-4" icon="mdi-information-outline">
+                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)" color="#005A9C" icon="mdi-information-outline">
 
                           </v-btn>
-                          <v-btn color="teal-darken-3" @click="saveInCarrinho(produto.ID)" icon="mdi-cart-outline">
+                          <v-btn color="#228B22" @click="saveInCarrinho(produto.ID)" icon="mdi-cart-outline">
 
                           </v-btn>
                         </v-col>
 
                         <v-spacer></v-spacer>
                         <v-col>
-                          <v-btn class="ml-4" color="green-darken-3" icon="mdi-whatsapp"></v-btn>
+                          <v-btn class="ml-4" color="#03C03C" icon="mdi-whatsapp"></v-btn>
                         </v-col>
                       </v-row>
                   </v-card-actions>
@@ -145,10 +145,12 @@
           tmp.value = produtos.value
           produtos.value = sub
       }else{
-
-          if(e.type != 'Check' && flagFiltroPagina.value == false
-          && e.check == 0 && e.categoria != null){
-            console.log('1')
+          console.log(e.check)
+          console.log(e.categoria)
+          if(e.type != 'Check' &&
+          e.check == 0 && e.categoria == null
+          && e.search != undefined){
+            console.log('Chegou aqui')
             produtos.value = applyFilter(e, tmp.value)
           }else{
 
@@ -167,7 +169,7 @@
 
 
             }else if(e.search == undefined && e.categoria != null){
-
+              console.log('Entrou aqui na 3')
 
               let pl = {check : e.check, type : 'Check'}
               produtos.value = applyFilter(pl, tmp.value)
@@ -175,25 +177,28 @@
               produtos.value = applyFilter(pl3, produtos.value)
 
 
-            }else if(e.check == undefined && e.categoria != null ){
+            }else if(e.check != undefined && e.categoria != null ){
+
+              console.log('Entrou aqui na 4')
 
               let pl2 = {check : e.check, type : 'Check'}
               produtos.value = applyFilter(pl2, produtos.value)
               let pl3 = {categoria : e.categoria, type : 'Cat'}
               produtos.value = applyFilter(pl3, produtos.value)
             }else if( e.categoria == null
-            && e.search == undefined ){
+            && e.search == undefined && e.check != null){
               let pl2 = {check : e.check, type : 'Check'}
               produtos.value = applyFilter(pl2, tmp.value)
             }
             else{
-
+              console.log('Entrou aqui na ultima')
 
               if(e.categoria != null){
                 let pl3 = {categoria : e.categoria, type : 'Cat'}
                 produtos.value = applyFilter(pl3, tmp.value)
               }else{
                 produtos.value = tmp.value
+                console.log(produtos.value)
               }
             }
           }
@@ -236,7 +241,7 @@
     box-shadow: 2px 5.2px 8px #141414 !important;
   }
   .corpo-card{
-    background: #E1EBEE !important;
+    background: #EAE7FA !important;
 
   }
   .img-card{

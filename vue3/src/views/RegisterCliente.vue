@@ -1,8 +1,7 @@
 <template>
-  <v-container class="fill-height">
-        <v-row class="d-flex justify-center align-content-center ">
-            <v-col cols="12" md="5" class="d-flex justify-center" >
-                <v-card class="mx-auto">
+  <v-container class="fill-height bg-real" fluid>
+        <div class="d-flex justify-center card">
+                <v-card max-width="500px" >
                     <v-card-title>
                         Cadastro de cliente
                     </v-card-title>
@@ -18,83 +17,82 @@
                         lazy-validation
                       >
                         <v-row>
-                          <v-col cols="12" class="d-flex justify-center  ml-sm-0">
-                              <input
-                                type="file"
-                                ref="image"
-                                label="Add Image"
-                                @change="uploadImage"
-                                id="arqv"
-                              >
-                              <v-avatar  v-if="image_colocada" rounded="0"  size="80">
-                                <v-img
-                                  class="mt-0 mt-sm-0"
-                                  :src="image_url"
-                                  width="120"
-                                  height="120"
-                                ></v-img>
-                              </v-avatar>
-                          </v-col>
-                          <v-col cols="12" sm="12">
-                            <v-text-field
-                              v-model="user.NAME.value"
-                              color="primary"
-                              label="Nome"
-                              :rules="NomeRules"
-                              dark
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              v-model="user.EMAIL.value"
-                              color="primary"
-                              label="Email"
-                              :rules="EmailRules"
-                              dark
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              v-model="user.CPF.value"
-                              color="primary"
-                              :rules="cpfRules"
-                              label="Cpf"
-                              dark
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              v-model="user.PASSWORD.value"
-                              color="primary"
-                              label="Senha"
-                              dark
-                              :rules="pwRules"
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              v-model="user.CF_PASSWORD.value"
-                              color="primary"
-                              label="Confirme a senha"
-                              dark
-                              :rules="cfPwRules"
-                              required
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-form>
-                    </v-card-text>
-                    <v-card-actions class="d-flex justify-end mt-n3">
-                        <v-btn variant="text" color="red-darken-1" @click="voltar" >Voltar</v-btn>
-                        <v-btn variant="text" color="teal-darken-1" @click="test" >Cadastrar</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
+                  <v-col cols="12" class="d-flex justify-center  ml-sm-0">
+                    <input
+                      type="file"
+                      ref="image"
+                      label="Add Image"
+                      @change="uploadImage"
+                      id="arqv"
+                    >
+                    <v-avatar  v-if="image_colocada" rounded="0"  size="80">
+                    <v-img
+                      class="mt-0 mt-sm-0"
+                      :src="image_url"
+                      width="120"
+                      height="120"
+                    ></v-img>
+                  </v-avatar>
+                </v-col>
+                <v-col cols="12" sm="12">
+                  <v-text-field
+                    v-model="user.NAME.value"
+                    color="primary"
+                    label="Nome"
+                    :rules="NomeRules"
+                    dark
+                    required
+                  ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="user.EMAIL.value"
+                  color="primary"
+                  label="Email"
+                  :rules="EmailRules"
+                  dark
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="user.CPF.value"
+                  color="primary"
+                  :rules="cpfRules"
+                  label="Cpf"
+                  dark
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="user.PASSWORD.value"
+                  color="primary"
+                  label="Senha"
+                  dark
+                  :rules="pwRules"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="user.CF_PASSWORD.value"
+                  color="primary"
+                  label="Confirme a senha"
+                  dark
+                  :rules="cfPwRules"
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions class="d-flex justify-end mt-n3">
+          <v-btn variant="text" color="red-darken-1" @click="voltar" >Voltar</v-btn>
+          <v-btn variant="text" color="teal-darken-1" @click="test" >Cadastrar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </div>
   </v-container>
 </template>
 
@@ -160,7 +158,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 input[type="file"] {
   width: 0.1px;
 height: 0.1px;
@@ -180,5 +178,8 @@ z-index: -1;
 input[type="file"]:focus + .arqv,
 input[type="file"] +  .arqv:hover{
   background-color: rgb(194, 52, 52);
+}
+.card{
+
 }
 </style>
