@@ -23,7 +23,7 @@
                   <v-spacer></v-spacer>
                   <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text"
                   class="finalizar mt-sm-0  mt-2">
-                      Finalizar Compra
+                      Finalizar Lista
                   </v-btn>
                   </div>
                 </v-card-title>
@@ -61,6 +61,14 @@
             </v-card>
         </v-col>
     </v-row>
+    <v-dialog
+        persistent
+        v-model="dialog"
+
+        @keydown.escape="dialog = false"
+
+        transition="dialog-bottom-transition"
+    ><ModalFinalizarPedido @fechar="fechaModal"></ModalFinalizarPedido></v-dialog>
   </v-container>
 </template>
 
@@ -69,6 +77,7 @@
   import { useAppStore } from '@/store/app'
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
+import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
   const {getProdutosCarrinho
   , addQuantidade, removeQuantidade, removeIndisponivel} =
   Carrinho()
@@ -77,6 +86,7 @@
   const router =
   useRouter()
   const itens = ref([])
+  const dialog = ref(false)
   const flag = ref(false)
   const vlTotal = computed(()=>
       getValorTotal()
@@ -84,7 +94,9 @@
 
   getCarrinho()
 
-
+  function fechaModal(e){
+    dialog.value = e
+  }
   async function getCarrinho(){
       itens.value = await getProdutosCarrinho()
       flag.value = true
@@ -104,7 +116,7 @@
       if(item.QUANTIDADE == 'Indisponivel'){
         storeApp.activeSnack('O carrinho possui itens sem estoque !')
       }else{
-        console.log('safe')
+        dialog.value = true
       }
     }
   }

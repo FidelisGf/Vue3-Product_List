@@ -24,6 +24,7 @@ export default function UserComp(){
       user.CPF.value = ''
       user.NAME.value = ''
       user.EMAIL.value = ''
+
   }
   function ifIsMaior(){
       if(user.NAME.value.length >= 4 ){
@@ -32,7 +33,7 @@ export default function UserComp(){
         return false
       }
   }
-  function register(image_file, valido){
+  async function register(image_file, valido){
       if(valido){
         if(user.CF_PASSWORD.value == user.PASSWORD.value){
           let form = new FormData()
@@ -40,9 +41,19 @@ export default function UserComp(){
           form.append('PASSWORD', user.PASSWORD.value)
           form.append('EMAIL', user.EMAIL.value)
           form.append('CPF', user.CPF.value)
-          form.append('IMAGE', image_file.value, image_file.value.name)
+          if(image_file.value != null || image_file.value != undefined){
+            form.append('IMAGE', image_file.value, image_file.value.name)
+          }else{
+            genericApp.activeSnack('A imagem é obrigatoria !')
+            return
+          }
           form.append('SALARIO', parseFloat(0))
-          userApp.registerUser(form)
+          let check = await userApp.registerUser(form)
+
+          if(check == true){
+            console.log('Entrou')
+            router.push({ path: '/login' })
+          }
 
         }else{
           genericApp.activeSnack('As senhas divergem')

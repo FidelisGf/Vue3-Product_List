@@ -2,9 +2,9 @@ import { useCarrinhoStore } from '@/store/CarrinhoStore'
 
 export default function CarrinhoComp(){
 
-      function  saveInCarrinho(payload){
+      function  saveInCarrinho(ID, VALOR){
         let storeApp = useCarrinhoStore()
-        let newPL = {ID : payload}
+        let newPL = {ID : ID, VALOR : VALOR}
         storeApp.saveInCarrinho(newPL)
       }
       async function getProdutosCarrinho(){
@@ -22,6 +22,9 @@ export default function CarrinhoComp(){
       function removeIndisponivel(payload){
         let storeApp = useCarrinhoStore()
         storeApp.removeIndisponivel(payload)
+      }
+      function finalizaPedido(payload){
+
       }
 
       return {

@@ -34,10 +34,12 @@
                   <v-card-actions>
                       <v-row>
                         <v-col cols="6">
-                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)" color="#005A9C" icon="mdi-information-outline">
+                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)"
+                          color="#005A9C" icon="mdi-information-outline">
 
                           </v-btn>
-                          <v-btn color="#228B22" @click="saveInCarrinho(produto.ID)" icon="mdi-cart-outline">
+                          <v-btn color="#228B22" @click="saveInCarrinho(produto.ID, produto.VALOR)"
+                          icon="mdi-cart-outline">
 
                           </v-btn>
                         </v-col>

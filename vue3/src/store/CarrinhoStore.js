@@ -24,9 +24,8 @@ export const useCarrinhoStore = defineStore('carrinho', {
               }else{
                 exist.QUANTIDADE += 1
               }
-              console.log(exist.QUANTIDADE)
           }else{
-            let pl = {ID : payload.ID , QUANTIDADE : 1}
+            let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR}
             this.itens.push(pl)
           }
           storeApp.activeSnack('Item adicionado ao carrinho')

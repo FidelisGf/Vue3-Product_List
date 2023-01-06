@@ -24,3 +24,9 @@ import Loading from '@/components/Loading.vue';
       theme.value = theme.value === 'dark' ? 'light' : 'dark'
   }
 </script>
+<style lang="scss">
+.bg-real{
+  background : #F0F8FF !important
+}
+
+</style>

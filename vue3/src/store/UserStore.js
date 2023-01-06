@@ -7,14 +7,17 @@ export const useUserStore = defineStore('user', {
 
   }),
   actions: {
-      registerUser(payload){
+      async registerUser(payload){
           const genericApp = useAppStore()
-          UserService.register(payload).then((res)=>{
+          const dt = UserService.register(payload).then((res)=>{
               genericApp.activeSnack(res.data.message)
+              return true
           }).catch((error)=>{
               let msg = "Erro :" + error.response.data.message
               genericApp.activeSnack(msg)
+              return false
           })
+          return dt
       }
   }
 })

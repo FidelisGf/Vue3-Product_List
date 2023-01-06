@@ -26,10 +26,10 @@
             <v-col cols="12" md="5" xl="3">
               <v-img :src="url"
               class="imagem"
-              min-height="250px"
+              min-height="254px"
               min-width="300px"
               max-width="330px"
-              max-height="280px"
+              max-height="284px"
 
 
               cover></v-img>
