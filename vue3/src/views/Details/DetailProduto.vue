@@ -8,7 +8,14 @@
     </v-row> -->
 
     <v-row class="d-flex justify-space-between mt-0 mt-md-0 flex-column flex-sm-row mt-n4">
-        <v-col class="mt-md-n6" cols=12><v-btn icon @click="returnStore" class="ml-md-n1" variant="text" ><v-icon color="blue-accent-2">mdi-arrow-left</v-icon></v-btn></v-col>
+        <v-col class="mt-md-n6" cols=12>
+          <v-btn icon @click="returnStore"
+          class="ml-md-n1" variant="text" >
+            <v-icon color="#4B0082">
+              mdi-arrow-left
+            </v-icon>
+          </v-btn>
+        </v-col>
         <v-col cols="12" md="8" class="d-flex flex-sm-row flex-column-reverse ">
           <v-row class="d-flex">
             <v-col  cols="1" class="d-flex flex-md-column flex-row ">
@@ -46,7 +53,8 @@
         <v-col cols="12" md="4" class="d-flex ">
             <v-row>
               <v-col cols="12">
-                <v-btn @click="saveInCarrinho(produto.ID)" block color="teal-lighten-3" class="ml-sm-n2 ml-0 mt-md-3">
+                <v-btn @click="saveInCarrinho(produto.ID)" block
+                color="#E6E6FA" class="ml-sm-n2 ml-0 mt-md-3">
                   <v-icon
                     left
                     dark
@@ -58,7 +66,8 @@
                   </v-icon>
                   <p class="mr-5">Adicionar ao Carrinho</p>
                 </v-btn>
-                <v-btn block @click="buyNow(produto.ID)" color="teal-lighten-2" class="ml-sm-n2 ml-0 mt-5 text-black">
+                <v-btn block @click="buyNow(produto.ID)"
+                color="#E6E6FA" class="ml-sm-n2 ml-0 mt-5 text-black">
                   <v-icon
                     left
                     dark
@@ -68,7 +77,7 @@
                   </v-icon>
                   <p class="mr-16">Comprar Agora</p>
                 </v-btn>
-                <v-btn block color="teal-lighten-3" class="text-black ml-sm-n2 ml-0 mt-5">
+                <v-btn block color="#E6E6FA" class="text-black ml-sm-n2 ml-0 mt-5">
                   <v-icon
                     left
                     dark

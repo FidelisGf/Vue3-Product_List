@@ -118,12 +118,12 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
     const storeApp = useAppStore()
     for(const item of itens.value){
       if(item.QUANTIDADE == 'Indisponivel'){
+        return
         storeApp.activeSnack('O carrinho possui itens sem estoque !')
-      }else{
-        finalizaPedido()
-        dialog.value = true
       }
     }
+    dialog.value = true
+    finalizaPedido()
   }
   function removeIndis(ID){
       removeIndisponivel(ID)

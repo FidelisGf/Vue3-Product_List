@@ -97,7 +97,6 @@ export const useCarrinhoStore = defineStore('carrinho', {
         }).catch((error)=>{
             return error
         })
-        console.log(data)
         storeApp.activeSnack(data.message)
         this.id_pedido = data.data
         this.itens = []

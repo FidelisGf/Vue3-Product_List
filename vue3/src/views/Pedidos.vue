@@ -1,6 +1,7 @@
 <template>
   <v-card width="800" color="#E6E6FA">
       <v-card-title>
+          <v-btn @click="reniciar" size="x-small" color="blue" icon="mdi-reload" variant="text"></v-btn>
           Seus Pedidos...
       </v-card-title>
       <v-card-text>
@@ -18,8 +19,8 @@
               </v-card-title>
               <v-card-subtitle class="text-body-2 d-flex flex-row mb-1
               justify-space-between">
-                <div class="d-flex flex-md-row flex-column">
-                  <p >Data do Pedido : {{pedido.CREATED_AT}}</p>
+                <div class="d-flex flex-md-row flex-column font-weight-medium">
+                  <p class="font-weight-medium" >Data do Pedido : {{pedido.CREATED_AT}}</p>
                   <p class="pl-md-4">Estado :
                     <span class="text-green" v-if="pedido.APROVADO == 'T'">
                       Pago
@@ -47,26 +48,27 @@
               <v-card-text v-if="open[index]">
 
                 <div class="d-flex flex-md-row flex-column mt-n5">
-                  <p class=" text-body-2">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
-                  <p class="pl-md-10 text-body-2">Valor Total : {{parseFloat(pedido.VALOR_TOTAL).
+                  <p class=" text-body-2 font-weight-medium">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
+                  <p class="pl-md-10 text-body-2 font-weight-medium">Valor Total : {{parseFloat(pedido.VALOR_TOTAL).
                     toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                 </div>
-                <v-divider></v-divider>
+                <v-divider class="mt-2"></v-divider>
                 <v-row class="mt-1 mb-1" v-for="produto in pedido.PRODUTOS" :key="produto.ID">
                   <v-col cols="6" sm="4">
                     <v-img max-width="200" :src="produto.IMAGE"></v-img>
                   </v-col>
                   <v-col cols="6" class="d-flex flex-column
                   text-caption text-md-subtitle-1">
-                    <p><b>Nome :</b> {{produto.NOME}}</p>
-                    <p><b>Valor :</b> {{parseFloat(produto.VALOR).
+                    <p class="font-weight-medium"><b>Nome :</b> {{produto.NOME}}</p>
+                    <p class="font-weight-medium"><b>Valor :</b> {{parseFloat(produto.VALOR).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                    <p><b>Quantidade :</b> 10 Unidades</p>
-                    <p><b>SubTotal : </b>{{parseFloat(produto.VALOR * 10).
+                    <p class="font-weight-medium"><b>Quantidade :</b> 10 Unidades</p>
+                    <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * 10).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </v-col>
+                  <v-divider></v-divider>
                 </v-row>
-                <v-divider></v-divider>
+
               </v-card-text>
             </v-card>
           </v-col>
@@ -81,6 +83,7 @@
 
   const open = ref([])
   const pedidos  = shallowRef(null)
+  const renic = ref(0)
 
   const {getAllPedidos} =
   PedidoComp()
@@ -90,6 +93,10 @@
   }
   function close(index){
     open.value[index] = false
+  }
+  function reniciar(){
+      getPedidos()
+      renic.value += 1
   }
   async function getPedidos(){
 
