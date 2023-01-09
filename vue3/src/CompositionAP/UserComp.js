@@ -84,6 +84,9 @@ export default function UserComp(){
             return error
         })
   }
+  function getPerfil(){
+    return userApp.getUser()
+  }
 
   return {
       user,
@@ -91,6 +94,7 @@ export default function UserComp(){
       clearUser,
       login,
       logoutUser,
+      getPerfil,
       isNameGrande
   }
 }

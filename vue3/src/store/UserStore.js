@@ -18,6 +18,12 @@ export const useUserStore = defineStore('user', {
               return false
           })
           return dt
+      },
+      async getUser(){
+          const data = UserService.getPerfil().then((res)=>{
+            return res.data
+          })
+          return data
       }
   }
 })

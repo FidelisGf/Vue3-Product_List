@@ -37,7 +37,7 @@ export default{
            pdf : payload.pdf, search : payload.search} })
     },
     post(route, payload){
-      return axios.post(route, payload)
+      return axios.post(route + "Internet", payload)
     },
     getPaginado(route, payload){
       return  axios.get(route + "?page=" + payload.current_page,
@@ -51,4 +51,5 @@ export default{
     async getList(route, payload){
       return await axios.get(route, {params: {Shop : payload.Shop}})
     },
+
 }

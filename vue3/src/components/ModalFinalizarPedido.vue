@@ -4,7 +4,7 @@
       <v-btn @click="fecharModal" size="small" icon color="red" variant="text"><v-icon>mdi-close</v-icon></v-btn>
     </v-card-actions>
     <v-card-title class="text-subtitle-1 text-md-h5 font-weight-bold mt-n6">
-      Pedido Nº255 aberto com sucesso...
+      Pedido {{numero_pedido}} aberto com sucesso...
     </v-card-title>
     <v-card-subtitle class="pl-5 mt-n2 mt-sm-0 text-subtitle-2 text-md-subtitle-1 font-italic">
       <p>Siga os passos descritos a seguir</p>
@@ -25,7 +25,7 @@
             </div>
         </v-col>
         <v-col cols="12" class="d-flex flex-sm-row flex-column justify-start mt-n3 mt-sm-0">
-            <v-btn color="#ACE1AF" prepend-icon="mdi-whatsapp"  size="small" class=" ml-md-0">
+            <v-btn color="#ACE1AF" @click="goWhats" prepend-icon="mdi-whatsapp"  size="small" class=" ml-md-0">
               <span>Enviar mensagem agora</span>
             </v-btn>
             <v-btn color="#8cc751" prepend-icon="mdi-email" size="small" class="ml-sm-2 mt-2 mt-sm-0" >
@@ -39,12 +39,26 @@
 </template>
 
 <script setup>
+  import { useCarrinhoStore } from '@/store/CarrinhoStore';
+  import { ref, computed } from 'vue'
 
 
+  const storeApp = useCarrinhoStore()
   const emit = defineEmits(['fechar'])
-
+  const numero_pedido = computed(()=>
+    storeApp.getIdPedido
+  )
   function fecharModal(){
       emit('fechar', false)
+  }
+
+  function goWhats(){
+      const url = "https://api.whatsapp.com/send?phone="
+      const number = '45998463475'
+      const msg = "Gostaria_de_ter_informações_sobre_o_meu_pedido_" + storeApp.getIdPedido.toString()
+      const end_url = `${url}${number}&text=${msg}`
+      window.open(end_url, '_blank').focus();
+
   }
 
 </script>

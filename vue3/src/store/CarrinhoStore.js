@@ -4,7 +4,8 @@ import { useAppStore } from '@/store/app'
 import EstoqueService from '@/Service/EstoqueService'
 export const useCarrinhoStore = defineStore('carrinho', {
   state: () => ({
-      itens : []
+      itens : [],
+      id_pedido : 0
   }),
   persist: true,
   actions: {
@@ -83,6 +84,23 @@ export const useCarrinhoStore = defineStore('carrinho', {
         this.itens = this.itens.filter(o => o.ID != payload)
         const storeApp = useAppStore()
         storeApp.activeSnack('Item removido do carrinho')
+      },
+      async finalizarPedido(){
+        const storeApp = useAppStore()
+        let form = new FormData()
+        let itens = JSON.stringify(this.itens)
+        form.append('PRODUTOS', itens)
+        form.append('aprovado', 'F')
+        form.append('METODO_PAGAMENTO', 'Dinheiro')
+        const data = await Service.post('pedidos', form).then((res)=>{
+           return res.data
+        }).catch((error)=>{
+            return error
+        })
+        console.log(data)
+        storeApp.activeSnack(data.message)
+        this.id_pedido = data.data
+        this.itens = []
       }
   },
   getters: {
@@ -93,6 +111,9 @@ export const useCarrinhoStore = defineStore('carrinho', {
           return Object.keys(this.itens).length
         }
 
+      },
+      getIdPedido(){
+        return this.id_pedido
       }
   },
 

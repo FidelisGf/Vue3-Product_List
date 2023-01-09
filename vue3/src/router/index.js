@@ -68,7 +68,40 @@ const routes = [
       {
         path: 'login',
         name: 'Login',
+        beforeEnter(to, from, next){
+          if(localStorage.getItem('token') != null ||
+            localStorage.getItem('token') != undefined){
+              axios.defaults.headers.common['Authorization'] = 'Bearer' +
+              localStorage.getItem('token')
+              axios.get("/auth/validateTkn").then((res)=>{
+                next({name : 'Perfil'})
+              }).catch((error)=>{
+                const access_token = localStorage.getItem("token");
+
+                if(error.response.status == 401 &&
+                  access_token && error.response.data != 'token_invalid'){
+                  localStorage.setItem('token', error.response.data)
+
+                  axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
+                  next()
+                }else{
+                    const genericApp = useAppStore()
+                    genericApp.activeSnack('Esteja logado para isso !')
+                    next()
+                }
+              })
+          }else{
+              const genericApp = useAppStore()
+              genericApp.activeSnack('Esteja logado para isso !')
+              next()
+          }
+        },
         component: () => import(/* webpackChunkName: "home" */ '@/views/LoginCliente.vue')
+      },
+      {
+        path: 'perfil',
+        name: 'Perfil',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Perfil.vue')
       }
     ],
   },

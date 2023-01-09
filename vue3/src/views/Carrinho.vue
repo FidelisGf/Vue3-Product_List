@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height bg-carrinho" fluid>
     <v-row >
-        <v-col cols="12" >
+        <v-col cols="12" :key="reni" >
               <v-card
                   dark
                   elevation="4"
@@ -79,7 +79,7 @@
   import { useRouter } from 'vue-router';
 import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
   const {getProdutosCarrinho
-  , addQuantidade, removeQuantidade, removeIndisponivel} =
+  , addQuantidade, removeQuantidade, removeIndisponivel, finalizaPedido} =
   Carrinho()
 
 
@@ -88,14 +88,18 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
   const itens = ref([])
   const dialog = ref(false)
   const flag = ref(false)
+  const reni = ref(0)
   const vlTotal = computed(()=>
       getValorTotal()
   )
+
 
   getCarrinho()
 
   function fechaModal(e){
     dialog.value = e
+    getCarrinho()
+    reni.value += 1
   }
   async function getCarrinho(){
       itens.value = await getProdutosCarrinho()
@@ -116,6 +120,7 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
       if(item.QUANTIDADE == 'Indisponivel'){
         storeApp.activeSnack('O carrinho possui itens sem estoque !')
       }else{
+        finalizaPedido()
         dialog.value = true
       }
     }
@@ -123,7 +128,6 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
   function removeIndis(ID){
       removeIndisponivel(ID)
       itens.value = itens.value.filter(o => o.ID != ID)
-
   }
 
   function removeQuantidadeProduto(ID){

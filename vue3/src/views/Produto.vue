@@ -193,8 +193,6 @@
               produtos.value = applyFilter(pl2, tmp.value)
             }
             else{
-              console.log('Entrou aqui na ultima')
-
               if(e.categoria != null){
                 let pl3 = {categoria : e.categoria, type : 'Cat'}
                 produtos.value = applyFilter(pl3, tmp.value)
