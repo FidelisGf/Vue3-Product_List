@@ -12,5 +12,9 @@ export default{
   },
   getPerfil(){
     return axios.get('/getPerfilUserInternet')
+  },
+  update(payload){
+    return axios.post('usuariosUp', payload)
   }
+
 }

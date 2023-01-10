@@ -55,10 +55,9 @@
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
       const number = '45998463475'
-      const msg = "Gostaria_de_ter_informações_sobre_o_meu_pedido_" + storeApp.getIdPedido.toString()
+      const msg = "Boa%20Tarde%20gostaria%20de%20ter%20informações%20sobre%20o%20meu%20pedido%20Numero%20" + storeApp.getIdPedido.toString()
       const end_url = `${url}${number}&text=${msg}`
       window.open(end_url, '_blank').focus();
-
   }
 
 </script>

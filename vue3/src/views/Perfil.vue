@@ -1,29 +1,40 @@
 <template>
   <v-container class="fill-height bg-real" fluid>
-    <v-row :key="renic" v-if="tela == 'dados'">
-      <v-col cols="12" class="d-flex align-center justify-center">
-          <v-card max-width="850" width="500" color="#E6E6FA">
+    <v-row :key="renic" v-if="tela == 'dados'" >
+      <v-col cols="12" class="d-flex align-center align-content-center justify-center">
+          <v-card width="850" color="#E6E6FA">
               <v-card-title>
                 <v-btn @click="reniciar" size="x-small" color="blue" icon="mdi-reload" variant="text">
                 </v-btn>
                 Meus dados...
               </v-card-title>
-              <v-card-text class="ml-2 mt-md-0 mt-4">
+              <v-card-text class="ml-2 mt-md-6 mt-4">
                 <v-row class="d-flex flex-sm-row flex-column">
-                  <v-col cols="12" md="5" class="d-flex justify-center justify-md-start">
+                  <v-col cols="12" md="6" class="d-flex justify-center justify-md-start">
                     <v-img
+                    v-if="user.IMAGE == 'data:image/png;base64,'"
+                    class="encx-img"
+                    src="@/assets/4123763.png"
+
+                    ></v-img>
+                    <v-img
+                      v-else
                       class="encx-img"
                       :src="user.IMAGE"
+
                     ></v-img>
                   </v-col>
-                  <v-col cols="12" md="7" class="mt-3">
-                    <p class="text-subtitle-1 font-italic"><b>Nome :</b> {{user.NAME}}</p>
-                    <p class="text-subtitle-1 font-italic"><b>Email :</b> {{user.EMAIL}}</p>
-                    <p class="text-subtitle-1 font-italic"><b>Cpf :</b> {{user.CPF}}</p>
-                    <p class="text-subtitle-1 font-italic"><b>Pedidos realizados :</b> 10</p>
-                    <p class="text-subtitle-1 font-italic"><b>Pedidos pagos</b> 10</p>
-                    <p class="text-subtitle-1 font-italic"><b>Entrou em : </b> {{user.CREATED_AT}}</p>
+                  <v-col cols="12" md="6" class="mt-3 d-flex justify-center justify-md-start">
+                    <div class="d-flex flex-column">
+                      <p class="text-subtitle-1 text-md-h6 "><b>Nome :</b> {{user.NAME}}</p>
+                      <p class="text-subtitle-1 text-md-h6 "><b>Email :</b> {{user.EMAIL}}</p>
+                      <p class="text-subtitle-1 text-md-h6 "><b>Cpf :</b> {{user.CPF}}</p>
+                      <p class="text-subtitle-1 text-md-h6 "><b>Pedidos realizados :</b>{{user.pRealizados}}</p>
+                      <p class="text-subtitle-1 text-md-h6 "><b>Pedidos pagos</b> {{user.pPagos}}</p>
+                      <p class="text-subtitle-1 text-md-h6 "><b>Entrou em : </b> {{user.CREATED_AT}}</p>
+                    </div>
                   </v-col>
+
                 </v-row>
               </v-card-text>
           </v-card>
@@ -34,6 +45,11 @@
             <Pedidos></Pedidos>
         </v-col>
     </v-row>
+    <v-row v-if="tela == 'edit-dados'">
+      <v-col cols="12" >
+          <FormUser :cad="false"></FormUser>
+      </v-col>
+    </v-row>
 
 
     <v-bottom-navigation  class="bg-bottom" :elevation="7" v-model="tela">
@@ -41,12 +57,17 @@
         <v-icon color="#228B22">mdi-package-variant-closed</v-icon>
         <span class="auto">Meus pedidos</span>
       </v-btn>
+      <v-btn value="edit-dados">
+        <v-icon color="#228B22">mdi-account-edit</v-icon>
 
+        <span class="auto">Editar dados</span>
+      </v-btn>
       <v-btn value="dados">
         <v-icon color="#228B22">mdi-account</v-icon>
 
         <span class="auto">Meus dados</span>
       </v-btn>
+
 
       <v-btn value="nearby" @click="logout">
         <v-icon color="#D2122E">mdi-exit-to-app</v-icon>
@@ -58,7 +79,8 @@
 </template>
 
 <script setup>
-  import UserComp from '@/CompositionAP/UserComp'
+  import FormUser from '@/components/FormUser.vue';
+import UserComp from '@/CompositionAP/UserComp'
   import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router';
 import Pedidos from './Pedidos.vue';
@@ -76,7 +98,8 @@ import Pedidos from './Pedidos.vue';
 
   async function getUser(){
       user.value = await getPerfil()
-      user.value.CREATED_AT = new Date()
+
+      user.value.CREATED_AT = new Date(user.value.CREATED_AT)
       user.value.CREATED_AT = user.value.CREATED_AT.toLocaleString()
   }
   async function logout(){
@@ -102,9 +125,9 @@ import Pedidos from './Pedidos.vue';
       font-weight: bold;
   }
   .encx-img{
-    max-width: 200px !important;
-    max-height: 200px !important;
-    min-height: 180px;
+    max-width: 320px !important;
+    max-height: 320px !important;
+    min-height: 200px;
     border: solid 0.0px rgb(245, 244, 244);
   }
   .img-cad{

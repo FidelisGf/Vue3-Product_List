@@ -21,6 +21,7 @@
                   color="teal-darken-1"
                   label="Nome"
                   variant="underlined"
+                  prepend-inner-icon="mdi-account"
                   :rules="NomeRules"
                   dark
                   required
@@ -31,6 +32,8 @@
                   label="Senha"
                   variant="underlined"
                   dark
+                  prepend-inner-icon="mdi-lock"
+                  type="password"
                   :rules="pwRules"
                   required
                 ></v-text-field>

@@ -62,8 +62,8 @@
                     <p class="font-weight-medium"><b>Nome :</b> {{produto.NOME}}</p>
                     <p class="font-weight-medium"><b>Valor :</b> {{parseFloat(produto.VALOR).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                    <p class="font-weight-medium"><b>Quantidade :</b> 10 Unidades</p>
-                    <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * 10).
+                    <p class="font-weight-medium"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
+                    <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </v-col>
                   <v-divider></v-divider>

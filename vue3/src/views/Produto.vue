@@ -150,7 +150,7 @@
           console.log(e.check)
           console.log(e.categoria)
           if(e.type != 'Check' &&
-          e.check == 0 && e.categoria == null
+          e.check == undefined && e.categoria == null
           && e.search != undefined){
             console.log('Chegou aqui')
             produtos.value = applyFilter(e, tmp.value)

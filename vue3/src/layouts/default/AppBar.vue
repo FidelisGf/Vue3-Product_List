@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="#f0f8ff">
-    <v-app-bar-nav-icon class="hidden-sm-and-up" @click="dialog = true"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon class="hidden-md-and-up" @click="dialog = true"></v-app-bar-nav-icon>
 
 
 
@@ -44,17 +44,17 @@
         hide-overlay
         transition="dialog-bottom-transition"
     >
-        <v-card>
+        <v-card color="#F0F8FF">
           <v-card-actions>
               <v-btn @click="dialog = false"><v-icon>mdi-close</v-icon></v-btn>
           </v-card-actions>
           <v-card-text class="d-flex flex-column">
-            <v-btn text class="text-caption text-md-body-1" prepend-icon="mdi-store"
-            @click="$router.push('/produtos')">Loja</v-btn>
-            <v-btn class="text-caption text-md-body-1" prepend-icon="mdi-cart"
-            @click="$router.push('/carrinho')">Carrinho</v-btn>
-            <v-btn class="text-caption text-md-body-1" prepend-icon="mdi-account"
-            @click="$router.push('/login')">Conta</v-btn>
+            <v-btn color="#E6E6FA" size="x-large" text class="text-caption text-md-body-1" prepend-icon="mdi-store"
+            @click="getRouteMobile('produtos')">Loja</v-btn>
+            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3" prepend-icon="mdi-cart"
+            @click="getRouteMobile('carrinho')">Carrinho</v-btn>
+            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3" prepend-icon="mdi-account"
+            @click="getRouteMobile('login')">Conta</v-btn>
           </v-card-text>
         </v-card>
 
@@ -79,6 +79,12 @@
       computed:{
           counter : function(){
               return storeApp.getCountCarrinho
+          }
+      },
+      methods:{
+          getRouteMobile(route){
+              this.dialog = false
+              this.$router.push(`/${route}`)
           }
       }
   }
