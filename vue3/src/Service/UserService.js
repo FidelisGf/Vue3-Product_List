@@ -15,6 +15,9 @@ export default{
   },
   update(payload){
     return axios.post('usuariosUp', payload)
+  },
+  checkIfPassword(payload){
+    return axios.get('checkIfPassword', {params: {PASSWORD : payload.PASSWORD, ID : payload.ID}})
   }
 
 }

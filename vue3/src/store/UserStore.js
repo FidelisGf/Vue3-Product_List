@@ -32,13 +32,20 @@ export const useUserStore = defineStore('user', {
           return false
         })
         return dt
-
       },
       async getUser(){
           const data = UserService.getPerfil().then((res)=>{
             return res.data
           })
           return data
+      },
+      async checkIfPassword(payload){
+        const data = UserService.checkIfPassword(payload).then((res)=>{
+            return res.data
+        }).catch((error)=>{
+            return error
+        })
+        return data
       },
       loginUser(form){
         //const router = useRouter()

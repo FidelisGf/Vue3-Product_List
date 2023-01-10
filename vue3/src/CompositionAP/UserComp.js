@@ -64,22 +64,28 @@ export default function UserComp(){
   async function update(image_file, valido){
     if(valido){
       if(user.CF_PASSWORD.value == user.PASSWORD.value){
-        let form = new FormData()
-        form.append('ID', user.ID.value)
-        form.append('NAME', user.NAME.value)
-        form.append('EMAIL', user.EMAIL.value)
-        form.append('CPF', user.CPF.value)
-        form.append('SALARIO', parseFloat(0))
-        if(image_file.value != null || image_file.value != undefined){
-          form.append('IMAGE', image_file.value, image_file.value.name)
-        }
-        let check = await userApp.updateUser(form)
+        let payload = {ID : user.ID.value, PASSWORD : user.PASSWORD.value}
+        let checkPw = await userApp.checkIfPassword(payload)
+        if(checkPw){
+          console.log(checkPw)
+          let form = new FormData()
+          form.append('ID', user.ID.value)
+          form.append('NAME', user.NAME.value)
+          form.append('EMAIL', user.EMAIL.value)
+          form.append('CPF', user.CPF.value)
+          form.append('SALARIO', parseFloat(0))
+          if(image_file.value != null || image_file.value != undefined){
+            form.append('IMAGE', image_file.value, image_file.value.name)
+          }
+          let check = await userApp.updateUser(form)
 
-        if(check == true){
-          console.log('Entrou')
-          router.push({ path: '/perfil' })
-        }
+          if(check == true){
 
+            router.push({ path: '/perfil' })
+          }
+        }else{
+          genericApp.activeSnack('Essa não é sua senha')
+        }
       }else{
         genericApp.activeSnack('As senhas divergem')
       }
