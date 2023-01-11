@@ -54,9 +54,26 @@
         <v-spacer ></v-spacer>
         <v-col cols="12" md="12" lg="4" class="d-flex">
             <v-row>
-              <v-col cols="12" class="">
+              <v-col cols="12">
+                <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0  ml-md-n6 div-rating">
+                  <v-rating
+                    class="mt-4"
+                    v-model="rating"
+                    bg-color="orange-lighten-1"
+                    color="yellow-darken-3"
+                    disabled
+                    half-increments
+                  >
+                  </v-rating>
+                  <v-tooltip
+                    activator="parent"
+                    location="start"
+
+                    >Popularidade do item
+                  </v-tooltip>
+                </div>
                 <v-btn @click="saveInCarrinho(produto.ID)" block
-                color="#E6E6FA" class="ml-sm-n2 ml-0 mt-md-3">
+                color="#E6E6FA" class="ml-sm-n2 ml-0 mt-4 mt-md-3">
                   <v-icon
                     left
                     dark
@@ -67,6 +84,7 @@
                     mdi-cart
                   </v-icon>
                   <p class="mr-5">Adicionar ao Carrinho</p>
+
                 </v-btn>
                 <v-btn block @click="buyNow(produto.ID)"
                 color="#E6E6FA" class="ml-sm-n2 ml-0 mt-5 text-black">
@@ -90,7 +108,9 @@
                   </v-icon>
                   <p class="ml-6 ">Tirar duvidas sobre o item</p>
                 </v-btn>
+
               </v-col>
+
             </v-row>
         </v-col>
         <v-divider ></v-divider>
@@ -173,7 +193,7 @@
   const tmpAuxiliar = ref([])
   const restart = ref(0)
   const flag = ref(false)
-
+  const rating = ref(3.5)
 
   await findProduto()
 
@@ -236,6 +256,7 @@
 
 
 
+
 </script>
 
 <style lang="scss" >
@@ -265,5 +286,7 @@
   .princip{
     background : #dbe5ee !important
   }
+
+
 
 </style>
