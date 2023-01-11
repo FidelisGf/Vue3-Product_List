@@ -16,32 +16,34 @@
             </v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="12" md="8" class="d-flex flex-sm-row flex-column-reverse ">
+        <v-col cols="12" md="12" lg="8" class="d-flex flex-md-row flex-column-reverse ">
           <v-row class="d-flex">
-            <v-col  cols="1" class="d-flex flex-md-column flex-row ">
+            <v-col  cols="1" md="1" lg="1" class="d-flex flex-md-column flex-row ">
               <div class="d-flex flex-sm-column flex-row justify-start " v-for="cor in produto.CORES" :key="cor.ID">
                 <v-sheet
                   :color="cor.HASH"
                   height="40"
                   width="40"
+
                   elevation="2"
                   class="ml-md-0 ml-2 cores"
               ></v-sheet>
               <br/>
               </div>
             </v-col>
-            <v-col cols="12" md="5" xl="3">
+            <v-col cols="12" md="5" lg="5" xl="3">
               <v-img :src="url"
               class="imagem"
-              min-height="254px"
-              min-width="300px"
-              max-width="330px"
-              max-height="284px"
+                min-height="284px"
+                min-width="320px"
+                max-width="350px"
+                max-height="304px"
+
 
 
               cover></v-img>
             </v-col>
-            <v-col cols="12" md="5" xl="4">
+            <v-col cols="12" md="5" lg="5" xl="4">
               <div class="d-flex flex-column  ml-0">
                 <p class="text-md-h5 text-sm-body-1 font-weight-bold ">{{produto.NOME}}</p>
                 <p class="text-justify text-subtitle-1 ml-2 font-weight-medium">{{produto.DESC}}...</p>
@@ -50,9 +52,9 @@
           </v-row>
         </v-col>
         <v-spacer ></v-spacer>
-        <v-col cols="12" md="4" class="d-flex ">
+        <v-col cols="12" md="12" lg="4" class="d-flex">
             <v-row>
-              <v-col cols="12">
+              <v-col cols="12" class="">
                 <v-btn @click="saveInCarrinho(produto.ID)" block
                 color="#E6E6FA" class="ml-sm-n2 ml-0 mt-md-3">
                   <v-icon
@@ -77,7 +79,7 @@
                   </v-icon>
                   <p class="mr-16">Comprar Agora</p>
                 </v-btn>
-                <v-btn block color="#E6E6FA" class="text-black ml-sm-n2 ml-0 mt-5">
+                <v-btn @click="goWhats" block color="#E6E6FA" class="text-black ml-sm-n2 ml-0 mt-5">
                   <v-icon
                     left
                     dark
@@ -184,6 +186,14 @@
       url.value = await produto.value.IMAGE
       getProdutos()
       restart.value += 1
+  }
+  function goWhats(){
+      const url = "https://api.whatsapp.com/send?phone="
+      const number = '45998463475'
+      const msg = "Boa%20Tarde%20gostaria%20de%20ter%20informações%20sobre%20o%20item%20" +
+      produto.value.NOME + "%20Codigo%20" + produto.value.ID
+      const end_url = `${url}${number}&text=${msg}`
+      window.open(end_url, '_blank').focus();
   }
 
   async function getProdutos(){
