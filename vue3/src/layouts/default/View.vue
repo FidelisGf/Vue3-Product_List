@@ -1,7 +1,7 @@
 <template>
   <v-main>
     <v-snackbar
-      v-model="snack"
+      v-model="snac"
       :timeout="timeout"
       color="black"
     >
@@ -26,26 +26,24 @@
   </v-main>
 </template>
 
-<script>
+<script setup>
   import { useAppStore } from '@/store/app'
+  import {ref, computed, } from 'vue'
   const storeApp = useAppStore()
-  export default{
-    computed:{
-      msg : function(){
-          return storeApp.getMsg
-      },
-      snack : function(){
-          return storeApp.getSnack
-      },
-      timeout : function(){
-          return storeApp.getTime
+  const tmp = ref(null)
+  let snac = computed({
+      get: ()=> storeApp.getSnack,
+      set: () => {
+        storeApp.closeSnack()
       }
-    },
-    methods:{
-        close(){
-            storeApp.closeSnack()
-        }
-    }
-  }
+  })
 
+  const msg = computed({
+      get: ()=> storeApp.getMsg
+  })
+  const timeout = ref(2000)
+
+  function close(){
+      storeApp.closeSnack()
+  }
 </script>
