@@ -11,7 +11,9 @@ export default function CrudComp(){
     async function getAllList(route, payload){
         return storeApp.getList(route, payload)
     }
-
+    async function post(route, payload){
+      storeApp.postGeneric(route, payload)
+    }
 
     function applyFilter(filtros, produtos){
       let res = []
@@ -76,7 +78,8 @@ export default function CrudComp(){
     return {
         findById,
         getAllList,
-        applyFilter
+        applyFilter,
+        post
     }
 
 }

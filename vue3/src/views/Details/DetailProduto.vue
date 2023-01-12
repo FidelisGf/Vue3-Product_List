@@ -58,7 +58,7 @@
                 <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0  ml-md-n6 div-rating">
                   <v-rating
                     class="mt-4"
-                    v-model="rating"
+                    v-model="produto.AVALIACAO"
                     bg-color="orange-lighten-1"
                     color="yellow-darken-3"
                     disabled

@@ -92,7 +92,7 @@ export const useCarrinhoStore = defineStore('carrinho', {
         form.append('PRODUTOS', itens)
         form.append('aprovado', 'F')
         form.append('METODO_PAGAMENTO', 'Dinheiro')
-        const data = await Service.post('pedidos', form).then((res)=>{
+        const data = await Service.post('pedidosInternet', form).then((res)=>{
            return res.data
         }).catch((error)=>{
             return error

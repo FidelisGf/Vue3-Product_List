@@ -37,7 +37,7 @@ export default{
            pdf : payload.pdf, search : payload.search} })
     },
     post(route, payload){
-      return axios.post(route + "Internet", payload)
+      return axios.post(route , payload)
     },
     getPaginado(route, payload){
       return  axios.get(route + "?page=" + payload.current_page,

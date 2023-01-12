@@ -48,8 +48,14 @@ export const useAppStore = defineStore({
       },
       async setCategorias(payload){
           this.categorias = await JSON.parse(JSON.stringify(payload));
-
       },
+      postGeneric(route, payload){
+          Service.post(route, payload).then((res)=>{
+              this.activeSnack(res.data.message)
+          }).catch((error)=>{
+              this.activeSnack("Erro :" + error.response.data.message)
+          })
+      }
 
   },
   getters: {

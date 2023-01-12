@@ -65,6 +65,17 @@
                     <p class="font-weight-medium"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
                     <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                    <v-rating
+                      :key="alteraNota"
+                      class="ml-n1"
+                      v-model="produto.AVALIACAO"
+                      bg-color="orange-lighten-1"
+                      color="yellow-darken-3"
+                      density="compact"
+                      v-on:change="avaliou($event, produto.ID, pedido.ID)"
+                      half-increments
+                    >
+                    </v-rating>
                   </v-col>
                   <v-divider></v-divider>
                 </v-row>
@@ -80,14 +91,17 @@
 <script setup>
   import { ref, computed, shallowRef } from 'vue'
   import PedidoComp from '@/CompositionAP/PedidoComp'
-
+  import CrudComp from '@/CompositionAP/CRUD';
   const open = ref([])
   const pedidos  = shallowRef(null)
   const renic = ref(0)
+  const rating = ref(0)
+  const alteraNota = ref(0)
 
   const {getAllPedidos} =
   PedidoComp()
 
+  const {post} = CrudComp()
   function openClose(index){
       open.value[index] = true
   }
@@ -98,12 +112,25 @@
       getPedidos()
       renic.value += 1
   }
+  function avaliou(e, id, idPedido){
+      for(let p of pedidos.value){
+        for(let prod of p.PRODUTOS){
+            if(prod.ID == id){
+              prod.AVALIACAO = e.target.value
+            }
+        }
+      }
+      let payload = {NOTA : e.target.value, ID_PRODUTO : id}
+      post('avaliacoes', payload)
+      alteraNota.value += 1
+  }
   async function getPedidos(){
 
     console.log(open.value)
     let payload = { current_page: 1, opcao: null, start: null, end: null,
     search: null, Shop: "T", Precos : null, categoria : null};
     pedidos.value = await getAllPedidos(payload)
+    console.log(pedidos.value)
     let leng = Object.keys(pedidos).length
     for(let i = 0; i <= leng; i++){
         open.value[i] = false
