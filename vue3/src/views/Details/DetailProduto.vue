@@ -249,7 +249,7 @@
 
   function buyNow(ID){
       saveInCarrinho(ID)
-      router.push({path : `/carrinho`})
+      router.push('/carrinho')
   }
 
 

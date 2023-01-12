@@ -112,7 +112,7 @@
       getPedidos()
       renic.value += 1
   }
-  function avaliou(e, id, idPedido){
+ async function avaliou(e, id, idPedido){
       for(let p of pedidos.value){
         for(let prod of p.PRODUTOS){
             if(prod.ID == id){
@@ -121,7 +121,7 @@
         }
       }
       let payload = {NOTA : e.target.value, ID_PRODUTO : id}
-      post('avaliacoes', payload)
+      await post('avaliacoes', payload)
       alteraNota.value += 1
   }
   async function getPedidos(){

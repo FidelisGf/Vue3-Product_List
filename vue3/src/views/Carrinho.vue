@@ -116,9 +116,12 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
   }
   function finalizarPedido(){
     const storeApp = useAppStore()
+    if(itens.value == null || itens.value.length == 0){
+      storeApp.activeSnack('O carrinho não possui nenhum item !')
+      return
+    }
     for(const item of itens.value){
       if(item.QUANTIDADE == 'Indisponivel'){
-
         storeApp.activeSnack('O carrinho possui itens sem estoque !')
         return
       }
