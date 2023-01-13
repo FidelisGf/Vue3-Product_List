@@ -139,9 +139,11 @@
     let payload = { current_page: current_page.value, opcao: null, start: null, end: null,
     search: search.value, Shop: "T", Precos : precos.value, categoria : categoria.value};
     produtos.value = await storeApp.getProdutos(payload);
+    tmp.value = produtos.value
   }
 
   function filterOnPage(e){
+      console.log('Esse evento foi emitido')
       if(tmp.value == null){
           let sub = applyFilter(e, produtos.value)
           tmp.value = produtos.value

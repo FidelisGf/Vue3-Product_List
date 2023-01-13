@@ -24,6 +24,7 @@
       <router-view />
     </suspense>
   </v-main>
+
 </template>
 
 <script setup>
@@ -88,6 +89,9 @@
   }
   .bg-real{
     background : #F0F8FF !important
+  }
+  .bg-footer{
+    background : #e2f1ff !important
   }
   .bg-bottom{
     background-color: #E6E6FA !important;

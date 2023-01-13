@@ -28,35 +28,37 @@
                   </div>
                 </v-card-title>
                 <v-card-text>
-                  <v-row v-for="produto in itens" :key="produto.ID" class="mt-2">
-                    <v-col  cols="12" class="d-flex flex-row justify-start" >
-                      <div class="bg-img">
-                        <v-img :src="produto.IMAGE"
-                          @click="detailProduct(produto.ID)"
+                  <TransitionGroup name="list" tag="ul">
+                    <v-row v-for="produto in itens" :key="produto.ID" class="mt-2">
+                      <v-col  cols="12" class="d-flex flex-row justify-start" >
+                        <div class="bg-img">
+                          <v-img :src="produto.IMAGE"
+                            @click="detailProduct(produto.ID)"
 
-                          width="125"
-                          height="125"
-                          class="imagem"
-                        >
-                        </v-img>
-                        </div>
-                          <div class="d-flex flex-column ml-3">
-                            <p class="text-h5 font-weight-black">{{produto.NOME}}</p>
-                            <p class="text-caption text-sm-subtitle-1 font-weight-bold">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                            <p class="text-caption text-sm-subtitle-1 font-weight-bold">
-                              <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
-                              <span v-else><p class="text-yellow">Sem Estoque</p></span>
-                            </p>
-                        </div>
-                        <v-spacer></v-spacer>
-                        <div class="d-flex flex-column justify-center">
-                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
-                          <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
-                          <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
-                        </div>
-                      </v-col>
-                      <v-divider></v-divider>
-                  </v-row>
+                            width="125"
+                            height="125"
+                            class="imagem"
+                          >
+                          </v-img>
+                          </div>
+                            <div class="d-flex flex-column ml-3">
+                              <p class="text-h5 font-weight-black">{{produto.NOME}}</p>
+                              <p class="text-caption text-sm-subtitle-1 font-weight-bold">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                              <p class="text-caption text-sm-subtitle-1 font-weight-bold">
+                                <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
+                                <span v-else><p class="text-yellow">Sem Estoque</p></span>
+                              </p>
+                          </div>
+                          <v-spacer></v-spacer>
+                          <div class="d-flex flex-column justify-center">
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
+                          </div>
+                        </v-col>
+                        <v-divider></v-divider>
+                    </v-row>
+                  </TransitionGroup>
                 </v-card-text>
             </v-card>
         </v-col>
@@ -185,6 +187,15 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
   }
   .finalizar{
       color : #228B22 !important;
+  }
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.5s ease;
+  }
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
   }
 
 </style>

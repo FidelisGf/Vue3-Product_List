@@ -205,7 +205,9 @@
       payload.categoria = categoria.value.ID_CATEGORIA
     }
     if(val.toString().length == 0){
-      emit('searchPage', payload)
+      //emit('searchPage', payload)
+      emit('search', payload)
+      return
     }else{
       if(val.toString().length >= tmpLenght.value){
         if(val.toString().length > 2){

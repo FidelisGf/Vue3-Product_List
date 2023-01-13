@@ -47,7 +47,7 @@
     </v-row>
     <v-row v-if="tela == 'edit-dados'">
       <v-col cols="12" >
-          <FormUser :cad="false"></FormUser>
+        <FormUser :cad="false" :is="current"></FormUser>
       </v-col>
     </v-row>
 
@@ -94,7 +94,7 @@ import Pedidos from './Pedidos.vue';
   const user = ref(null)
   const renic = ref(0)
   const tela = ref('dados')
-
+  const current = ref('FormUser')
 
   async function getUser(){
       user.value = await getPerfil()

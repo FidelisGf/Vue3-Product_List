@@ -11,10 +11,10 @@
               <v-card-title class="d-flex justify-space-between">
                 <p>Pedido #{{pedido.ID}}</p>
                 <v-icon v-if="pedido.APROVADO == 'T'" color="green-darken-2">
-                  <span >mdi-package-variant-closed-check</span>
+                  mdi-package-variant-closed-check
                 </v-icon>
                 <v-icon v-else color="red-darken-3">
-                  <span >mdi-package-variant-minus</span>
+                  mdi-package-variant-minus
                 </v-icon>
               </v-card-title>
               <v-card-subtitle class="text-body-2 d-flex flex-row mb-1
@@ -33,54 +33,56 @@
                 <v-btn v-if="!open[index]" @click="openClose(index)" class="mt-n0 pl-0 pl-md-0"
                 size="x-small" icon variant="text">
                   <v-icon color="green-darken-4">
-                    <span >mdi-arrow-down</span>
+                    mdi-arrow-down
 
                   </v-icon>
                 </v-btn>
                 <v-btn v-else @click="close(index)" class="mt-n0 pl-0 pl-md-0"
                 size="x-small" icon variant="text">
                   <v-icon color="green-darken-4">
-                    <span>mdi-arrow-up</span>
+                    mdi-arrow-up
                   </v-icon>
                 </v-btn>
 
               </v-card-subtitle>
-              <v-card-text v-if="open[index]">
+              <Transition name="fade" :duration="300">
+                <v-card-text v-if="open[index]">
 
-                <div class="d-flex flex-md-row flex-column mt-n5">
-                  <p class=" text-body-2 font-weight-medium">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
-                  <p class="pl-md-10 text-body-2 font-weight-medium">Valor Total : {{parseFloat(pedido.VALOR_TOTAL).
-                    toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                </div>
-                <v-divider class="mt-2"></v-divider>
-                <v-row class="mt-1 mb-1" v-for="produto in pedido.PRODUTOS" :key="produto.ID">
-                  <v-col cols="6" sm="4">
-                    <v-img max-width="200" :src="produto.IMAGE"></v-img>
-                  </v-col>
-                  <v-col cols="6" class="d-flex flex-column
-                  text-caption text-md-subtitle-1">
-                    <p class="font-weight-medium"><b>Nome :</b> {{produto.NOME}}</p>
-                    <p class="font-weight-medium"><b>Valor :</b> {{parseFloat(produto.VALOR).
+                  <div class="d-flex flex-md-row flex-column mt-n5">
+                    <p class=" text-body-2 font-weight-medium">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
+                    <p class="pl-md-10 text-body-2 font-weight-medium">Valor Total : {{parseFloat(pedido.VALOR_TOTAL).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                    <p class="font-weight-medium"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
-                    <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
-                      toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                    <v-rating
-                      :key="alteraNota"
-                      class="ml-n1"
-                      v-model="produto.AVALIACAO"
-                      bg-color="orange-lighten-1"
-                      color="yellow-darken-3"
-                      density="compact"
-                      v-on:change="avaliou($event, produto.ID, pedido.ID)"
-                      half-increments
-                    >
-                    </v-rating>
-                  </v-col>
-                  <v-divider></v-divider>
-                </v-row>
+                  </div>
+                  <v-divider class="mt-2"></v-divider>
+                  <v-row class="mt-1 mb-1" v-for="produto in pedido.PRODUTOS" :key="produto.ID">
+                    <v-col cols="6" sm="4">
+                      <v-img max-width="200" :src="produto.IMAGE"></v-img>
+                    </v-col>
+                    <v-col cols="6" class="d-flex flex-column
+                    text-caption text-md-subtitle-1">
+                      <p class="font-weight-medium"><b>Nome :</b> {{produto.NOME}}</p>
+                      <p class="font-weight-medium"><b>Valor :</b> {{parseFloat(produto.VALOR).
+                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <p class="font-weight-medium"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
+                      <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
+                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <v-rating
+                        :key="alteraNota"
+                        class="ml-n1"
+                        v-model="produto.AVALIACAO"
+                        bg-color="orange-lighten-1"
+                        color="yellow-darken-3"
+                        density="compact"
+                        v-on:change="avaliou($event, produto.ID, pedido.ID)"
+                        half-increments
+                      >
+                      </v-rating>
+                    </v-col>
+                    <v-divider></v-divider>
+                  </v-row>
 
-              </v-card-text>
+                </v-card-text>
+              </Transition>
             </v-card>
           </v-col>
         </v-row>
@@ -145,4 +147,14 @@
     width: 100%;
     height: 20%;
   }
+
+  .fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
