@@ -11,22 +11,14 @@
   import DefaultView from './View.vue'
   import DefaultBar from './AppBar.vue'
   import { ref } from 'vue'
-import Loading from '@/components/Loading.vue';
-
+  import Loading from '@/components/Loading.vue';
   const theme = ref('light')
-
-
-
-
-
   function onclickMode(e){
       console.log(e)
       theme.value = theme.value === 'dark' ? 'light' : 'dark'
   }
 </script>
 <style lang="scss">
-.bg-real{
-  background : #F0F8FF !important
-}
+
 
 </style>

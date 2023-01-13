@@ -47,3 +47,62 @@
       storeApp.closeSnack()
   }
 </script>
+<style lang="scss">
+   .imagem{
+    transition: transform .2s;
+    box-shadow: rgba(141, 141, 141, 0.397) 0px 10px 14px;
+  }
+  .cores{
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+  .imagem:hover{
+    transform: scale(1.05);
+    transition: 1.2s;
+    box-shadow: rgba(230, 193, 241, 0.397) 0px 5px 15px;
+  }
+  .cores:hover{
+    transform: translate(0px, -0.9px);
+
+    transition: 0.1s;
+    box-shadow: rgba(226, 222, 222, 0.397) 0px 0px 15px;
+  }
+
+  .slides{
+      width: 100% !important;
+  }
+  .princip{
+    background : #dbe5ee !important
+  }
+  .cards:hover{
+    transform: translate(1px, -2.0px);
+    transition: 1.2s;
+    box-shadow: 2px 5.2px 8px #141414 !important;
+  }
+  .corpo-card{
+    background: #EAE7FA !important;
+
+  }
+  .img-card{
+    background: white !important;
+  }
+  .bg-real{
+    background : #F0F8FF !important
+  }
+  .bg-bottom{
+    background-color: #E6E6FA !important;
+  }
+  .auto{
+      color: black;
+      font-weight: bold;
+  }
+  .encx-img{
+    max-width: 320px !important;
+    max-height: 320px !important;
+    min-height: 200px;
+    border: solid 0.0px rgb(245, 244, 244);
+  }
+
+
+
+</style>

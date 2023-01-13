@@ -235,24 +235,5 @@
 </script>
 
 <style lang="scss">
-  .cards:hover{
-    transform: translate(1px, -2.0px);
-    transition: 1.2s;
-    box-shadow: 2px 5.2px 8px #141414 !important;
-  }
-  .corpo-card{
-    background: #EAE7FA !important;
-
-  }
-  .img-card{
-    background: white !important;
-  }
-  .bg-real{
-    background : #F0F8FF !important
-  }
-
-
-
-
 
 </style>

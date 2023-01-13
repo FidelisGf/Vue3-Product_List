@@ -117,21 +117,6 @@ import Pedidos from './Pedidos.vue';
 </script>
 
 <style lang="scss" >
-  .bg-bottom{
-    background-color: #E6E6FA !important;
-  }
-  .auto{
-      color: black;
-      font-weight: bold;
-  }
-  .encx-img{
-    max-width: 320px !important;
-    max-height: 320px !important;
-    min-height: 200px;
-    border: solid 0.0px rgb(245, 244, 244);
-  }
-  .img-cad{
-    width: 90%;
-    height: 90%;
-  }
+
+
 </style>

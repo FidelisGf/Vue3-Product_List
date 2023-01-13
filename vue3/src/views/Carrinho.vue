@@ -170,7 +170,7 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .imagem{
     box-shadow: 1px 1.8px 8px #080808;
     background: white !important;
