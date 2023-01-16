@@ -66,11 +66,11 @@
     <v-dialog
         persistent
         v-model="dialog"
-
         @keydown.escape="dialog = false"
-
         transition="dialog-bottom-transition"
-    ><ModalFinalizarPedido @fechar="fechaModal"></ModalFinalizarPedido></v-dialog>
+    >
+      <ModalConfPedido @fechar="fechaModal" :vl-total="vlTotal"></ModalConfPedido>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -79,7 +79,7 @@
   import { useAppStore } from '@/store/app'
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
-import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
+  import ModalConfPedido from '@/components/ModalConfPedido.vue';
   const {getProdutosCarrinho
   , addQuantidade, removeQuantidade, removeIndisponivel, finalizaPedido} =
   Carrinho()
@@ -129,7 +129,7 @@ import ModalFinalizarPedido from '@/components/ModalFinalizarPedido.vue';
       }
     }
     dialog.value = true
-    finalizaPedido()
+    //finalizaPedido()
   }
   function removeIndis(ID){
       removeIndisponivel(ID)

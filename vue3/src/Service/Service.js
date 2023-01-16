@@ -34,7 +34,7 @@ export default{
     get(route, payload){
       return axios.get(route, { params: { opcao: payload.opcao,
            start : payload.dtStart, end : payload.dtFinal,
-           pdf : payload.pdf, search : payload.search} })
+           pdf : payload.pdf, search : payload.search, NOME : payload.NOME}})
     },
     post(route, payload){
       return axios.post(route , payload)
@@ -51,5 +51,8 @@ export default{
     async getList(route, payload){
       return await axios.get(route, {params: {Shop : payload.Shop}})
     },
+    update(route, payload, id){
+      return axios.put(route + "/" + id, payload)
+    }
 
 }

@@ -33,6 +33,24 @@ export const useCarrinhoStore = defineStore('carrinho', {
 
 
       },
+      async getCupomDesc(payload){
+        const storeApp = useAppStore()
+        const dt = Service.get('cupons', payload).then((res)=>{
+            storeApp.activeSnack("Cupom Aplicado com sucesso !")
+            return res.data
+        }).catch((error)=>{
+            storeApp.activeSnack("Error : " + error.response.data.message)
+            return null
+        })
+        return dt
+      },
+      async applyCupomDesc(payload){
+        const storeApp = useAppStore()
+         Service.post('cupons', payload).then(()=>{
+        }).catch((error)=>{
+          storeApp.activeSnack("Error : " + error.response.data.message)
+        })
+      },
       async addQuantidadeProduto(payload){
         const storeApp = useAppStore()
           const item = this.itens.find(o => o.ID == payload)
@@ -85,10 +103,13 @@ export const useCarrinhoStore = defineStore('carrinho', {
         const storeApp = useAppStore()
         storeApp.activeSnack('Item removido do carrinho')
       },
-      async finalizarPedido(){
+      async finalizarPedido(payload){
         const storeApp = useAppStore()
         let form = new FormData()
         let itens = JSON.stringify(this.itens)
+        if(payload.ID != null){
+          form.append('ID_CUPOM', payload.ID)
+        }
         form.append('PRODUTOS', itens)
         form.append('aprovado', 'F')
         form.append('METODO_PAGAMENTO', 'Dinheiro')

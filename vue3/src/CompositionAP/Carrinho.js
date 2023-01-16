@@ -23,9 +23,17 @@ export default function CarrinhoComp(){
         let storeApp = useCarrinhoStore()
         storeApp.removeIndisponivel(payload)
       }
-      function finalizaPedido(){
+      function finalizaPedido(payload){
         let storeApp = useCarrinhoStore()
-        storeApp.finalizarPedido()
+        storeApp.finalizarPedido(payload)
+      }
+      function getCupom(payload){
+        let storeApp = useCarrinhoStore()
+        return storeApp.getCupomDesc(payload)
+      }
+      function applyCupom(payload){
+        let storeApp = useCarrinhoStore()
+        storeApp.applyCupomDesc(payload)
       }
 
       return {
@@ -34,7 +42,9 @@ export default function CarrinhoComp(){
           addQuantidade,
           removeQuantidade,
           removeIndisponivel,
-          finalizaPedido
+          finalizaPedido,
+          getCupom,
+          applyCupom
       }
 }
 

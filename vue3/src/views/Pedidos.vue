@@ -50,7 +50,21 @@
 
                   <div class="d-flex flex-md-row flex-column mt-n5">
                     <p class=" text-body-2 font-weight-medium">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
-                    <p class="pl-md-10 text-body-2 font-weight-medium">Valor Total : {{parseFloat(pedido.VALOR_TOTAL).
+                    <p class="pl-md-8 text-body-2 font-weight-medium">Valor Total :
+                      <span v-if="pedido.ID_CUPOM != null">
+                        {{pedido.VlTemp.
+                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                      </span>
+                      <span v-else>
+                        {{parseFloat(pedido.VALOR_TOTAL).
+                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                      </span>
+                    </p>
+                    <p class="pl-md-8 text-body-2 font-weight-medium">Desconto :
+                      <span v-if="pedido.ID_CUPOM != null">{{parseInt(pedido.DESCONTO)}}%</span>
+                      <span v-else>R$ 0,00</span>
+                    </p>
+                    <p class="pl-md-8 text-body-2 font-weight-medium">Subtotal : {{parseFloat(pedido.VALOR_TOTAL).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </div>
                   <v-divider class="mt-2"></v-divider>
