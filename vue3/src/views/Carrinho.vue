@@ -48,11 +48,21 @@
                                 <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
                                 <span v-else><p class="text-yellow">Sem Estoque</p></span>
                               </p>
+                              <div class="d-flex flex-row">
+                                <p class="text-caption text-sm-subtitle-1 font-weight-bold">Cor: </p>
+                                <v-sheet
+                                  :color="produto.COR_ESCOLHIDA"
+                                  height="20"
+                                  width="20"
+                                  elevation="2"
+                                  class="ml-2 ml-md-3 mt-md-1  cores"
+                                ></v-sheet>
+                              </div>
                           </div>
                           <v-spacer></v-spacer>
                           <div class="d-flex flex-column justify-center">
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(produto.ID)"><v-icon>mdi-plus</v-icon></v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(produto.ID)"><v-icon>mdi-minus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(produto.ID, produto.COR_ESCOLHIDA)"><v-icon>mdi-plus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(produto.ID, produto.COR_ESCOLHIDA)"><v-icon>mdi-minus</v-icon></v-btn>
                             <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
                           </div>
                         </v-col>
@@ -80,6 +90,7 @@
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
   import ModalConfPedido from '@/components/ModalConfPedido.vue';
+import { isArray } from '@vue/shared';
   const {getProdutosCarrinho
   , addQuantidade, removeQuantidade, removeIndisponivel, finalizaPedido} =
   Carrinho()
@@ -105,17 +116,22 @@
   }
   async function getCarrinho(){
       itens.value = await getProdutosCarrinho()
+      console.log(itens.value)
       flag.value = true
   }
-  async function addQuantidadeProduto(ID){
-      const dt = await addQuantidade(ID)
+  async function addQuantidadeProduto(ID, COR){
+      let payload = {ID : ID, COR : COR}
+      const dt = await addQuantidade(payload)
       if(dt == 'Success'){
-          const item = itens.value.find(o => o.ID == ID )
+          const item = itens.value.filter(o => o.ID == ID)
           if(item){
-              item.QUANTIDADE += 1
+            console.log(item)
+            const i = item.find(o => o.COR_ESCOLHIDA = COR)
+            i.QUANTIDADE += 1
           }
       }
   }
+
   function finalizarPedido(){
     const storeApp = useAppStore()
     if(itens.value == null || itens.value.length == 0){
@@ -136,9 +152,9 @@
       itens.value = itens.value.filter(o => o.ID != ID)
   }
 
-  function removeQuantidadeProduto(ID){
+  function removeQuantidadeProduto(ID, COR){
       removeQuantidade(ID)
-      const item = itens.value.find(o => o.ID == ID)
+      const item = itens.value.find(o => o.ID == ID, e => e.COR == COR)
       if(item){
         if(item.QUANTIDADE == 1){
             itens.value = itens.value.filter(o => o.ID != ID)

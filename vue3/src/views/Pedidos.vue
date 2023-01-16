@@ -80,6 +80,16 @@
                       <p class="font-weight-medium"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
                       <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <div class="d-flex flex-row">
+                        <p class="text-caption text-sm-subtitle-1 font-weight-bold">Cor: </p>
+                        <v-sheet
+                          :color="produto.COR_ESCOLHIDA"
+                          height="20"
+                          width="20"
+                          elevation="2"
+                          class="ml-1 ml-md-1 mt-md-1 mt-sm-1 mt-0  cores"
+                        ></v-sheet>
+                      </div>
                       <v-rating
                         :key="alteraNota"
                         class="ml-n1"

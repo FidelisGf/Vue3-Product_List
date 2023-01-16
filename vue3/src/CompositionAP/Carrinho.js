@@ -2,9 +2,9 @@ import { useCarrinhoStore } from '@/store/CarrinhoStore'
 
 export default function CarrinhoComp(){
 
-      function  saveInCarrinho(ID, VALOR){
+      function  saveInCarrinho(ID, VALOR, COR){
         let storeApp = useCarrinhoStore()
-        let newPL = {ID : ID, VALOR : VALOR}
+        let newPL = {ID : ID, VALOR : VALOR, COR : COR}
         storeApp.saveInCarrinho(newPL)
       }
       async function getProdutosCarrinho(){

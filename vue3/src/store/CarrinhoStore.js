@@ -12,7 +12,7 @@ export const useCarrinhoStore = defineStore('carrinho', {
       async saveInCarrinho(payload){
           const storeApp = useAppStore()
           const exist = this.itens.find(o => o.ID == payload.ID)
-          if(exist){
+          if(exist ){
               const tmp = await EstoqueService.checkIfHasEstoque(payload.ID).then((res)=>{
                 return res.data
               }).catch((error)=>{
@@ -23,11 +23,18 @@ export const useCarrinhoStore = defineStore('carrinho', {
                 storeApp.activeSnack('Estoque insuficiente !')
                 return
               }else{
-                exist.QUANTIDADE += 1
+                if(exist.COR == payload.COR){
+                    exist.QUANTIDADE += 1
+                }else{
+                  let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR, COR : payload.COR}
+                  this.itens.push(pl)
+                  console.log(this.itens)
+                }
               }
           }else{
-            let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR}
+            let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR, COR : payload.COR}
             this.itens.push(pl)
+
           }
           storeApp.activeSnack('Item adicionado ao carrinho')
 
@@ -53,20 +60,25 @@ export const useCarrinhoStore = defineStore('carrinho', {
       },
       async addQuantidadeProduto(payload){
         const storeApp = useAppStore()
-          const item = this.itens.find(o => o.ID == payload)
+          const item = this.itens.filter(o => o.ID == payload.ID)
           if(item){
-            const tmp = await EstoqueService.checkIfHasEstoque(payload).then((res)=>{
-              return res.data
-            }).catch((error)=>{
-              return error
-            })
-            if((item.QUANTIDADE + 1) > tmp){
-              console.log('Ativou')
-              storeApp.activeSnack('Estoque insuficiente !')
-              return 'Error'
-            }else{
-              item.QUANTIDADE += 1
+            const i = item.find(o => o.COR == payload.COR)
+            if(i){
+              const tmp = await EstoqueService.checkIfHasEstoque(i.ID).then((res)=>{
+                return res.data
+              }).catch((error)=>{
+                return error
+              })
+              if((i.QUANTIDADE + 1) > tmp){
+                console.log('Ativou')
+                storeApp.activeSnack('Estoque insuficiente !')
+                return 'Error'
+              }else{
+                i.QUANTIDADE += 1
+              }
             }
+
+
           }
           storeApp.activeSnack('Item adicionado ao carrinho')
           return 'Success'
@@ -93,6 +105,7 @@ export const useCarrinhoStore = defineStore('carrinho', {
                   }
                   let dt = res.data
                   dt.QUANTIDADE = item.QUANTIDADE
+                  dt.COR_ESCOLHIDA = item.COR
                   data.push(dt)
               })
           }
