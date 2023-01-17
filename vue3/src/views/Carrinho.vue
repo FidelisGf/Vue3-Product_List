@@ -29,7 +29,7 @@
                 </v-card-title>
                 <v-card-text>
                   <TransitionGroup name="list" tag="ul">
-                    <v-row v-for="produto in itens" :key="produto.ID" class="mt-2">
+                    <v-row v-for="(produto, index) in itens" :key="produto.ID" class="mt-2">
                       <v-col  cols="12" class="d-flex flex-row justify-start" >
                         <div class="bg-img">
                           <v-img :src="produto.IMAGE"
@@ -61,8 +61,8 @@
                           </div>
                           <v-spacer></v-spacer>
                           <div class="d-flex flex-column justify-center">
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(produto.ID, produto.COR_ESCOLHIDA)"><v-icon>mdi-plus</v-icon></v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(produto.ID, produto.COR_ESCOLHIDA)"><v-icon>mdi-minus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(index)"><v-icon>mdi-plus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(index)"><v-icon>mdi-minus</v-icon></v-btn>
                             <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
                           </div>
                         </v-col>
@@ -119,15 +119,12 @@ import { isArray } from '@vue/shared';
       console.log(itens.value)
       flag.value = true
   }
-  async function addQuantidadeProduto(ID, COR){
-      let payload = {ID : ID, COR : COR}
-      const dt = await addQuantidade(payload)
+  async function addQuantidadeProduto(index){
+      const dt = await addQuantidade(index)
       if(dt == 'Success'){
-          const item = itens.value.filter(o => o.ID == ID)
+          const item = itens.value[index]
           if(item){
-            console.log(item)
-            const i = item.find(o => o.COR_ESCOLHIDA = COR)
-            i.QUANTIDADE += 1
+            item.QUANTIDADE += 1
           }
       }
   }
@@ -152,16 +149,18 @@ import { isArray } from '@vue/shared';
       itens.value = itens.value.filter(o => o.ID != ID)
   }
 
-  function removeQuantidadeProduto(ID, COR){
-      removeQuantidade(ID)
-      const item = itens.value.find(o => o.ID == ID, e => e.COR == COR)
+  function removeQuantidadeProduto(index){
+      removeQuantidade(index)
+      const item = itens.value[index]
       if(item){
         if(item.QUANTIDADE == 1){
-            itens.value = itens.value.filter(o => o.ID != ID)
+          itens.value = itens.value.filter(o => o != item)
         }else{
           item.QUANTIDADE -= 1
         }
       }
+
+
   }
   function getValorTotal(){
     if(itens.value != null){

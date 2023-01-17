@@ -10,35 +10,33 @@ export const useCarrinhoStore = defineStore('carrinho', {
   persist: true,
   actions: {
       async saveInCarrinho(payload){
+          console.log(payload)
           const storeApp = useAppStore()
-          const exist = this.itens.find(o => o.ID == payload.ID)
-          if(exist ){
-              const tmp = await EstoqueService.checkIfHasEstoque(payload.ID).then((res)=>{
-                return res.data
-              }).catch((error)=>{
-                return error
-              })
-              if((exist.QUANTIDADE + 1) > tmp){
-                console.log('Ativou')
-                storeApp.activeSnack('Estoque insuficiente !')
-                return
-              }else{
-                if(exist.COR == payload.COR){
-                    exist.QUANTIDADE += 1
+          const ex = this.itens.filter(o => o.ID == payload.ID)
+          let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR, COR : payload.COR}
+          if(ex){
+              const exist = ex.find(o=> o.COR == payload.COR)
+              if(exist){
+                const tmp = await EstoqueService.checkIfHasEstoque(payload.ID, payload.COR).then((res)=>{
+                    return res.data
+                }).catch((error)=>{
+                    return error
+                })
+                if((exist.QUANTIDADE + 1) > tmp){
+                    storeApp.activeSnack('Estoque insuficiente !')
+                    return
                 }else{
-                  let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR, COR : payload.COR}
-                  this.itens.push(pl)
-                  console.log(this.itens)
+                  exist.QUANTIDADE += 1
                 }
+              }else{
+                this.itens.push(pl)
+                //else das cores
               }
           }else{
-            let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR, COR : payload.COR}
             this.itens.push(pl)
-
+            storeApp.activeSnack('Item adicionado ao carrinho')
           }
-          storeApp.activeSnack('Item adicionado ao carrinho')
-
-
+          console.log(this.itens)
       },
       async getCupomDesc(payload){
         const storeApp = useAppStore()
@@ -60,34 +58,28 @@ export const useCarrinhoStore = defineStore('carrinho', {
       },
       async addQuantidadeProduto(payload){
         const storeApp = useAppStore()
-          const item = this.itens.filter(o => o.ID == payload.ID)
-          if(item){
-            const i = item.find(o => o.COR == payload.COR)
-            if(i){
-              const tmp = await EstoqueService.checkIfHasEstoque(i.ID).then((res)=>{
-                return res.data
-              }).catch((error)=>{
-                return error
-              })
-              if((i.QUANTIDADE + 1) > tmp){
-                console.log('Ativou')
-                storeApp.activeSnack('Estoque insuficiente !')
-                return 'Error'
-              }else{
-                i.QUANTIDADE += 1
-              }
-            }
-
-
+        const i = this.itens[payload]
+        if(i){
+          const tmp = await EstoqueService.checkIfHasEstoque(i.ID, i.COR).then((res)=>{
+          return res.data
+        }).catch((error)=>{
+          return error
+        })
+          if((i.QUANTIDADE + 1) > tmp){
+            storeApp.activeSnack('Estoque insuficiente !')
+            return 'Error'
+          }else{
+            i.QUANTIDADE += 1
           }
-          storeApp.activeSnack('Item adicionado ao carrinho')
-          return 'Success'
+        }
+        storeApp.activeSnack('Item adicionado ao carrinho')
+        return 'Success'
       },
       removeQuantidadeProduto(payload){
-          const item = this.itens.find(o => o.ID == payload)
+          const item = this.itens[payload]
           if(item){
             if(item.QUANTIDADE == 1){
-                this.itens = this.itens.filter(o => o.ID != payload)
+                this.itens = this.itens.filter(o => o != item)
             }else{
                 item.QUANTIDADE -= 1
             }

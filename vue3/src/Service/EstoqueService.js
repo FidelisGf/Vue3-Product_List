@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export default{
-      checkIfHasEstoque(id){
-        return axios.get('/getQuantidadeProduct/' + id)
+      checkIfHasEstoque(id, cor){
+        return axios.get('/getQuantidadeProduct/' + id, { params: {COR : cor }})
       }
 }

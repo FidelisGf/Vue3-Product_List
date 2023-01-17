@@ -72,7 +72,7 @@
                     >Popularidade do item
                   </v-tooltip>
                 </div>
-                <v-btn @click="chooseColor(produto.ID)" block
+                <v-btn @click="chooseColor(false)" block
                 color="#E6E6FA" class="ml-sm-n2 ml-0 mt-4 mt-md-3">
                   <v-icon
                     left
@@ -86,7 +86,7 @@
                   <p class="mr-5">Adicionar ao Carrinho</p>
 
                 </v-btn>
-                <v-btn block @click="buyNow(produto.ID)"
+                <v-btn block @click="chooseColor(true)"
                 color="#E6E6FA" class="ml-sm-n2 ml-0 mt-5 text-black">
                   <v-icon
                     left
@@ -170,18 +170,18 @@
 
     >
       <div class="d-flex justify-center">
-        <v-card width="500">
+        <v-card class="card-cores" color="#F0F8FF">
 
           <v-card-title class="text-body-2 d-flex ">
-            <v-btn @click="dialog = false" size="x-small" class="ml-n6 mt-n4" icon variant="text">
+            <v-btn @click="dialog = false" size="small" class="ml-n6 mt-n4" icon variant="text">
               <v-icon color="red">mdi-close</v-icon>
             </v-btn>
-            <p class="ml-n3 mt-1">Escolha a cor do seu produto :</p>
+            <p class="ml-n3 mt-2">Escolha a cor do seu produto :</p>
           </v-card-title>
-            <v-card-text class="d-flex justify-center flex-row">
-              <v-row class="d-flex justify-center flex-row">
-                <v-col cols="4"
-                class="d-flex justify-center"
+            <v-card-text>
+              <v-row class="d-flex ml-1 flex-row">
+                <v-col
+                class="d-flex justify-start"
                 v-for="cor in produto.CORES" :key="cor.ID">
                   <v-sheet
                     :color="cor.HASH"
@@ -189,7 +189,7 @@
                     width="40"
                     @click="defineColor(cor.HASH)"
                     elevation="2"
-                    class="ml-md-0  cores"
+                    class="ml-md-0  cores-selec"
                   ></v-sheet>
                   <small class="ml-2">{{cor.ESTOQUE}} Unidades(s)</small>
                 </v-col>
@@ -221,7 +221,6 @@
   Detail()
 
   const route = useRoute()
-
   const produto = ref(null)
   const url = ref(null)
   const produtos = shallowRef([])
@@ -229,6 +228,8 @@
   const restart = ref(0)
   const flag = ref(false)
   const dialog = ref(false)
+  const buy = ref(false)
+
   await findProduto()
 
 
@@ -241,11 +242,15 @@
       getProdutos()
       restart.value += 1
   }
-  function chooseColor(id){
+  function chooseColor(boolean){
       dialog.value = true
+      buy.value = boolean
   }
   function defineColor(color){
       saveInCarrinho(produto.value.ID, produto.value.VALOR, color)
+      if(buy.value == true){
+        router.push('/carrinho')
+      }
   }
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
@@ -283,16 +288,14 @@
   }
 
   function returnStore(){
-
     router.push({path : `/produtos`})
   }
 
-  function buyNow(ID){
-      saveInCarrinho(ID)
-      router.push('/carrinho')
-  }
 </script>
 
 <style lang="scss">
-
+  .card-cores{
+      max-width: 600px !important;
+      min-width: 300px !important;
+  }
 </style>

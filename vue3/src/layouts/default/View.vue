@@ -68,6 +68,15 @@
     transition: 0.1s;
     box-shadow: rgba(226, 222, 222, 0.397) 0px 0px 15px;
   }
+  .cores-selec{
+    box-shadow: rgba(20, 20, 37, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+  .cores-selec:hover{
+    transform: translate(0px, -0.9px);
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: rgba(153, 153, 153, 0.397) 0px 0px 15px;
+  }
 
   .slides{
       width: 100% !important;
