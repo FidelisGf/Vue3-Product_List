@@ -104,7 +104,8 @@ export const useCarrinhoStore = defineStore('carrinho', {
           return data
       },
       removeIndisponivel(payload){
-        this.itens = this.itens.filter(o => o.ID != payload)
+        const item = this.itens[payload]
+        this.itens = this.itens.filter(o => o != item)
         const storeApp = useAppStore()
         storeApp.activeSnack('Item removido do carrinho')
       },

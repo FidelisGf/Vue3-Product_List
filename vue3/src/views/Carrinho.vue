@@ -63,7 +63,7 @@
                           <div class="d-flex flex-column justify-center">
                             <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(index)"><v-icon>mdi-plus</v-icon></v-btn>
                             <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(index)"><v-icon>mdi-minus</v-icon></v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(produto.ID)" ><v-icon>mdi-delete</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(index)" ><v-icon>mdi-delete</v-icon></v-btn>
                           </div>
                         </v-col>
                         <v-divider></v-divider>
@@ -144,9 +144,12 @@ import { isArray } from '@vue/shared';
     dialog.value = true
     //finalizaPedido()
   }
-  function removeIndis(ID){
-      removeIndisponivel(ID)
-      itens.value = itens.value.filter(o => o.ID != ID)
+  function removeIndis(index){
+      removeIndisponivel(index)
+      const item = itens.value[index]
+      if(item){
+        itens.value = itens.value.filter(o => o != item)
+      }
   }
 
   function removeQuantidadeProduto(index){

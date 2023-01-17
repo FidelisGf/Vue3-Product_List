@@ -21,7 +21,11 @@ export const useProdutoStore = defineStore('produto', {
           arrayLista.push(res.data)
           res.data.data = arrayLista
         }
+          for(let dt of res.data.data){
+            dt.IMAGE = 'data:image/png;base64,' + dt.IMAGE
+          }
           return res.data.data
+
       }).catch((error)=>{
         return error
       })
