@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="#f0f8ff">
+  <v-app-bar class="app-bar">
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="dialog = true"></v-app-bar-nav-icon>
 
 

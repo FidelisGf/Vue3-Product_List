@@ -91,28 +91,42 @@
     border: 2px solid rgb(66, 65, 65);
     box-shadow: 1px 2px 1px 2px #414749 !important;
   }
+  .app-bar{
+    background-color: #e5e9ef !important;
+    background-image: linear-gradient(90deg, #ecf9fa 0%, #e4f7fa 100%) !important;
+  }
 
 
   .slides{
       width: 100% !important;
   }
   .princip{
-    background : #dbe5ee !important
+    background-color: #dee9f3;
+    background-image: linear-gradient(160deg, #dee9f3 0%, #f0f8ff 100%);
+
+  }
+  .princip-list{
+    background-color: #e2edf6;
   }
   .cards:hover{
     transform: translate(1px, -2.0px);
-    transition: 1.2s;
-    box-shadow: 2px 5.2px 8px #141414 !important;
+    transition: 0.5s;
+    box-shadow: 2px 5.2px 8px #1b1b1b !important;
   }
   .corpo-card{
-    background: #EAE7FA !important;
+    background-color: #e6e6fa !important;
+    background-image: linear-gradient(90deg, #e6e6fa 0%, #dbdbf3 100%) !important;
+
 
   }
   .img-card{
     background: white !important;
   }
   .bg-real{
-    background : #F0F8FF !important
+    background-color: #b0c4de !important;
+    background-image: linear-gradient(160deg, #f0f8ff 0%, #e1ebee 37%, #f0f8ff 100%) !important;
+
+
   }
   .bg-footer{
     background : #e2f1ff !important
@@ -131,8 +145,11 @@
     border: solid 0.0px rgb(245, 244, 244);
   }
   .img{
-    width: auto;
-    height: auto;
+    min-width: 20vh;
+    max-height: 20vh;
+    width: 44rem;
+    max-height: 80vh;
+
   }
 
 

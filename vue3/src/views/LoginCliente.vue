@@ -91,6 +91,8 @@
         color : rgb(15, 15, 15)
     }
     .bg-login{
-      background: #B9D9EB;
+      background-color: #afdbf5;
+      background-image: linear-gradient(165deg, #afdbf5 0%, #b0e0e6 100%);
+
     }
 </style>

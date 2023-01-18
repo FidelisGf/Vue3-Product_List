@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height bg-real" fluid>
+  <v-container class="fill-height bg-cad" fluid>
     <FormUser :cad="true"></FormUser>
   </v-container>
 </template>
@@ -11,4 +11,8 @@
 </script>
 
 <style lang="scss" scoped>
+.bg-cad{
+  background-color: #afdbf5;
+  background-image: linear-gradient(165deg, #afdbf5 0%, #b0e0e6 100%);
+}
 </style>

@@ -12,39 +12,39 @@
         <v-col cols="12" md="12" lg="8" class="d-flex flex-md-row flex-column-reverse ">
           <v-row class="d-flex">
             <v-col  cols="12" md="4" lg="2" class="d-flex flex-md-column flex-row ">
-               <v-list  class="princip ml-lg-n12 ml-md-0 ml-n4 d-flex flex-row flex-md-column">
-                <v-list-item
-                  v-for="cor in produto.CORES"
-                  :key="cor.ID"
-                  class="princip d-flex justify-center "
-                  active-color="red"
-                >
-                  <v-sheet
-                    :color="cor.HASH"
-                    height="45"
-                    width="45"
-                    rounded
-                    @click="saveCor(cor.HASH)"
-                    active
-                    class="ml-0 cores-selec"
-                  ></v-sheet>
-                </v-list-item>
-              </v-list>
-
-            </v-col>
-            <v-col cols="12" md="5" lg="5" xl="3" >
+              <div class="ml-lg-2 ml-md-8 ml-n4 d-flex justify-center flex-row flex-md-column"
+               v-for="cor in produto.CORES" :key="cor.ID"
+              >
+                <v-sheet
+                  :color="cor.HASH"
+                  height="45"
+                  width="45"
+                  rounded
+                  @click="saveCor(cor.HASH)"
+                  active
+                  class="ml-7 mt-md-2 mt-0 cores-selec"
+                ></v-sheet>
+              </div>
+            </v-col >
+            <v-col cols="12" md="5" lg="4" xl="3" class="d-flex justify-start ">
               <inner-image-zoom
                 :src="url"
                 :zoomSrc="url"
-                :zoomScale="0.8"
+                :zoomScale="0.9"
                 :fadeDuration="150"
                 class="img ml-lg-n12 ml-0"
               ></inner-image-zoom>
             </v-col>
-            <v-col cols="12" md="12" lg="4" xl="4" class="d-flex justify-md-center justify-start mt-lg-0 mt-0 mt-md-2">
-              <div class="d-flex flex-column  ml-0 ml-lg-n10 ">
-                <p class="text-md-h5 text-sm-body-1 font-weight-bold ml-lg-n2 ">{{produto.NOME}}</p>
-                <p class="text-justify text-subtitle-1 ml-2 font-weight-medium ml-lg-n0">{{produto.DESC}}...</p>
+            <v-col cols="12" md="12" lg="5" xl="4" class="d-flex justify-md-center justify-start mt-lg-0 mt-0 mt-md-2">
+              <div class="d-flex flex-column  ml-0 ml-lg-n6 ">
+                <p class="text-md-h5 text-h6 font-weight-bold ml-lg-n2 ">{{produto.NOME}}
+                   ({{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}})
+                </p>
+                <p class="text-justify text-caption text-md-subtitle-1 ml-1 font-weight-medium ml-lg-n0">{{produto.DESC}}...</p>
+                <p class="text-justify text-md-h6 text-subtitle-1 ml-1 font-weight-bold ml-lg-n0">
+                  [{{produto.ESTOQUE}}] {{produto.medida.NOME}}(s) em estoque.
+                </p>
+
               </div>
             </v-col>
           </v-row>
@@ -54,6 +54,7 @@
             <v-row>
               <v-col cols="12">
                 <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0  ml-md-n6 div-rating">
+
                   <v-rating
                     class="mt-4"
                     v-model="produto.AVALIACAO"
@@ -291,7 +292,6 @@
   }
 
   async function detailProduct(id){
-      console.log(id)
       await router.push({name: 'Produto-Detalhe', params: {id : id}})
       findProduto()
   }

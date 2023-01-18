@@ -200,7 +200,9 @@ import { isArray } from '@vue/shared';
     transition: 1.2s;
   }
   .bg-carrinho{
-    background: #B9D9EB !important;
+    background-color: #b9d9eb !important;
+    background-image: linear-gradient(160deg, #b9d9eb 0%, #f0f8ff 99%) !important;
+
 
   }
   .finalizar{

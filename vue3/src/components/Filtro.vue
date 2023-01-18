@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer color="#f0f8ff">
+    <v-navigation-drawer class="bg-real">
       <v-list>
         <v-list-item>
             <v-list-item-title class="text-h6 auto">
@@ -60,13 +60,13 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-row class="hidden-lg-and-up" color="#f0f8ff">
+    <v-row class="hidden-lg-and-up bg-real" >
       <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
           class="bg-fundo"
         >
-          <v-expansion-panel-text color="#f0f8ff">
+          <v-expansion-panel-text color="#f0f8ff" class="bg-real">
             <v-row  color="#f0f8ff" class="d-flex flex-row">
               <v-col color="#f0f8ff">
                 <p>Valores</p>
