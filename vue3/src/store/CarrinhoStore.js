@@ -10,7 +10,6 @@ export const useCarrinhoStore = defineStore('carrinho', {
   persist: true,
   actions: {
       async saveInCarrinho(payload){
-          console.log(payload)
           const storeApp = useAppStore()
           const ex = this.itens.filter(o => o.ID == payload.ID)
           let pl = {ID : payload.ID , QUANTIDADE : 1, VALOR : payload.VALOR, COR : payload.COR}
@@ -34,8 +33,9 @@ export const useCarrinhoStore = defineStore('carrinho', {
               }
           }else{
             this.itens.push(pl)
-            storeApp.activeSnack('Item adicionado ao carrinho')
+
           }
+          storeApp.activeSnack('Item adicionado ao carrinho')
           console.log(this.itens)
       },
       async getCupomDesc(payload){

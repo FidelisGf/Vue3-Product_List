@@ -1,12 +1,5 @@
 <template>
   <v-container fluid :key="restart" class="princip">
-
-    <!-- <v-row class="mt-n3">
-      <v-col cols="12">
-
-      </v-col>
-    </v-row> -->
-
     <v-row class="d-flex justify-space-between mt-0 mt-md-0 flex-column flex-sm-row mt-n4">
         <v-col class="mt-md-n6" cols=12>
           <v-btn icon @click="returnStore"
@@ -18,35 +11,40 @@
         </v-col>
         <v-col cols="12" md="12" lg="8" class="d-flex flex-md-row flex-column-reverse ">
           <v-row class="d-flex">
-            <v-col  cols="1" md="1" lg="1" class="d-flex flex-md-column flex-row ">
-              <div class="d-flex flex-sm-column flex-row justify-start " v-for="cor in produto.CORES" :key="cor.ID">
-                <v-sheet
-                  :color="cor.HASH"
-                  height="40"
-                  width="40"
+            <v-col  cols="12" md="4" lg="2" class="d-flex flex-md-column flex-row ">
+               <v-list  class="princip ml-lg-n12 ml-md-0 ml-n4 d-flex flex-row flex-md-column">
+                <v-list-item
+                  v-for="cor in produto.CORES"
+                  :key="cor.ID"
+                  class="princip d-flex justify-center "
+                  active-color="red"
+                >
+                  <v-sheet
+                    :color="cor.HASH"
+                    height="45"
+                    width="45"
+                    rounded
+                    @click="saveCor(cor.HASH)"
+                    active
+                    class="ml-0 cores-selec"
+                  ></v-sheet>
+                </v-list-item>
+              </v-list>
 
-                  elevation="2"
-                  class="ml-md-0 ml-2 cores"
-              ></v-sheet>
-              <br/>
-              </div>
             </v-col>
-            <v-col cols="12" md="5" lg="5" xl="3">
-              <v-img :src="url"
-              class="imagem"
-                min-height="284px"
-                min-width="320px"
-                max-width="350px"
-                max-height="304px"
-
-
-
-              cover></v-img>
+            <v-col cols="12" md="5" lg="5" xl="3" >
+              <inner-image-zoom
+                :src="url"
+                :zoomSrc="url"
+                :zoomScale="0.8"
+                :fadeDuration="150"
+                class="img ml-lg-n12 ml-0"
+              ></inner-image-zoom>
             </v-col>
-            <v-col cols="12" md="5" lg="5" xl="4">
-              <div class="d-flex flex-column  ml-0">
-                <p class="text-md-h5 text-sm-body-1 font-weight-bold ">{{produto.NOME}}</p>
-                <p class="text-justify text-subtitle-1 ml-2 font-weight-medium">{{produto.DESC}}...</p>
+            <v-col cols="12" md="12" lg="4" xl="4" class="d-flex justify-md-center justify-start mt-lg-0 mt-0 mt-md-2">
+              <div class="d-flex flex-column  ml-0 ml-lg-n10 ">
+                <p class="text-md-h5 text-sm-body-1 font-weight-bold ml-lg-n2 ">{{produto.NOME}}</p>
+                <p class="text-justify text-subtitle-1 ml-2 font-weight-medium ml-lg-n0">{{produto.DESC}}...</p>
               </div>
             </v-col>
           </v-row>
@@ -208,7 +206,8 @@
   import { useProdutoStore } from '@/store/produtoStore'
   import { useRouter } from 'vue-router';
   import { useRoute } from 'vue-router';
-
+  import InnerImageZoom from 'vue-inner-image-zoom'
+  import 'vue-image-zoomer/dist/style.css';
   const router = useRouter()
 
   const storeApp =
@@ -217,7 +216,7 @@
   const {saveInCarrinho} =
   Carrinho()
 
-  const {findById} =
+  const {findById, selecionaCor} =
   Detail()
 
   const route = useRoute()
@@ -229,8 +228,9 @@
   const flag = ref(false)
   const dialog = ref(false)
   const buy = ref(false)
-
+  const selectedColor = ref(null)
   await findProduto()
+
 
 
 
@@ -243,14 +243,19 @@
       restart.value += 1
   }
   function chooseColor(boolean){
+    if(selectedColor.value == null){
       dialog.value = true
       buy.value = boolean
+    }else{
+      defineColor(selectedColor.value)
+    }
   }
   function defineColor(color){
       saveInCarrinho(produto.value.ID, produto.value.VALOR, color)
       if(buy.value == true){
         router.push('/carrinho')
       }
+      selectedColor.value = null
   }
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
@@ -259,6 +264,10 @@
       produto.value.NOME + "%20Codigo%20" + produto.value.ID
       const end_url = `${url}${number}&text=${msg}`
       window.open(end_url, '_blank').focus();
+  }
+  function saveCor(cor){
+      selectedColor.value = cor
+      selecionaCor()
   }
 
   async function getProdutos(){
@@ -291,6 +300,7 @@
     router.push({path : `/produtos`})
   }
 
+
 </script>
 
 <style lang="scss">
@@ -298,4 +308,5 @@
       max-width: 600px !important;
       min-width: 300px !important;
   }
+
 </style>

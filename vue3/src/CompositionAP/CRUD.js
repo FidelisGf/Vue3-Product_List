@@ -7,6 +7,9 @@ export default function CrudComp(){
         let data = await storeApp.findById(route, id, payload)
         return data
     }
+    async function selecionaCor(){
+        storeApp.activeSnack('Cor escolhida com sucesso !')
+    }
 
     async function getAllList(route, payload){
         return storeApp.getList(route, payload)
@@ -79,7 +82,8 @@ export default function CrudComp(){
         findById,
         getAllList,
         applyFilter,
-        post
+        post,
+        selecionaCor
     }
 
 }

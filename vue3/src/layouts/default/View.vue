@@ -50,17 +50,27 @@
 </script>
 <style lang="scss">
    .imagem{
-    transition: transform .2s;
+    transition: transform 0.25s;
+    position: relative;
     box-shadow: rgba(141, 141, 141, 0.397) 0px 10px 14px;
   }
+  .zoom{
+   background-color: transparent;
+   width: 100%;
+   height: 100%;
+   float: right;
+  }
+
   .cores{
 
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
   .imagem:hover{
     transform: scale(1.05);
-    transition: 1.2s;
-    box-shadow: rgba(230, 193, 241, 0.397) 0px 5px 15px;
+  }
+
+  .mod-img{
+    overflow: hidden;
   }
   .cores:hover{
     transform: translate(0px, -0.9px);
@@ -72,11 +82,16 @@
     box-shadow: rgba(20, 20, 37, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
   .cores-selec:hover{
-    transform: translate(0px, -0.9px);
-    cursor: pointer;
+    transform: translate(1px, -0.10px);
     transition: 0.3s;
-    box-shadow: rgba(153, 153, 153, 0.397) 0px 0px 15px;
+    cursor: pointer;
+    box-shadow: 1px 2px 1px 2px #c9c9c9 !important;
   }
+  .cores-selec:active{
+    border: 2px solid rgb(66, 65, 65);
+    box-shadow: 1px 2px 1px 2px #414749 !important;
+  }
+
 
   .slides{
       width: 100% !important;
@@ -114,6 +129,10 @@
     max-height: 320px !important;
     min-height: 200px;
     border: solid 0.0px rgb(245, 244, 244);
+  }
+  .img{
+    width: auto;
+    height: auto;
   }
 
 

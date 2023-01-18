@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height bg-real" fluid>
-        <Filtro @search="makeSearch" @searchPage="filterOnPage"></Filtro>
+        <Filtro @search="makeSearch" ></Filtro>
         <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
 
             <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
@@ -121,12 +121,12 @@
         categoria.value = null
         tmp.value = null
       }else{
+        console.log('Entrou no makeSearch')
         if(e.search != null){
-          search.value = e.search.toString()
+          search.value = e.search
         }
         precos.value = e.check
         categoria.value = e.categoria
-
       }
       getProdutos()
 
@@ -134,78 +134,75 @@
 
 
   async function getProdutos(){
-
+    console.log('Fez o get produtos')
     listKey.value += 1;
     let payload = { current_page: current_page.value, opcao: null, start: null, end: null,
     search: search.value, Shop: "T", Precos : precos.value, categoria : categoria.value};
     produtos.value = await storeApp.getProdutos(payload);
-    tmp.value = produtos.value
+    tmp.value = await produtos.value
+    console.log(tmp.value)
+    console.log('Final do get Produtos')
   }
 
-  function filterOnPage(e){
-      console.log('Esse evento foi emitido')
-      if(tmp.value == null){
-          let sub = applyFilter(e, produtos.value)
-          tmp.value = produtos.value
-          produtos.value = sub
-      }else{
-          console.log(e.check)
-          console.log(e.categoria)
-          if(e.type != 'Check' &&
-          e.check == undefined && e.categoria == null
-          && e.search != undefined){
-            console.log('Chegou aqui')
-            produtos.value = applyFilter(e, tmp.value)
-          }else{
+  // function filterOnPage(e){
+  //   console.log(tmp.value)
+  //     if(tmp.value == null){
+  //         if(produtos.value != null){
+  //           let sub = applyFilter(e, produtos.value)
+  //           tmp.value = produtos.value
+  //           produtos.value = sub
+  //         }
+  //     }else{
+  //         console.log(e.check)
+  //         console.log(e.search)
+  //         console.log(e.categoria)
+  //         if(e.type != 'Check' &&
+  //         e.check == undefined && e.categoria == null
+  //         && e.search != undefined){
+  //           produtos.value = applyFilter(e, tmp.value)
+  //         }else{
 
-            if(e.search != undefined && e.check != ''
-            ){
-              console.log('2')
-              let pl = {search : e.search, type : 'Search'}
-              let pl2 = {check : e.check, type : 'Check'}
-              produtos.value = applyFilter(pl, tmp.value)
-              produtos.value = applyFilter(pl2, produtos.value)
+  //           if(e.search != undefined && e.check != ''
+  //           ){
+  //             let pl = {search : e.search, type : 'Search'}
+  //             let pl2 = {check : e.check, type : 'Check'}
+  //             produtos.value = applyFilter(pl, tmp.value)
+  //             produtos.value = applyFilter(pl2, produtos.value)
 
-              if(e.categoria != null || e.categoria != undefined){
-                  let pl3 = {categoria : e.categoria, type : 'Cat'}
-                  produtos.value = applyFilter(pl3, produtos.value)
-              }
-
-
-            }else if(e.search == undefined && e.categoria != null){
-              console.log('Entrou aqui na 3')
-
-              let pl = {check : e.check, type : 'Check'}
-              produtos.value = applyFilter(pl, tmp.value)
-              let pl3 = {categoria : e.categoria, type : 'Cat'}
-              produtos.value = applyFilter(pl3, produtos.value)
+  //             if(e.categoria != null || e.categoria != undefined){
+  //                 let pl3 = {categoria : e.categoria, type : 'Cat'}
+  //                 produtos.value = applyFilter(pl3, produtos.value)
+  //             }
 
 
-            }else if(e.check != undefined && e.categoria != null ){
+  //           }else if(e.search == undefined && e.categoria != null){
+  //             let pl = {check : e.check, type : 'Check'}
+  //             produtos.value = applyFilter(pl, tmp.value)
+  //             let pl3 = {categoria : e.categoria, type : 'Cat'}
+  //             produtos.value = applyFilter(pl3, produtos.value)
 
-              console.log('Entrou aqui na 4')
 
-              let pl2 = {check : e.check, type : 'Check'}
-              produtos.value = applyFilter(pl2, produtos.value)
-              let pl3 = {categoria : e.categoria, type : 'Cat'}
-              produtos.value = applyFilter(pl3, produtos.value)
-            }else if( e.categoria == null
-            && e.search == undefined && e.check != null){
-              let pl2 = {check : e.check, type : 'Check'}
-              produtos.value = applyFilter(pl2, tmp.value)
-            }
-            else{
-              if(e.categoria != null){
-                let pl3 = {categoria : e.categoria, type : 'Cat'}
-                produtos.value = applyFilter(pl3, tmp.value)
-              }else{
-                produtos.value = tmp.value
-                console.log(produtos.value)
-              }
-            }
-          }
-      }
-  }
+  //           }else if(e.check != undefined && e.categoria != null ){
+  //             let pl2 = {check : e.check, type : 'Check'}
+  //             produtos.value = applyFilter(pl2, produtos.value)
+  //             let pl3 = {categoria : e.categoria, type : 'Cat'}
+  //             produtos.value = applyFilter(pl3, produtos.value)
+  //           }else if( e.categoria == null
+  //           && e.search == undefined && e.check != null){
+  //             let pl2 = {check : e.check, type : 'Check'}
+  //             produtos.value = applyFilter(pl2, tmp.value)
+  //           }
+  //           else{
+  //             if(e.categoria != null){
+  //               let pl3 = {categoria : e.categoria, type : 'Cat'}
+  //               produtos.value = applyFilter(pl3, tmp.value)
+  //             }else{
+  //               produtos.value = tmp.value
+  //             }
+  //           }
+  //         }
+  //     }
+  // }
 
   async function getCategorias(){
     let payload = {Shop: "T", Precos : precos.value, categoria : categoria.value};

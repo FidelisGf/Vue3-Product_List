@@ -132,6 +132,9 @@
 <script setup>
   import { useAppStore } from '@/store/app'
   import {ref, watch, computed, onMounted, onBeforeMount} from 'vue'
+
+
+
   const genericApp = useAppStore()
 
   const search = ref('')
@@ -140,6 +143,9 @@
   const tmp = ref('')
   const tmpLenght = ref(null)
   const emit = defineEmits(['search', 'searchPage'])
+
+
+
 
   const categorias = computed(()=>
     JSON.parse(JSON.stringify(genericApp.categorias))
@@ -151,6 +157,9 @@
 
 
 
+
+
+
   async function clear(){
       search.value = ''
       check.value = null
@@ -159,8 +168,10 @@
       check : parseFloat(check.value)}
       emit('search', payload)
   }
+
+
+
   async function setFiltrosStore(){
-      console.log('deu')
       let filtros = await genericApp.getFiltros
       if(filtros != null){
           let payload = null
@@ -168,13 +179,15 @@
           check.value = String(filtros.check)
           categoria.value = filtros.categoria
           if(categoria.value != null){
-            console.log(categoria)
             payload = {search : search.value.toString(),
             check : parseFloat(check.value),
             categoria : categoria.value.ID_CATEGORIA}
-          }else{
+          }else if(categoria.value == null && check.value != "undefined"){
+            console.log('emitiu esse evento !')
             payload = {search : search.value.toString(),
             check : parseFloat(check.value)}
+          }else{
+            payload = {search : search.value.toString()}
           }
           emit('search', payload)
       }else{
@@ -182,6 +195,9 @@
           emit('search', payload)
       }
   }
+
+
+
   function searchFilter(){
     let payload = null
     if(categoria.value != null){
@@ -196,59 +212,65 @@
     payload.categoria = categoria.value
     genericApp.setFiltros(payload)
   }
-  watch(search, (val) => {
-    let payload = {search : search.value.toString(), type : 'Search'}
-    if(check.value != null){
-      payload.check = check.value
-    }
-    if(categoria.value != null){
-      payload.categoria = categoria.value.ID_CATEGORIA
-    }
-    if(val.toString().length == 0){
-      //emit('searchPage', payload)
-      emit('search', payload)
-      return
-    }else{
-      if(val.toString().length >= tmpLenght.value){
-        if(val.toString().length > 2){
-          emit('searchPage', payload)
-        }else if(val != tmp.value){
-          emit('searchPage', payload)
-        }
-        tmp.value = val
-      }
-      tmpLenght.value = val.toString().length
-    }
-    payload.categoria = categoria.value
-    genericApp.setFiltros(payload)
-  })
-  watch(check, (val)=>{
-    let payload = {check : val, type : 'Check'}
-    if(search.value.toString() != ''){
-      payload.search = search.value.toString()
-    }
-    if(categoria.value != null){
-      payload.categoria = categoria.value.ID_CATEGORIA
-    }
-    emit('searchPage', payload)
-  })
-  watch(categoria, (val)=>{
-      let payload = null
-      if(val != null){
-        payload = {categoria : val.ID_CATEGORIA, type : 'Cat'}
-      }else{
-        payload = {categoria : null, type : 'Cat'}
-      }
-      if(search.value.toString() != ''){
-          payload.search = search.value.toString()
-      }
-      if(check.value != null){
-          payload.check = check.value
-      }
-      emit('searchPage', payload)
+  // watch(search, (val) => {
+
+  //   let payload = {search : search.value, type : 'Search'}
+  //   if(check.value != null){
+  //     payload.check = check.value
+  //   }
+  //   if(categoria.value != null){
+  //     payload.categoria = categoria.value.ID_CATEGORIA
+  //   }
+  //   if(val.length == 0){
+  //     search.value = ''
+  //     //emit('searchPage', payload)
+  //     emit('search', payload)
+  //     genericApp.setFiltros(payload)
+  //     return
+  //   }else{
+  //     if(val.length >= tmpLenght.value){
+  //       console.log('Isso ocorre')
+  //       if(val.toString().length > 2){
+  //         emit('searchPage', payload)
+  //       }else if(val != tmp.value){
+  //         emit('searchPage', payload)
+  //       }
+  //       tmp.value = val
+  //     }
+  //     tmpLenght.value = val.toString().length
+  //   }
+  //   payload.categoria = categoria.value
+  //   genericApp.setFiltros(payload)
+  // })
+  // watch(check, (val)=>{
+  //   let payload = {check : val, type : 'Check'}
+  //   if(search.value.toString() != ''){
+  //     payload.search = search.value.toString()
+  //   }
+  //   if(categoria.value != null){
+  //     payload.categoria = categoria.value.ID_CATEGORIA
+  //   }
+  //   emit('searchPage', payload)
+  //   genericApp.setFiltros(payload)
+  // })
+  // watch(categoria, (val)=>{
+  //     let payload = null
+  //     if(val != null){
+  //       payload = {categoria : val.ID_CATEGORIA, type : 'Cat'}
+  //     }else{
+  //       payload = {categoria : null, type : 'Cat'}
+  //     }
+  //     if(search.value.toString() != ''){
+  //         payload.search = search.value.toString()
+  //     }
+  //     if(check.value != null){
+  //         payload.check = check.value
+  //     }
+  //     emit('searchPage', payload)
+  //     genericApp.setFiltros(payload)
 
 
-  })
+  // })
 
 
 </script>
