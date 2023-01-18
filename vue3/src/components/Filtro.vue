@@ -141,6 +141,7 @@
   const categoria = ref(null)
   const check = ref(null)
   const tmp = ref('')
+  const tmpCheck = ref('')
   const execSetFiltros = ref(false)
   const emit = defineEmits(['search', 'searchPage'])
 
@@ -198,6 +199,7 @@
             payload = {search : search.value}
           }
           execSetFiltros.value = true
+          tmpCheck.value = null
           emit('search', payload)
       }else{
           let payload = {search : '', check : null, categoria : null}
@@ -222,9 +224,7 @@
     genericApp.setFiltros(payload)
   }
   watch(search, (val) =>{
-    console.log(tmp.value)
      if(tmp.value != ''){  // para que não execute quando o usuario voltar para essa tela.
-        console.log(check.value)
         let payload = {
         search : search.value,
         type : 'Search'
@@ -245,7 +245,6 @@
           emit('search', payload)
           return
         }
-
         else{
 
           if(val.length >= 2){
@@ -254,7 +253,6 @@
             }else{
               emit('searchPage', payload)
             }
-
           }else if(val.length < tmp.value.length){
               if(execSetFiltros.value){
                 emit('search', payload)
@@ -263,7 +261,13 @@
               }
           }
           if(val.length == 1){
-              execSetFiltros.value = false
+              if(check.value != undefined ){
+                if(check.value == 0){
+                  execSetFiltros.value = false
+                }
+              }else{
+                execSetFiltros.value = false
+              }
           }
         }
      }
@@ -271,18 +275,29 @@
 
   })
   watch(check, (val)=>{
-    let payload = {
-        check : val,
-        type : 'Check'
+    if(tmpCheck.value != null){
+      let payload = {
+          check : val,
+          type : 'Check'
+      }
+      if(search.value != ''){
+        payload.search = search.value
+      }
+      if(categoria.value != null){
+        payload.categoria = categoria.value
+      }
+      if(execSetFiltros.value){
+        emit('search', payload)
+      }else{
+        emit('searchPage', payload)
+      }
+      if(check.value == 0){
+        execSetFiltros.value = false
+      }
+
+      genericApp.setFiltros(payload)
     }
-    if(search.value != ''){
-      payload.search = search.value
-    }
-    if(categoria.value != null){
-      payload.categoria = categoria.value
-    }
-    emit('searchPage', payload)
-    genericApp.setFiltros(payload)
+    tmpCheck.value = check.value
   })
 
   // watch(check, (val)=>{
