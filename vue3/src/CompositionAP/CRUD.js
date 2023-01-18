@@ -65,7 +65,7 @@ export default function CrudComp(){
         }
     } else if(filtros.type == 'Cat'){
         for(let item of produtos){
-          if(item.ID_CATEGORIA == filtros.categoria){
+          if(item.ID_CATEGORIA == filtros.categoria.ID_CATEGORIA){
             res.push(item)
           }
         }

@@ -92,7 +92,7 @@ export const useCarrinhoStore = defineStore('carrinho', {
           let payload = {Shop : 'T'}
           for (const item of this.itens){
              await Service.findById('products', item.ID, payload).then((res)=>{
-                  if(item.QUANTIDADE > res.data.ESTOQUE.QUANTIDADE){
+                  if(item.QUANTIDADE > res.data.ESTOQUE){
                       item.QUANTIDADE = 'Indisponivel'
                   }
                   let dt = res.data

@@ -141,7 +141,7 @@
   const categoria = ref(null)
   const check = ref(null)
   const tmp = ref('')
-  const tmpLenght = ref(null)
+  const execSetFiltros = ref(false)
   const emit = defineEmits(['search', 'searchPage'])
 
 
@@ -175,20 +175,29 @@
       let filtros = await genericApp.getFiltros
       if(filtros != null){
           let payload = null
-          search.value = filtros.search
-          check.value = String(filtros.check)
-          categoria.value = filtros.categoria
+          if(filtros.search){
+            search.value = filtros.search
+          }
+          if(filtros.check){
+            check.value = filtros.check
+          }
+          if(filtros.categoria){
+            categoria.value = filtros.categoria
+          }
+
           if(categoria.value != null){
             payload = {search : search.value.toString(),
             check : parseFloat(check.value),
             categoria : categoria.value.ID_CATEGORIA}
-          }else if(categoria.value == null && check.value != "undefined"){
-            console.log('emitiu esse evento !')
+          }
+          else if(categoria.value == null && check.value != undefined){
             payload = {search : search.value.toString(),
             check : parseFloat(check.value)}
-          }else{
-            payload = {search : search.value.toString()}
           }
+          else if(search.value != ''){
+            payload = {search : search.value}
+          }
+          execSetFiltros.value = true
           emit('search', payload)
       }else{
           let payload = {search : '', check : null, categoria : null}
@@ -212,36 +221,70 @@
     payload.categoria = categoria.value
     genericApp.setFiltros(payload)
   }
-  // watch(search, (val) => {
+  watch(search, (val) =>{
+    console.log(tmp.value)
+     if(tmp.value != ''){  // para que não execute quando o usuario voltar para essa tela.
+        console.log(check.value)
+        let payload = {
+        search : search.value,
+        type : 'Search'
+        }
 
-  //   let payload = {search : search.value, type : 'Search'}
-  //   if(check.value != null){
-  //     payload.check = check.value
-  //   }
-  //   if(categoria.value != null){
-  //     payload.categoria = categoria.value.ID_CATEGORIA
-  //   }
-  //   if(val.length == 0){
-  //     search.value = ''
-  //     //emit('searchPage', payload)
-  //     emit('search', payload)
-  //     genericApp.setFiltros(payload)
-  //     return
-  //   }else{
-  //     if(val.length >= tmpLenght.value){
-  //       console.log('Isso ocorre')
-  //       if(val.toString().length > 2){
-  //         emit('searchPage', payload)
-  //       }else if(val != tmp.value){
-  //         emit('searchPage', payload)
-  //       }
-  //       tmp.value = val
-  //     }
-  //     tmpLenght.value = val.toString().length
-  //   }
-  //   payload.categoria = categoria.value
-  //   genericApp.setFiltros(payload)
-  // })
+        if(check.value != undefined){
+          payload.check = check.value
+
+        }
+
+        if(categoria.value != null){
+          payload.categoria = categoria.value
+        }
+
+        genericApp.setFiltros(payload)
+
+        if(val.length == 0){
+          emit('search', payload)
+          return
+        }
+
+        else{
+
+          if(val.length >= 2){
+            if(execSetFiltros.value){
+              emit('search', payload)
+            }else{
+              emit('searchPage', payload)
+            }
+
+          }else if(val.length < tmp.value.length){
+              if(execSetFiltros.value){
+                emit('search', payload)
+              }else{
+                emit('searchPage', payload)
+              }
+          }
+          if(val.length == 1){
+              execSetFiltros.value = false
+          }
+        }
+     }
+     tmp.value = search.value
+
+  })
+  watch(check, (val)=>{
+    let payload = {
+        check : val,
+        type : 'Check'
+    }
+    if(search.value != ''){
+      payload.search = search.value
+    }
+    if(categoria.value != null){
+      payload.categoria = categoria.value
+    }
+    emit('searchPage', payload)
+    genericApp.setFiltros(payload)
+  })
+
   // watch(check, (val)=>{
   //   let payload = {check : val, type : 'Check'}
   //   if(search.value.toString() != ''){
@@ -252,24 +295,6 @@
   //   }
   //   emit('searchPage', payload)
   //   genericApp.setFiltros(payload)
-  // })
-  // watch(categoria, (val)=>{
-  //     let payload = null
-  //     if(val != null){
-  //       payload = {categoria : val.ID_CATEGORIA, type : 'Cat'}
-  //     }else{
-  //       payload = {categoria : null, type : 'Cat'}
-  //     }
-  //     if(search.value.toString() != ''){
-  //         payload.search = search.value.toString()
-  //     }
-  //     if(check.value != null){
-  //         payload.check = check.value
-  //     }
-  //     emit('searchPage', payload)
-  //     genericApp.setFiltros(payload)
-
-
   // })
 
 

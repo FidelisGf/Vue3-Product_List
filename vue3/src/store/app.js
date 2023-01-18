@@ -29,7 +29,6 @@ export const useAppStore = defineStore({
           this.snack = false
       },
       setFiltros(payload){
-        console.log(payload)
         this.filtros = payload
       },
 

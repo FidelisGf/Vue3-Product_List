@@ -13,17 +13,17 @@
           <v-row class="d-flex">
             <v-col  cols="12" md="4" lg="2" class="d-flex flex-md-column flex-row ">
               <div class="ml-lg-2 ml-md-8 ml-n4 d-flex justify-center flex-row flex-md-column"
-               v-for="cor in produto.CORES" :key="cor.ID"
+               v-for="(cor, index) in produto.CORES" :key="cor.ID"
               >
                 <v-sheet
                   :color="cor.HASH"
                   height="45"
                   width="45"
                   rounded
-                  @click="saveCor(cor.HASH)"
+                  @click="saveCor(cor.HASH, index)"
                   active
-                  class="ml-7 mt-md-2 mt-0 cores-selec"
-                ></v-sheet>
+                  class="ml-7 mt-md-2 mt-0 cores-selec d-flex justify-center align-center"
+                ><v-icon v-if="choosen[index] == true" color="green">mdi-check</v-icon></v-sheet>
               </div>
             </v-col >
             <v-col cols="12" md="5" lg="4" xl="3" class="d-flex justify-start ">
@@ -230,6 +230,8 @@
   const dialog = ref(false)
   const buy = ref(false)
   const selectedColor = ref(null)
+  const choosen = ref([])
+  const tmpChosen = ref(null)
   await findProduto()
 
 
@@ -266,8 +268,13 @@
       const end_url = `${url}${number}&text=${msg}`
       window.open(end_url, '_blank').focus();
   }
-  function saveCor(cor){
+  function saveCor(cor, index){
+      if(tmpChosen.value != index){
+        choosen.value[tmpChosen.value] = false
+      }
+      choosen.value[index] = true
       selectedColor.value = cor
+      tmpChosen.value = index
       selecionaCor()
   }
 
@@ -293,6 +300,7 @@
 
   async function detailProduct(id){
       await router.push({name: 'Produto-Detalhe', params: {id : id}})
+      choosen.value[tmpChosen.value] = false
       findProduto()
   }
 
