@@ -1,5 +1,5 @@
 <template>
-  <v-card width="800" color="#E6E6FA">
+  <v-card width="800" class="bg-pedidos">
       <v-card-title>
           <v-btn @click="reniciar" size="x-small" color="blue" icon="mdi-reload" variant="text"></v-btn>
           Seus Pedidos...
@@ -7,39 +7,39 @@
       <v-card-text>
         <v-row v-for="(pedido, index) in pedidos" :key="pedido.ID">
           <v-col cols="12">
-            <v-card color="#F0F8FF">
-              <v-card-title class="d-flex justify-space-between">
+            <v-card class="bg-real">
+              <v-card-title class="d-flex justify-space-between desc-detail">
                 <p>Pedido #{{pedido.ID}}</p>
-                <v-icon v-if="pedido.APROVADO == 'T'" color="green-darken-2">
+                <v-icon v-if="pedido.APROVADO == 'T'" color="#03C03C">
                   mdi-package-variant-closed-check
                 </v-icon>
-                <v-icon v-else color="red-darken-3">
+                <v-icon v-else color="red-darken-1">
                   mdi-package-variant-minus
                 </v-icon>
               </v-card-title>
               <v-card-subtitle class="text-body-2 d-flex flex-row mb-1
-              justify-space-between">
+              justify-space-between desc-detail">
                 <div class="d-flex flex-md-row flex-column font-weight-medium">
                   <p class="font-weight-medium" >Data do Pedido : {{pedido.CREATED_AT}}</p>
                   <p class="pl-md-4">Estado :
                     <span class="text-green" v-if="pedido.APROVADO == 'T'">
                       Pago
                     </span>
-                    <span class="text-red" v-else>
+                    <span class="text-red-accent-2" v-else>
                       Pendente
                     </span>
                   </p>
                 </div>
                 <v-btn v-if="!open[index]" @click="openClose(index)" class="mt-n0 pl-0 pl-md-0"
                 size="x-small" icon variant="text">
-                  <v-icon color="green-darken-4">
+                  <v-icon color="#03C03C">
                     mdi-arrow-down
 
                   </v-icon>
                 </v-btn>
                 <v-btn v-else @click="close(index)" class="mt-n0 pl-0 pl-md-0"
                 size="x-small" icon variant="text">
-                  <v-icon color="green-darken-4">
+                  <v-icon color="#03C03C">
                     mdi-arrow-up
                   </v-icon>
                 </v-btn>
@@ -48,9 +48,9 @@
               <Transition name="fade" :duration="300">
                 <v-card-text v-if="open[index]">
 
-                  <div class="d-flex flex-md-row flex-column mt-n5">
-                    <p class=" text-body-2 font-weight-medium">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
-                    <p class="pl-md-8 text-body-2 font-weight-medium">Valor Total :
+                  <div class="d-flex flex-md-row flex-column mt-n5 desc-detail">
+                    <p class=" text-body-2 font-weight-medium desc-detail">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
+                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">Valor Total :
                       <span v-if="pedido.ID_CUPOM != null">
                         {{pedido.VlTemp.
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
@@ -60,11 +60,11 @@
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
                       </span>
                     </p>
-                    <p class="pl-md-8 text-body-2 font-weight-medium">Desconto :
+                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">Desconto :
                       <span v-if="pedido.ID_CUPOM != null">{{parseInt(pedido.DESCONTO)}}%</span>
                       <span v-else>R$ 0,00</span>
                     </p>
-                    <p class="pl-md-8 text-body-2 font-weight-medium">Subtotal : {{parseFloat(pedido.VALOR_TOTAL).
+                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">Subtotal : {{parseFloat(pedido.VALOR_TOTAL).
                       toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </div>
                   <v-divider class="mt-2"></v-divider>
@@ -74,14 +74,15 @@
                     </v-col>
                     <v-col cols="6" class="d-flex flex-column
                     text-caption text-md-subtitle-1">
-                      <p class="font-weight-medium"><b>Nome :</b> {{produto.NOME}}</p>
-                      <p class="font-weight-medium"><b>Valor :</b> {{parseFloat(produto.VALOR).
+                      <p class="font-weight-medium desc-detail"><b>Nome :</b> {{produto.NOME}}</p>
+                      <p class="font-weight-medium desc-detail"><b>Valor :</b> {{parseFloat(produto.VALOR).
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                      <p class="font-weight-medium"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
-                      <p class="font-weight-medium"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
+                      <p class="font-weight-medium desc-detail"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
+                      <p class="font-weight-medium desc-detail"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                      <div class="d-flex flex-row">
-                        <p class="text-caption text-sm-subtitle-1 font-weight-bold">Cor: </p>
+                      <div class="d-flex flex-row desc-detail">
+                        <p class="text-caption text-sm-subtitle-1 font-weight-bold
+                        desc-detail">Cor: </p>
                         <v-sheet
                           :color="produto.COR_ESCOLHIDA"
                           height="20"
@@ -95,7 +96,7 @@
                         class="ml-n1"
                         v-model="produto.AVALIACAO"
                         bg-color="orange-lighten-1"
-                        color="yellow-darken-3"
+                        color="#FFD700"
                         density="compact"
                         v-on:change="avaliou($event, produto.ID, pedido.ID)"
                         half-increments
@@ -166,7 +167,7 @@
   getPedidos()
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
   .mod-timeline{
     width: 100%;
     height: 20%;

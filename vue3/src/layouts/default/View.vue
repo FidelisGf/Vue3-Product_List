@@ -135,6 +135,11 @@
 
 
   }
+  .bg-pedidos{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #2c2c2c); /* W3C, IE 10+/ Edge, Firefox 16+, Chr*/
+  }
   .bg-footer{
     background : #e2f1ff !important
   }
@@ -157,7 +162,7 @@
     max-width: 320px !important;
     max-height: 320px !important;
     min-height: 200px;
-    border: solid 0.0px rgb(245, 244, 244);
+    border: solid 1.0px rgb(247, 239, 239);
   }
   .img{
     min-width: 90% !important;

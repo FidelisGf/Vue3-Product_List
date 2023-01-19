@@ -2,7 +2,7 @@
   <v-container class="fill-height bg-real" fluid>
     <v-row :key="renic" v-if="tela == 'dados'" >
       <v-col cols="12" class="d-flex align-center align-content-center justify-center">
-          <v-card width="850" color="#E6E6FA">
+          <v-card width="850" class="corpo-card">
               <v-card-title>
                 <v-btn @click="reniciar" size="x-small" color="blue" icon="mdi-reload" variant="text">
                 </v-btn>
@@ -52,27 +52,27 @@
     </v-row>
 
 
-    <v-bottom-navigation  class="bg-bottom" :elevation="7" v-model="tela">
+    <v-bottom-navigation  class="app-bar" :elevation="7" v-model="tela">
       <v-btn value="pedidos">
-        <v-icon color="#228B22">mdi-package-variant-closed</v-icon>
-        <span class="auto">Meus pedidos</span>
+        <v-icon color="#03C03C">mdi-package-variant-closed</v-icon>
+        <span class="desc-detail">Meus pedidos</span>
       </v-btn>
       <v-btn value="edit-dados">
-        <v-icon color="#228B22">mdi-account-edit</v-icon>
+        <v-icon color="#03C03C">mdi-account-edit</v-icon>
 
-        <span class="auto">Editar dados</span>
+        <span class="desc-detail">Editar dados</span>
       </v-btn>
       <v-btn value="dados">
-        <v-icon color="#228B22">mdi-account</v-icon>
+        <v-icon color="#03C03C">mdi-account</v-icon>
 
-        <span class="auto">Meus dados</span>
+        <span class="desc-detail">Meus dados</span>
       </v-btn>
 
 
       <v-btn value="nearby" @click="logout">
-        <v-icon color="#D2122E">mdi-exit-to-app</v-icon>
+        <v-icon color="#E52B50">mdi-exit-to-app</v-icon>
 
-        <span class="auto">Sair da conta</span>
+        <span class="desc-detail">Sair da conta</span>
       </v-btn>
     </v-bottom-navigation>
   </v-container>

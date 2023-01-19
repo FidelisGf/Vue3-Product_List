@@ -97,8 +97,8 @@
     </v-form>
     </v-card-text>
     <v-card-actions class="d-flex justify-end mt-n3">
-      <v-btn variant="text" color="red-darken-1" @click="voltar" >Voltar</v-btn>
-      <v-btn variant="text" color="#006400" @click="test" >{{txtBotao}}</v-btn>
+      <v-btn variant="text" color="#E52B50" @click="voltar" >Voltar</v-btn>
+      <v-btn variant="text" color="#03C03C" @click="test" >{{txtBotao}}</v-btn>
     </v-card-actions>
   </v-card>
 </div>
@@ -222,7 +222,7 @@ z-index: -1;
 .arqv {
   font-size: 1.05em;
   font-weight: 500;
-  color: rgb(0, 0, 0);
+  color: rgb(253, 247, 247);
 
   display: inline-block;
 
@@ -232,7 +232,9 @@ input[type="file"] +  .arqv:hover{
   background-color: rgb(194, 52, 52);
 }
 .card-cad{
-  background: rgb(255, 255, 255) !important;
+  background: #232526;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #414345, #232526) !important;  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .mold-img{
     width: 80px !important;
