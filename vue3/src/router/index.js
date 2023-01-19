@@ -1,6 +1,5 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
-import Guard from "../plugins/AuthGuard"
 import axios from "axios"
 import { useAppStore } from '@/store/app'
 const routes = [

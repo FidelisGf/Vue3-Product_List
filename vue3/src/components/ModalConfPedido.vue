@@ -1,15 +1,16 @@
 <template>
   <div class="d-flex justify-center" v-if="flag == false">
-    <v-card class="conf-card"  color="#F0F8FF">
+    <v-card class="bg-carrinho"  >
       <v-card-title>Confirmação do pedido...</v-card-title>
       <v-card-subtitle>Verifique os dados do pedido, depois cliquem em "confirmar" para finalizá-lo</v-card-subtitle>
       <v-card-text>
           <v-row>
             <v-col cols="12" md="11" sm="11" class="d-flex flex-row">
               <v-text-field
-                color="black"
+                color="white"
                 label="Cupom de desconto"
                 type="text"
+                dark
                 v-model="NmCupom"
                 variant="outlined"
                 placeholder="WELCOME25"
@@ -17,7 +18,7 @@
               </v-text-field>
               <v-btn size="small"
               class="mt-3 ml-3"
-              color="green-darken-3"
+              color="#4FFFB0"
               variant="text"
               @click="tryCupom"
               >
@@ -35,10 +36,10 @@
           </v-row>
       </v-card-text>
       <v-card-actions class="d-flex justify-end mt-n4">
-        <v-btn variant="text" @click="fecharModal" color="red-darken-3">
+        <v-btn variant="text" @click="fecharModal" color="#FF033E">
           Voltar
         </v-btn>
-        <v-btn variant="text" @click="finalizar" color="green-darken-3">
+        <v-btn variant="text" @click="finalizar" color="#4FFFB0">
           Confirmar
         </v-btn>
       </v-card-actions>
@@ -91,6 +92,6 @@ function fecharModal(){
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 </style>

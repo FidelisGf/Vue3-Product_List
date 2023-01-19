@@ -1,38 +1,22 @@
 <template>
   <v-app-bar class="app-bar">
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="dialog = true"></v-app-bar-nav-icon>
-
-
-
       <v-toolbar-title class="hidden-sm-and-down">
-            <v-img
-              width="50px"
-              height="50px"
-              src="@/assets/6803408.png"
-              class="ml-n2"
-            >
-
-            </v-img>
-
-
-
-
+        <p class="mt-1 font-app">WebShop</p>
       </v-toolbar-title>
-
-
     <v-spacer></v-spacer>
     <div class="mr-5">
       <v-btn @click="$router.push('/produtos')"
-      class="text-sm-body-1 hidden-sm-and-down"
-      prepend-icon="mdi-store" color="#00573F">Loja</v-btn>
+      class="text-sm-body-1 hidden-sm-and-down desc-detail"
+      prepend-icon="mdi-store" color="white">Loja</v-btn>
 
       <v-btn @click="$router.push('/carrinho')"
-      class="text-sm-body-1 hidden-sm-and-down"
-      prepend-icon="mdi-cart" color="#00573F">
+      class="text-sm-body-1 hidden-sm-and-down desc-detail"
+      prepend-icon="mdi-cart" color="white">
         <v-badge
         v-show="(counter > 0)"
         class="mt-1 mr-3"
-        color="teal-darken-2"
+        color="grey-lighten-2"
         :content="counter"
         >
         </v-badge>
@@ -40,11 +24,12 @@
       </v-btn>
 
       <v-btn @click="$router.push('/login')"
-      class="text-sm-body-1 hidden-sm-and-down"
-      prepend-icon="mdi-account" color="#00573F">Conta</v-btn>
+      class="text-sm-body-1 hidden-sm-and-down desc-detail"
+      prepend-icon="mdi-account" color="white">Conta</v-btn>
     </div>
 
     <v-dialog
+        v-if="mobile"
         persistent
         v-model="dialog"
         @keydown.escape="dialog = false"
@@ -65,37 +50,36 @@
             @click="getRouteMobile('login')">Conta</v-btn>
           </v-card-text>
         </v-card>
-
-
     </v-dialog>
   </v-app-bar>
 </template>
 
-<script>
-  import { def } from '@vue/shared';
-  import { ref } from 'vue'
+<script setup>
+  import { ref, computed } from 'vue'
   import { useCarrinhoStore } from '@/store/CarrinhoStore'
-  const storeApp = useCarrinhoStore()
+  import { useDisplay } from 'vuetify/lib/framework.mjs';
+  import { useRouter } from 'vue-router';
 
-  export default {
-      data(){
-          return {
-            theme : ref('light'),
-            dialog : false
-          }
-      },
-      computed:{
-          counter : function(){
-              return storeApp.getCountCarrinho
-          }
-      },
-      methods:{
-          getRouteMobile(route){
-              this.dialog = false
-              this.$router.push(`/${route}`)
-          }
-      }
+  const storeApp =
+  useCarrinhoStore()
+  const router =
+  useRouter()
+  const {mobile} =
+  useDisplay()
+
+  const theme = ref('light')
+  const dialog = ref(false)
+
+
+  const counter = computed(()=>
+    storeApp.getCountCarrinho
+  )
+
+  function getRouteMobile(route){
+    dialog.value = false
+    router.push('/' + route)
   }
+
 
 
 </script>

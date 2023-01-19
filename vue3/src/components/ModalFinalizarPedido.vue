@@ -1,5 +1,5 @@
 <template>
-  <v-card min-height="315px" >
+  <v-card min-height="315px" class="bg-real" >
     <v-card-actions class="mt-n4 ml-n4">
       <v-btn @click="fecharModal" size="small" icon color="red" variant="text"><v-icon>mdi-close</v-icon></v-btn>
     </v-card-actions>
@@ -62,6 +62,6 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 </style>

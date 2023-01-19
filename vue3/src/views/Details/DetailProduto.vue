@@ -4,15 +4,15 @@
         <v-col class="mt-md-n6" cols=12>
           <v-btn icon @click="returnStore"
           class="ml-md-n1" variant="text" >
-            <v-icon color="#4B0082">
+            <v-icon color="white">
               mdi-arrow-left
             </v-icon>
           </v-btn>
         </v-col>
         <v-col cols="12" md="12" lg="8" class="d-flex flex-md-row flex-column-reverse ">
           <v-row class="d-flex">
-            <v-col  cols="12" md="4" lg="2" class="d-flex flex-md-column flex-row ">
-              <div class="ml-lg-2 ml-md-8 ml-n4 d-flex justify-center flex-row flex-md-column"
+            <v-col  cols="12" md="4" lg="2" xl="2" class="d-flex flex-md-column flex-row ">
+              <div class="ml-lg-0 ml-md-8 ml-xl-5 ml-n4 d-flex justify-center flex-row flex-md-column"
                v-for="(cor, index) in produto.CORES" :key="cor.ID"
               >
                 <v-sheet
@@ -26,22 +26,29 @@
                 ><v-icon v-if="choosen[index] == true" color="green">mdi-check</v-icon></v-sheet>
               </div>
             </v-col >
-            <v-col cols="12" md="5" lg="4" xl="3" class="d-flex justify-start ">
-              <inner-image-zoom
+            <v-col cols="12" md="5" lg="5" xl="5" class="d-flex justify-start ">
+              <div class="mod-imagem">
+                <inner-image-zoom
                 :src="url"
                 :zoomSrc="url"
                 :zoomScale="0.9"
                 :fadeDuration="150"
-                class="img ml-lg-n12 ml-0"
-              ></inner-image-zoom>
+                class="img ml-lg-n12  ml-md-n12 ml-0 "
+                :hideHint="true"
+                ></inner-image-zoom>
+              </div>
+
             </v-col>
-            <v-col cols="12" md="12" lg="5" xl="4" class="d-flex justify-md-center justify-start mt-lg-0 mt-0 mt-md-2">
-              <div class="d-flex flex-column  ml-0 ml-lg-n6 ">
-                <p class="text-md-h5 text-h6 font-weight-bold ml-lg-n2 ">{{produto.NOME}}
+            <v-col cols="12" md="12" lg="4" xl="4" class="d-flex justify-md-center justify-start mt-lg-0 mt-0 mt-md-2">
+              <div class="d-flex flex-column  ml-0 ml-lg-n6 ml-xl-0 text-detail ">
+                <p class="desc-detail text-md-h5 text-h6 font-weight-bold ml-lg-n2 text-white ">{{produto.NOME}}
                    ({{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}})
                 </p>
-                <p class="text-justify text-caption text-md-subtitle-1 ml-1 font-weight-medium ml-lg-n0">{{produto.DESC}}...</p>
-                <p class="text-justify text-md-h6 text-subtitle-1 ml-1 font-weight-bold ml-lg-n0">
+                <p class="text-justify text-caption text-md-subtitle-1 ml-1 font-weight-medium ml-lg-n0
+                desc-detail">
+                  {{produto.DESC}}...
+                </p>
+                <p class="desc-detail text-justify text-md-h6 text-subtitle-1 ml-1 font-weight-bold ml-lg-n0">
                   [{{produto.ESTOQUE}}] {{produto.medida.NOME}}(s) em estoque.
                 </p>
 
@@ -53,13 +60,13 @@
         <v-col cols="12" md="12" lg="4" class="d-flex">
             <v-row>
               <v-col cols="12">
-                <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0  ml-md-n6 div-rating">
+                <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0 mt-lg-n2  ml-md-n6  div-rating">
 
                   <v-rating
                     class="mt-4"
                     v-model="produto.AVALIACAO"
                     bg-color="orange-lighten-1"
-                    color="yellow-darken-3"
+                    color="#FFD700"
                     disabled
                     half-increments
                   >
@@ -72,12 +79,12 @@
                   </v-tooltip>
                 </div>
                 <v-btn @click="chooseColor(false)" block
-                color="#E6E6FA" class="ml-sm-n2 ml-0 mt-4 mt-md-3">
+                 class="desc-detail text-black ml-sm-n2 ml-0 mt-4 mt-md-3 btns" rounded>
                   <v-icon
                     left
                     dark
                     class="mr-6"
-                    color="black"
+
 
                   >
                     mdi-cart
@@ -86,7 +93,7 @@
 
                 </v-btn>
                 <v-btn block @click="chooseColor(true)"
-                color="#E6E6FA" class="ml-sm-n2 ml-0 mt-5 text-black">
+                 class=" desc-detail text-black ml-sm-n2 ml-0 mt-5  btns" rounded>
                   <v-icon
                     left
                     dark
@@ -96,23 +103,24 @@
                   </v-icon>
                   <p class="mr-16">Comprar Agora</p>
                 </v-btn>
-                <v-btn @click="goWhats" block color="#E6E6FA" class="text-black ml-sm-n2 ml-0 mt-5">
+                <v-btn @click="goWhats" block rounded  class="text-black ml-sm-n2 ml-0 mt-5 btns">
                   <v-icon
                     left
                     dark
-                    class="ml-3"
-                    color="black"
+                    class="ml-3 "
+
                   >
                     mdi-whatsapp
                   </v-icon>
-                  <p class="ml-6 ">Tirar duvidas sobre o item</p>
+                  <p class="ml-6 mt-n1 desc-detail">Tirar duvidas sobre o
+                    item</p>
                 </v-btn>
 
               </v-col>
 
             </v-row>
         </v-col>
-        <v-divider ></v-divider>
+        <v-divider class="dividers" ></v-divider>
         <v-col cols="12" md="12" class="d-flex">
             <v-slide-group
               class=""
@@ -127,21 +135,23 @@
                 v-slot="{toggle, selectedClass }"
               >
                 <v-card
-                  color="dark"
-                  :class="['ma-4', selectedClass, 'cards', 'corpo-card'] "
-                  min-height="350"
-                  max-width="240"
+
+                  :class="['ma-3', selectedClass, 'cards', 'corpo-card'] "
+                  min-height="365"
+                  max-width="250"
                   min-width="220"
-                  max-height="380"
+                  max-height="395"
 
                   @click="toggle"
 
                 >
-                  <v-img :src="produto.IMAGE"
-                  height="200px"
+                  <div class="div-img-cad-detail">
+                    <v-img :src="produto.IMAGE"
+                    height="220px"
+                    cover @click="detailProduct(produto.ID)" class="img-card"></v-img>
+                  </div>
 
-                  cover @click="detailProduct(produto.ID)" class="img-card"></v-img>
-                  <v-card-title class="text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
+                  <v-card-title class=" text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}
                   </v-card-title>
                   <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
@@ -169,24 +179,21 @@
 
     >
       <div class="d-flex justify-center">
-        <v-card class="card-cores" color="#F0F8FF">
+        <v-card class="card-cores" >
 
-          <v-card-title class="text-body-2 d-flex ">
-            <v-btn @click="dialog = false" size="small" class="ml-n6 mt-n4" icon variant="text">
-              <v-icon color="red">mdi-close</v-icon>
-            </v-btn>
-            <p class="ml-n3 mt-2">Escolha a cor do seu produto :</p>
+          <v-card-title class="text-body-2 d-flex justify-space-between">
+            <small class="ml-1">Escolha a cor</small>
           </v-card-title>
             <v-card-text>
               <v-row class="d-flex ml-1 flex-row">
                 <v-col
                 class="d-flex justify-start"
-                v-for="cor in produto.CORES" :key="cor.ID">
+                v-for="(cor, index ) in produto.CORES" :key="cor.ID">
                   <v-sheet
                     :color="cor.HASH"
-                    height="40"
-                    width="40"
-                    @click="defineColor(cor.HASH)"
+                    height="50"
+                    width="50"
+                    @click="defineColor(cor.HASH, index)"
                     elevation="2"
                     class="ml-md-0  cores-selec"
                   ></v-sheet>
@@ -194,6 +201,12 @@
                 </v-col>
               </v-row>
             </v-card-text>
+            <v-card-actions class="d-flex justify-end">
+              <v-btn @click="dialog = false" color="red"
+              variant="text" size="small">
+                Fechar
+              </v-btn>
+            </v-card-actions>
         </v-card>
       </div>
     </v-dialog>
@@ -245,7 +258,7 @@
       getProdutos()
       restart.value += 1
   }
-  function chooseColor(boolean){
+  function chooseColor(boolean, index){
     if(selectedColor.value == null){
       dialog.value = true
       buy.value = boolean
@@ -253,12 +266,14 @@
       defineColor(selectedColor.value)
     }
   }
-  function defineColor(color){
+  function defineColor(color, index){
       saveInCarrinho(produto.value.ID, produto.value.VALOR, color)
       if(buy.value == true){
         router.push('/carrinho')
       }
-      selectedColor.value = null
+      if(selectedColor.value == null){
+        saveCor(selectedColor.value, index)
+      }
   }
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
@@ -301,6 +316,7 @@
   async function detailProduct(id){
       await router.push({name: 'Produto-Detalhe', params: {id : id}})
       choosen.value[tmpChosen.value] = false
+      selectedColor.value = null
       findProduto()
   }
 
@@ -313,7 +329,7 @@
 
 <style lang="scss">
   .card-cores{
-      max-width: 600px !important;
+      max-width: 500px !important;
       min-width: 300px !important;
   }
 

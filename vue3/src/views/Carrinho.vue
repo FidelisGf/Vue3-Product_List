@@ -1,24 +1,26 @@
 <template>
-  <v-container class="fill-height bg-carrinho" fluid>
+  <v-container class="fill-height bg-real" fluid>
     <v-row >
         <v-col cols="12" :key="reni" >
               <v-card
                   dark
                   elevation="4"
-                  color="#F0F8FF"
+                  class="bg-carrinho"
               >
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
                     <div class="d-flex flex-row">
-                      <v-icon color="#228B22" class="mt-sm-0 mt-n1">mdi-cart</v-icon>
-                      <p class="text-md-h6 text-caption font-weight-bold ml-3 mt-0">Meu Carrinho...</p>
+                      <v-icon color="#7FFFD4" class="mt-sm-0 mt-n1">mdi-cart</v-icon>
+                      <p class="text-md-h6 text-caption font-weight-bold ml-3 mt-0 auto
+                      desc-detail">Meu Carrinho...</p>
                     </div>
                   <div class="d-flex flex-row">
-                    <v-icon color="#228B22" class="mt-sm-0 mt-2 mt-sm-n1
-                      mt-md-0 ml-0 ml-sm-6">
+                    <v-icon color="#7FFFD4" class="mt-sm-0 mt-2 mt-sm-n1
+                      mt-md-0 ml-0 ml-sm-6 desc-detail">
                       mdi-cash
                     </v-icon>
-                      <p class="ml-2 text-md-h6 text-caption font-weight-bold mt-3 mt-sm-0">Valor total : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <p class="ml-2 text-md-h6 text-caption font-weight-bold mt-3 mt-sm-0
+                      desc-detail">Valor total : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
                   </div>
                   <v-spacer></v-spacer>
                   <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text"
@@ -42,14 +44,14 @@
                           </v-img>
                           </div>
                             <div class="d-flex flex-column ml-3">
-                              <p class="text-h5 font-weight-black">{{produto.NOME}}</p>
-                              <p class="text-caption text-sm-subtitle-1 font-weight-bold">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                              <p class="text-caption text-sm-subtitle-1 font-weight-bold">
+                              <p class="text-h5 font-weight-black desc-detail">{{produto.NOME}}</p>
+                              <p class="text-caption text-sm-subtitle-1 desc-detail font-weight-bold">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                              <p class="text-caption text-sm-subtitle-1 desc-detail font-weight-bold">
                                 <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
-                                <span v-else><p class="text-yellow">Sem Estoque</p></span>
+                                <span v-else><p class="text-yellow desc-detail">Sem Estoque</p></span>
                               </p>
                               <div class="d-flex flex-row">
-                                <p class="text-caption text-sm-subtitle-1 font-weight-bold">Cor: </p>
+                                <p class="text-caption text-sm-subtitle-1 font-weight-bold desc-detail">Cor: </p>
                                 <v-sheet
                                   :color="produto.COR_ESCOLHIDA"
                                   height="20"
@@ -61,8 +63,8 @@
                           </div>
                           <v-spacer></v-spacer>
                           <div class="d-flex flex-column justify-center">
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="addQuantidadeProduto(index)"><v-icon>mdi-plus</v-icon></v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#228B22" @click="removeQuantidadeProduto(index)"><v-icon>mdi-minus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#4FFFB0" @click="addQuantidadeProduto(index)"><v-icon>mdi-plus</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#FF033E" @click="removeQuantidadeProduto(index)"><v-icon>mdi-minus</v-icon></v-btn>
                             <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(index)" ><v-icon>mdi-delete</v-icon></v-btn>
                           </div>
                         </v-col>
@@ -200,13 +202,13 @@ import { isArray } from '@vue/shared';
     transition: 1.2s;
   }
   .bg-carrinho{
-    background-color: #b9d9eb !important;
-    background-image: linear-gradient(160deg, #b9d9eb 0%, #f0f8ff 99%) !important;
-
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #414345, #232526) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
   .finalizar{
-      color : #228B22 !important;
+      color : #7FFFD4 !important;
   }
   .list-enter-active,
   .list-leave-active {
@@ -216,6 +218,10 @@ import { isArray } from '@vue/shared';
   .list-leave-to {
     opacity: 0;
     transform: translateX(30px);
+  }
+  .auto{
+    color : rgb(255, 252, 252) !important;
+    font-weight: bold !important;
   }
 
 </style>

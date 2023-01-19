@@ -4,19 +4,21 @@
         <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
 
             <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
-              <v-card   width="320px"
-                    class="cards mx-auto corpo-card"
+              <v-card  width="355px"
+                    class="cards corpo-card"
                     elevation="1"
 
                 >
-                  <v-img :src="produto.IMAGE"
-                  height="230px"
-                  class="img-card"
-                  cover @click="detailProduct(produto.ID)"></v-img>
-                  <v-card-title class="text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
+                  <div class="div-img-cad-produto">
+                    <v-img :src="produto.IMAGE"
+                    height="305px"
+                    class="img-card"
+                    cover @click="detailProduct(produto.ID)"></v-img>
+                  </div>
+                  <v-card-title class="text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}
                   </v-card-title>
-                  <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
+                  <v-card-subtitle class="desc-detail text-justify text-subtitle-1 font-weight-medium">
                     {{produto.DESC}}
                   </v-card-subtitle>
                   <v-card-text  @click="detailProduct(produto.ID)"
@@ -24,9 +26,9 @@
                   >
                       <v-row>
                         <v-col cols="12" class="text-caption">
-                          <p class="text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                          <p class="font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
-                          <p class="font-weight-medium">Categoria : {{produto.NOME_C}}</p>
+                          <p class=" desc-detail text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                          <p class=" desc-detail font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
+                          <p class=" desc-detail font-weight-medium">Categoria : {{produto.NOME_C}}</p>
                         </v-col>
 
                       </v-row>
@@ -35,10 +37,10 @@
                       <v-row>
                         <v-col cols="6">
                           <v-btn class="ml-n1" @click="detailProduct(produto.ID)"
-                          color="#005A9C" icon="mdi-information-outline">
+                          color="#B2FFFF" icon="mdi-information-outline">
 
                           </v-btn>
-                          <v-btn color="#228B22" @click="saveInCarrinho(produto.ID, produto.VALOR)"
+                          <v-btn color="#03C03C" @click="saveInCarrinho(produto.ID, produto.VALOR)"
                           icon="mdi-cart-outline">
 
                           </v-btn>
@@ -69,13 +71,15 @@
 </template>
 
 <script setup>
-  import {ref, shallowRef, computed, watch} from 'vue'
+  import {ref, shallowRef, computed, watch, defineAsyncComponent} from 'vue'
   import { useProdutoStore } from '@/store/produtoStore'
   import Detail from '@/CompositionAP/CRUD'
-  import Filtro from '@/components/Filtro.vue'
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
 
+  const Filtro = defineAsyncComponent(()=>
+    import('@/components/Filtro.vue')
+  )
 
   const router =
   useRouter()

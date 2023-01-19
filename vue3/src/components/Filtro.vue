@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer class="bg-real">
+    <v-navigation-drawer class="filtros">
       <v-list>
         <v-list-item>
             <v-list-item-title class="text-h6 auto">
@@ -47,20 +47,20 @@
 
         </v-list-item>
         <v-list-item class="mt-n2">
-            <v-btn color="#66CDAA" @click="searchFilter"   block >
+            <v-btn color="#00674b" @click="searchFilter"   block >
               <v-icon>
                 mdi-magnify
               </v-icon>Pesquisar</v-btn>
         </v-list-item>
         <v-list-item>
-          <v-btn color="#B9D9EB"  @click="clear"  block >
+          <v-btn color="#00416A"   @click="clear"  block >
             <v-icon >
               mdi-delete
             </v-icon>Limpar</v-btn>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-row class="hidden-lg-and-up bg-real" >
+    <v-row class="hidden-lg-and-up bg-real" v-if="mobile">
       <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
@@ -131,10 +131,10 @@
 
 <script setup>
   import { useAppStore } from '@/store/app'
-  import {ref, watch, computed, onMounted, onBeforeMount} from 'vue'
+  import {ref, watch, computed, onBeforeMount} from 'vue'
+  import { useDisplay } from 'vuetify/lib/framework.mjs';
 
-
-
+  const {mobile} = useDisplay()
   const genericApp = useAppStore()
 
   const search = ref('')
@@ -300,24 +300,12 @@
     tmpCheck.value = check.value
   })
 
-  // watch(check, (val)=>{
-  //   let payload = {check : val, type : 'Check'}
-  //   if(search.value.toString() != ''){
-  //     payload.search = search.value.toString()
-  //   }
-  //   if(categoria.value != null){
-  //     payload.categoria = categoria.value.ID_CATEGORIA
-  //   }
-  //   emit('searchPage', payload)
-  //   genericApp.setFiltros(payload)
-  // })
-
-
 </script>
 
 <style lang="scss" scoped>
   .auto{
-    color : rgb(0, 0, 0) !important
+    color : rgb(255, 252, 252) !important;
+    font-weight: bold !important;
   }
   .bg-fundo{
     background: #f0f8ff !important;
