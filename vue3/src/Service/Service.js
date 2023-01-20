@@ -34,7 +34,7 @@ export default{
     get(route, payload){
       return axios.get(route, { params: { opcao: payload.opcao,
            start : payload.dtStart, end : payload.dtFinal,
-           pdf : payload.pdf, search : payload.search, NOME : payload.NOME}})
+           pdf : payload.pdf, search : payload.search, NOME : payload.NOME, Shop : 'T'}})
     },
     post(route, payload){
       return axios.post(route , payload)

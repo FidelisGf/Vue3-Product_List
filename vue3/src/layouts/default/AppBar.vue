@@ -1,7 +1,7 @@
 <template>
   <v-app-bar class="app-bar">
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="dialog = true"></v-app-bar-nav-icon>
-      <v-toolbar-title class="hidden-sm-and-down">
+      <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
         <p class="mt-1 font-app">WebShop</p>
       </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -37,16 +37,18 @@
         hide-overlay
         transition="dialog-bottom-transition"
     >
-        <v-card color="#F0F8FF">
+        <v-card class="app-bar">
           <v-card-actions>
               <v-btn @click="dialog = false"><v-icon>mdi-close</v-icon></v-btn>
           </v-card-actions>
           <v-card-text class="d-flex flex-column">
-            <v-btn color="#E6E6FA" size="x-large" text class="text-caption text-md-body-1" prepend-icon="mdi-store"
+            <v-btn  size="x-large" text class="text-caption text-md-body-1 cards corpo-card" prepend-icon="mdi-store"
             @click="getRouteMobile('produtos')">Loja</v-btn>
-            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3" prepend-icon="mdi-cart"
+            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3
+            cards corpo-card" prepend-icon="mdi-cart"
             @click="getRouteMobile('carrinho')">Carrinho</v-btn>
-            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3" prepend-icon="mdi-account"
+            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3
+            cards corpo-card" prepend-icon="mdi-account"
             @click="getRouteMobile('login')">Conta</v-btn>
           </v-card-text>
         </v-card>
@@ -86,6 +88,9 @@
 <style lang="scss">
   .titulo{
       width: 100px !important;
+  }
+  .toolbar-title{
+    cursor: pointer;
   }
 
 

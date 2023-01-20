@@ -31,6 +31,17 @@ export const useProdutoStore = defineStore('produto', {
       })
       return data
     },
+    async getDestaques(payload){
+        const data = Service.get('produtosDestaques', payload).then((res)=>{
+            for(let dt of res.data.data){
+                dt.IMAGE = 'data:image/png;base64,' + dt.IMAGE
+            }
+            return res.data.data
+        }).catch((error)=>{
+            return error
+        })
+        return data
+    }
 
   },
   getters: {

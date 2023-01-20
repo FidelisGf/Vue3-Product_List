@@ -1,6 +1,7 @@
 import { useAppStore } from '@/store/app'
-import { ref, computed } from 'vue'
+import { useProdutoStore } from '@/store/produtoStore'
 const storeApp = useAppStore()
+const produtoApp = useProdutoStore()
 export default function CrudComp(){
 
     async function findById(route, id, payload){
@@ -13,6 +14,9 @@ export default function CrudComp(){
 
     async function getAllList(route, payload){
         return storeApp.getList(route, payload)
+    }
+    async function getDestaques(payload){
+        return produtoApp.getDestaques(payload)
     }
     async function post(route, payload){
       storeApp.postGeneric(route, payload)
@@ -83,7 +87,8 @@ export default function CrudComp(){
         getAllList,
         applyFilter,
         post,
-        selecionaCor
+        selecionaCor,
+        getDestaques
     }
 
 }

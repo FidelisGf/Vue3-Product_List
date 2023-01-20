@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :key="restart" class="princip">
+  <v-container fluid :key="restart" class="princip fill-height">
     <v-row class="d-flex justify-space-between mt-0 mt-md-0 flex-column flex-sm-row mt-n4">
         <v-col class="mt-md-n6" cols=12>
           <v-btn icon @click="returnStore"
@@ -84,8 +84,6 @@
                     left
                     dark
                     class="mr-6"
-
-
                   >
                     mdi-cart
                   </v-icon>
@@ -108,7 +106,6 @@
                     left
                     dark
                     class="ml-3 "
-
                   >
                     mdi-whatsapp
                   </v-icon>
@@ -121,11 +118,10 @@
             </v-row>
         </v-col>
         <v-divider class="dividers" ></v-divider>
-        <v-col cols="12" md="12" class="d-flex">
+        <v-col cols="12" md="12" class="d-flex mt-lg-6">
             <v-slide-group
-              class=""
               selected-class="bg-success"
-              show-arrows
+              :show-arrows="false"
               center-active
             >
               <v-slide-group-item
