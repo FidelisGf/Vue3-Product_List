@@ -60,15 +60,15 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-row class="hidden-lg-and-up bg-real" v-if="mobile">
+    <v-row class="hidden-lg-and-up " v-if="mobile">
       <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
-          class="bg-fundo"
+          class="bg-real"
         >
-          <v-expansion-panel-text color="#f0f8ff" class="bg-real">
-            <v-row  color="#f0f8ff" class="d-flex flex-row">
-              <v-col color="#f0f8ff">
+          <v-expansion-panel-text  class="bg-real">
+            <v-row   class="d-flex flex-row">
+              <v-col >
                 <p>Valores</p>
                 <v-radio-group  inline v-model="check" title="Valores">
                   <v-radio label="Todos" value="0"></v-radio>

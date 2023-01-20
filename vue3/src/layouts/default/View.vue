@@ -177,11 +177,7 @@
     box-shadow: 0px 0px 0px 0px #414749 !important;
 
   }
-  .btns{
-    background: #C9CCD3;
-    background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
-    background-blend-mode: lighten;
-  }
+
   .font-app{
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
@@ -193,7 +189,8 @@
     color : #757474 !important;
   }
   .div-img-cad-produto{
-    height: 305px !important;
+    height: 325px !important;
+    width: 100% !important;
 
   }
   .div-img-cad-detail{
@@ -203,7 +200,7 @@
   .img-card{
     background-color: #353535;
     background-image: linear-gradient(160deg, #353535 0%, #262626 100%);
-    max-height: 100% !important;
+
 
   }
   .btn-home{

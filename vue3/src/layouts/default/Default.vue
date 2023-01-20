@@ -19,6 +19,10 @@
   }
 </script>
 <style lang="scss">
-
+.btns{
+  background: #C9CCD3;
+  background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
+  background-blend-mode: lighten;
+}
 
 </style>

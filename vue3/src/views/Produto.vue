@@ -9,11 +9,11 @@
                     elevation="1"
 
                 >
-                  <div class="div-img-cad-produto">
-                    <v-img :src="produto.IMAGE"
-                    height="305px"
-                    class="img-card"
-                    cover @click="detailProduct(produto.ID)"></v-img>
+                  <div class="div-img-cad-produto img-card d-flex  justify-center">
+                      <v-img
+                      :src="produto.IMAGE"
+                      height="325px"
+                      cover @click="detailProduct(produto.ID)"></v-img>
                   </div>
                   <v-card-title class="text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}

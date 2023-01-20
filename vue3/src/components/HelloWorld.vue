@@ -6,31 +6,59 @@
           <v-window
             v-model="slides"
             show-arrows="hover"
+            :continuous="true"
           >
+            <template v-slot:prev="{ props }">
+              <v-btn
+                color="white"
+                icon
+                variant="text"
+                size="x-small"
+                @click="props.onClick"
+              >
+                <v-icon>mdi-arrow-left</v-icon>
+              </v-btn>
+            </template>
+            <template v-slot:next="{ props }">
+              <v-btn
+              color="white"
+              icon
+              variant="text"
+              size="x-small"
+              @click="props.onClick"
+              >
+              <v-icon>mdi-arrow-right</v-icon>
+              </v-btn>
+            </template>
             <v-window-item
 
             >
               <v-card
+
                 elevation="8"
                 height="400"
-                width="1000"
-                class="d-flex justify-md-center align-md-center sliders"
+                :min-width="mobile ? '100' : 1000"
+                max-width="1000"
+                class="d-flex justify-md-center justify-start align-center sliders"
               >
-                <v-card-title>
 
-                </v-card-title>
-                <v-card-text class="d-flex justify-md-center align-md-center">
-                  <v-row class="d-flex justify-md-center align-md-center">
-                    <v-col cols="12" md="5" class="d-flex justify-md-end">
+                <v-card-text class="d-flex justify-md-center justify-start align-start
+                align-md-center">
+                  <v-row class="d-flex justify-center align-center">
+                    <v-col cols="12" sm="5" md="6" class="ml-md-n10 d-flex justify-center justify-md-end">
                       <v-img
                         src="@/assets/WeBSHOP__2_-removebg-preview.png"
-                        height="500"
+                        :height="mobile ? '250' : '500px'"
+                        :mobile-breakpoint="10"
                       >
                       </v-img>
                     </v-col>
-                    <v-col cols="12" md="7" class="d-flex justify-md-start flex-column">
+                    <v-col cols="12" sm="7" md="5"
+                     class="d-flex justify-start flex-column mt-n5 mt-md-0"
+                    >
                       <p class="text-md-h5 font-weight-black desc-detail">O WebShop</p>
-                      <div class="text-window">
+                      <div class=" justify-start "
+                        >
                         <p class="desc-detail">O WebShop tem como objetivo ser uma lista de produtos online. Mas como assim ? No webshop você apenas irá
                           escolher seus produtos, confirmar seu pedido e envia-lo para a empresa responsável, onde vocês irão discutir
                           os termos de pagamento.
@@ -41,7 +69,51 @@
                 </v-card-text>
               </v-card>
             </v-window-item>
+            <v-window-item>
+                <v-card
+                  elevation="8"
+                  :min-height="smAndDown ? '400' : '400'"
+                  :min-width="mobile ? '100' : 1000"
+                  max-width="1000"
+                  class="d-flex justify-md-center justify-start align-center sliders"
+                >
+                  <v-card-text>
+                      <v-row>
+                          <v-col cols="12" sm="5" md="5" class="d-flex justify-center align-center">
+                            <v-img
+                            class="mt-md-0"
+                            :height="mobile ? '150' : '300px'"
 
+                              src="../assets/cupom.png"
+                            >
+
+                            </v-img>
+                          </v-col>
+                          <v-col cols="12" sm="7" md="7" class="d-flex flex-column
+                          justify-md-center mt-12 mt-md-0">
+                            <p class="text-md-h5 font-weight-black desc-detail">
+                              Cupom WELCOME25</p>
+                            <div class=" justify-start desc-detail">
+                              <p >Aproveite nosso cupom para começar com o
+                                pé direito, são 25% de desconto na compra que
+                                você utiliza-lo. Basta inserí-lo e aplica-lo
+                                ao finalizar um pedido no carrinho. Atenção, é
+                                necessário criar uma conta para usufruir do cupom.
+                              </p>
+                              <v-btn variant="text"
+                              @click="getRoute('produtos')"
+                              color="white" class="mt-2 ml-n4">
+                                <v-icon class="ml-n0  mt-0">
+                                  mdi-store
+                                </v-icon>
+                                <p class="ml-1 desc-detail">Loja</p>
+                              </v-btn>
+                            </div>
+                          </v-col>
+                      </v-row>
+                  </v-card-text>
+                </v-card>
+            </v-window-item>
           </v-window>
         </v-col>
       </v-row>
@@ -74,7 +146,7 @@
                   min-width="220"
                   max-height="395"
 
-                  @click="toggle"
+                  @click="detailProduct(produto.ID)"
 
                 >
                   <div class="div-img-cad-detail">
@@ -111,10 +183,13 @@
 <script setup>
 import { shallowRef } from 'vue';
 import { useRouter } from 'vue-router';
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 import Detail from '@/CompositionAP/CRUD'
 const router =
   useRouter()
 
+const {mobile, smAndDown} =
+  useDisplay()
 const destaques = shallowRef([])
 const slides = shallowRef(null)
 
@@ -125,6 +200,9 @@ getDest()
 
 function getRoute(route){
   router.push('/' + route)
+}
+function detailProduct(id){
+  router.push({name: 'Produto-Detalhe', params: {id : id}})
 }
 async function getDest(){
     const payload = { opcao: null,
@@ -144,9 +222,7 @@ async function getDest(){
     background: linear-gradient(to right, #1c313a, #16252b, #142830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
-  .text-window{
-    width: 80% !important;
-  }
+
   .sliders{
 
     background: linear-gradient(to right, #333333, #181717); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
