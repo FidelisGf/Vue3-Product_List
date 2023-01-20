@@ -202,9 +202,7 @@
 
           emit('search', payload)
       }else{
-          console.log('chegou aqui else')
           let payload = {search : '', check : null, categoria : null}
-          console.log('passou o else')
           emit('search', payload)
       }
   }

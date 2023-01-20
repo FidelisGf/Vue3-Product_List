@@ -31,7 +31,7 @@
                 <inner-image-zoom
                 :src="url"
                 :zoomSrc="url"
-                :zoomScale="0.9"
+                :zoomScale="1"
                 :fadeDuration="150"
                 class="img ml-lg-n12  ml-md-n12 ml-0 "
                 :hideHint="true"
