@@ -63,6 +63,7 @@ export const useAppStore = defineStore({
             return this.loading
         },
         getFiltros(){
+            console.log(this.filtros)
             return this.filtros
         },
         getSnack(){

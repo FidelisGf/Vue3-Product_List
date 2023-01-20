@@ -186,23 +186,25 @@
             categoria.value = filtros.categoria
           }
 
-          if(categoria.value != null){
-            payload = {search : search.value.toString(),
+          if(categoria.value != null && check.value == undefined){
+            payload = {search : search.value,
             check : parseFloat(check.value),
-            categoria : categoria.value.ID_CATEGORIA}
+            categoria : categoria.value}
           }
           else if(categoria.value == null && check.value != undefined){
-            payload = {search : search.value.toString(),
+            payload = {search : search.value,
             check : parseFloat(check.value)}
-          }
-          else if(search.value != ''){
+          }else{
             payload = {search : search.value}
           }
           execSetFiltros.value = true
           tmpCheck.value = null
+
           emit('search', payload)
       }else{
+          console.log('chegou aqui else')
           let payload = {search : '', check : null, categoria : null}
+          console.log('passou o else')
           emit('search', payload)
       }
   }

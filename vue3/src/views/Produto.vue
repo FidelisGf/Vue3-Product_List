@@ -118,6 +118,7 @@
   getCategorias()
 
   function makeSearch(e){
+      console.log(e.search)
       if(e.search == '' && e.check == null
       && e.categoria == null){
         search.value = null
