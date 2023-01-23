@@ -249,6 +249,8 @@ import ModalEscCor from '@/components/ModalEscCor.vue';
       }
       dialog.value = false
   }
+
+
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
       const number = '45998463475'
