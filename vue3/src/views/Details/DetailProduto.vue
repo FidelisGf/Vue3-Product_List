@@ -11,8 +11,10 @@
         </v-col>
         <v-col cols="12" md="12" lg="8" class="d-flex flex-md-row flex-column-reverse ">
           <v-row class="d-flex">
-            <v-col  cols="12" md="4" lg="2" xl="2" class="d-flex flex-md-column flex-row ">
-              <div class="ml-lg-0 ml-md-8 ml-xl-5 ml-n4 d-flex justify-center flex-row flex-md-column"
+            <v-col  cols="12" md="4" lg="2" xl="2"
+            class="d-flex flex-md-column flex-row ">
+              <div class="ml-lg-0 ml-md-8 ml-xl-5
+              ml-n4 d-flex justify-center flex-row flex-md-column"
                v-for="(cor, index) in produto.CORES" :key="cor.ID"
               >
                 <v-sheet
@@ -39,16 +41,19 @@
               </div>
 
             </v-col>
-            <v-col cols="12" md="12" lg="4" xl="4" class="d-flex justify-md-center justify-start mt-lg-0 mt-0 mt-md-2">
+            <v-col cols="12" md="12" lg="4" xl="4" class="d-flex justify-md-center
+            justify-start mt-lg-0 mt-0 mt-md-2">
               <div class="d-flex flex-column  ml-0 ml-lg-n6 ml-xl-0 text-detail ">
                 <p class="desc-detail text-md-h5 text-h6 font-weight-bold ml-lg-n2 text-white ">{{produto.NOME}}
                    ({{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}})
                 </p>
-                <p class="text-justify text-caption text-md-subtitle-1 ml-1 font-weight-medium ml-lg-n0
+                <p class="text-justify text-caption text-md-subtitle-1 ml-1
+                font-weight-medium ml-lg-n0
                 desc-detail">
                   {{produto.DESC}}...
                 </p>
-                <p class="desc-detail text-justify text-md-h6 text-subtitle-1 ml-1 font-weight-bold ml-lg-n0">
+                <p class="desc-detail text-justify text-md-h6 text-subtitle-1
+                ml-1 font-weight-bold ml-lg-n0">
                   [{{produto.ESTOQUE}}] {{produto.medida.NOME}}(s) em estoque.
                 </p>
 
@@ -60,7 +65,8 @@
         <v-col cols="12" md="12" lg="4" class="d-flex">
             <v-row>
               <v-col cols="12">
-                <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0 mt-lg-n2  ml-md-n6  div-rating">
+                <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0 mt-lg-n2
+                ml-md-n6  div-rating">
 
                   <v-rating
                     class="mt-4"
@@ -109,8 +115,10 @@
                   >
                     mdi-whatsapp
                   </v-icon>
-                  <p class="ml-6 mt-n1 desc-detail">Tirar duvidas sobre o
-                    item</p>
+                  <p class="ml-6 mt-n1 desc-detail">
+                    Tirar duvidas sobre o
+                    item
+                  </p>
                 </v-btn>
 
               </v-col>
@@ -137,9 +145,6 @@
                   max-width="250"
                   min-width="220"
                   max-height="395"
-
-
-
                 >
                   <div class="div-img-cad-detail d-flex justify-center img-card">
                     <img
@@ -158,7 +163,10 @@
                   <v-card-text>
                     <v-row>
                       <v-col cols="12" class="text-caption">
-                        <p class="text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                        <p class="text-body-1 font-weight-medium">Valor :
+                          {{parseFloat(produto.VALOR).
+                            toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                          </p>
                         <p class="font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
                         <p class="font-weight-medium">Categoria : {{produto.NOME_C}}</p>
                       </v-col>

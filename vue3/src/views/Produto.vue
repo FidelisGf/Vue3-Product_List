@@ -2,7 +2,8 @@
   <v-container class="fill-height bg-real" fluid>
     <Filtro @search="makeSearch" @searchPage="pageFilter" ></Filtro>
 
-    <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
+    <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0"
+    :key="listKey">
       <v-col  v-for="(produto, index) in produtos" :key="produto.ID"
       cols="12" md="4" class="d-flex justify-center " >
         <v-sheet min-height="550" color="transparent">
@@ -26,7 +27,8 @@
                     >
                 </v-col>
               </v-row>
-              <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
+              <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"
+              @click="detailProduct(produto.ID)" >
                 {{produto.NOME}}
               </v-card-title>
               <v-card-subtitle class="desc-detail text-justify text-subtitle-1 font-weight-medium">

@@ -37,8 +37,8 @@
                           <v-img :src="produto.IMAGE"
                             @click="detailProduct(produto.ID)"
 
-                            width="125"
-                            height="125"
+                            width="135"
+                            height="135"
                             class="imagem"
                           >
                           </v-img>
@@ -194,8 +194,8 @@ import { isArray } from '@vue/shared';
 
 <style lang="scss" scoped>
   .imagem{
-    box-shadow: 1px 1.8px 8px #080808;
-    background: white !important;
+    box-shadow: 0px 0px 0px #080808;
+    background: transparent !important;
   }
   .imagem:hover{
     transform: scale(1.05);

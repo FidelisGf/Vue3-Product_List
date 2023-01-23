@@ -4,6 +4,7 @@
     <Loading class="d-flex justify-center align-center"></Loading>
     <default-bar @modeOn="onclickMode"/>
     <default-view/>
+
   </v-app>
 </template>
 

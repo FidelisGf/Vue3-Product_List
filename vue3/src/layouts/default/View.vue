@@ -23,6 +23,23 @@
     <suspense>
       <router-view />
     </suspense>
+    <v-footer class="footers">
+      <v-row justify="center" no-gutters>
+        <v-btn
+          v-for="link in icons"
+          :key="link"
+          color="white"
+          variant="text"
+          class="mx-2"
+          rounded="xl"
+        >
+          <v-icon>{{ link }}</v-icon>
+        </v-btn>
+        <v-col class="text-center mt-4" cols="12">
+          {{ new Date().getFullYear() }} <strong>© Empresarial LTDA</strong>
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-main>
 
 </template>
@@ -32,6 +49,12 @@
   import {ref, computed, } from 'vue'
   const storeApp = useAppStore()
   const tmp = ref(null)
+  const icons = ref([
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ])
   let snac = computed({
       get: ()=> storeApp.getSnack,
       set: () => {
@@ -59,6 +82,11 @@
    width: 100%;
    height: 100%;
    float: right;
+  }
+  .footers{
+    background-color: #2d2d2d;
+    background-image: linear-gradient(62deg, #2d2d2d 0%, #111111 100%);
+
   }
 
   .cores{
@@ -94,10 +122,7 @@
     box-shadow: 1px 2px 1px 2px #414749 !important;
   }
   .app-bar{
-    background: #232526;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #414345, #232526) !important;  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   }
 
 
@@ -105,8 +130,6 @@
       width: 100% !important;
   }
   .princip{
-    background: #000000;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
@@ -119,8 +142,6 @@
     box-shadow: 2px 5.2px 8px #8a8a8a !important;
   }
   .corpo-card{
-    background: #16222A;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4a4c4d, #16222A);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #151616, #131c22); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
@@ -129,27 +150,17 @@
   }
 
   .bg-real{
-    background: #000000 !important;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #434343, #000000) !important;  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #434343, #000000) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
   }
   .bg-pedidos{
-    background: #000000;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #434343, #2c2c2c); /* W3C, IE 10+/ Edge, Firefox 16+, Chr*/
   }
   .bg-footer{
     background : #e2f1ff !important
   }
   .filtros{
-    background-color: #424242 !important;
     background-image: linear-gradient(180deg, #424242 0%, #414141 100%) !important;
     border-right-color: #2e2e2e !important;
-
-
-
   }
   .bg-bottom{
     background-color: #E6E6FA !important;

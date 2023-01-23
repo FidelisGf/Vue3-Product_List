@@ -30,11 +30,11 @@
                     </span>
                   </p>
                 </div>
-                <v-btn v-if="!open[index]" @click="openClose(index)" class="mt-n0 pl-0 pl-md-0"
+                <v-btn v-if="!open[index]" @click="openClose(index, pedido.ID)"
+                class="mt-n0 pl-0 pl-md-0"
                 size="x-small" icon variant="text">
                   <v-icon color="#03C03C">
                     mdi-arrow-down
-
                   </v-icon>
                 </v-btn>
                 <v-btn v-else @click="close(index)" class="mt-n0 pl-0 pl-md-0"
@@ -45,12 +45,16 @@
                 </v-btn>
 
               </v-card-subtitle>
-              <Transition name="fade" :duration="300">
-                <v-card-text v-if="open[index]">
+              <Transition name="fade" :duration="300" :key="prodKey">
+                <v-card-text v-if="open[index]" >
 
                   <div class="d-flex flex-md-row flex-column mt-n5 desc-detail">
-                    <p class=" text-body-2 font-weight-medium desc-detail">Forma de Pagamento : {{pedido.METODO_PAGAMENTO}}</p>
-                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">Valor Total :
+                    <p class=" text-body-2 font-weight-medium desc-detail">
+                      Forma de Pagamento :
+                      {{pedido.METODO_PAGAMENTO}}
+                    </p>
+                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">
+                      Valor Total :
                       <span v-if="pedido.ID_CUPOM != null">
                         {{pedido.VlTemp.
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
@@ -60,30 +64,51 @@
                         toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
                       </span>
                     </p>
-                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">Desconto :
-                      <span v-if="pedido.ID_CUPOM != null">{{parseInt(pedido.DESCONTO)}}%</span>
-                      <span v-else>R$ 0,00</span>
+                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">
+                      Desconto :
+                      <span v-if="pedido.ID_CUPOM != null">
+                        {{parseInt(pedido.DESCONTO)}}%
+                      </span>
+                      <span v-else>
+                        R$ 0,00
+                      </span>
                     </p>
-                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">Subtotal : {{parseFloat(pedido.VALOR_TOTAL).
-                      toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                    <p class="pl-md-8 text-body-2 font-weight-medium desc-detail">
+                      Subtotal :
+                      {{parseFloat(pedido.VALOR_TOTAL).
+                      toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                    </p>
                   </div>
                   <v-divider class="mt-2"></v-divider>
-                  <v-row class="mt-1 mb-1" v-for="produto in pedido.PRODUTOS" :key="produto.ID">
-                    <v-col cols="6" sm="4">
+                  <v-row class="mt-1 mb-1" v-for="(produto, index) in pedido.PRODUTOS">
+                    <v-col cols="6" sm="4" >
                       <v-img max-width="200" :src="produto.IMAGE"></v-img>
                     </v-col>
                     <v-col cols="6" class="d-flex flex-column
-                    text-caption text-md-subtitle-1">
-                      <p class="font-weight-medium desc-detail"><b>Nome :</b> {{produto.NOME}}</p>
-                      <p class="font-weight-medium desc-detail"><b>Valor :</b> {{parseFloat(produto.VALOR).
-                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                      <p class="font-weight-medium desc-detail"><b>Quantidade :</b> {{produto.QUANTIDADE}} unidade(s)</p>
-                      <p class="font-weight-medium desc-detail"><b>SubTotal : </b>{{parseFloat(produto.VALOR * produto.QUANTIDADE).
-                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                    text-caption text-md-subtitle-1" >
+                      <p class="font-weight-medium desc-detail">
+                        <b>Nome :</b>
+                        {{produto.NOME}}
+                      </p>
+                      <p class="font-weight-medium desc-detail">
+                        <b>Valor :</b>
+                        {{parseFloat(produto.VALOR).
+                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                      </p>
+                      <p class="font-weight-medium desc-detail">
+                        <b>Quantidade :</b>
+                        {{produto.QUANTIDADE}} unidade(s)
+                      </p>
+                      <p class="font-weight-medium desc-detail">
+                        <b>SubTotal : </b>
+                        {{parseFloat(produto.VALOR * produto.QUANTIDADE).
+                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                      </p>
                       <div class="d-flex flex-row desc-detail">
                         <p class="text-caption text-sm-subtitle-1 font-weight-bold
                         desc-detail">Cor: </p>
                         <v-sheet
+
                           :color="produto.COR_ESCOLHIDA"
                           height="20"
                           width="20"
@@ -98,7 +123,7 @@
                         bg-color="orange-lighten-1"
                         color="#FFD700"
                         density="compact"
-                        v-on:change="avaliou($event, produto.ID, pedido.ID)"
+                        v-on:change="avaliou($event, produto.ID)"
                         half-increments
                       >
                       </v-rating>
@@ -124,36 +149,37 @@
   const renic = ref(0)
   const rating = ref(0)
   const alteraNota = ref(0)
+  const prodKey = ref(0)
 
   const {getAllPedidos} =
   PedidoComp()
 
-  const {post} = CrudComp()
-  function openClose(index){
+  const {post, findById} = CrudComp()
+  async function openClose(index,id){
       open.value[index] = true
+      let payload = {Shop : null}
+      let pedido = pedidos.value.find(o => o.ID == id)
+      if(pedido){
+        pedido.PRODUTOS = await findById('getProdutosFromPedidos', pedido.ID, payload)
+      }
+      prodKey.value += 1
   }
-  function close(index){
+  function close(index, id){
     open.value[index] = false
+
   }
   function reniciar(){
       getPedidos()
       renic.value += 1
   }
- async function avaliou(e, id, idPedido){
-      for(let p of pedidos.value){
-        for(let prod of p.PRODUTOS){
-            if(prod.ID == id){
-              prod.AVALIACAO = e.target.value
-            }
-        }
-      }
+
+ async function avaliou(e, id){
       let payload = {NOTA : e.target.value, ID_PRODUTO : id}
       await post('avaliacoes', payload)
       alteraNota.value += 1
   }
-  async function getPedidos(){
 
-    console.log(open.value)
+  async function getPedidos(){
     let payload = { current_page: 1, opcao: null, start: null, end: null,
     search: null, Shop: "T", Precos : null, categoria : null};
     pedidos.value = await getAllPedidos(payload)
@@ -162,7 +188,6 @@
     for(let i = 0; i <= leng; i++){
         open.value[i] = false
     }
-
   }
   getPedidos()
 </script>
