@@ -1,79 +1,75 @@
 <template>
   <v-container class="fill-height bg-real" fluid>
-        <Filtro @search="makeSearch" @searchPage="pageFilter" ></Filtro>
-        <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
-
-            <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
-              <v-card  width="300px"
-                    class="cards corpo-card"
-                    elevation="1"
-
+    <Filtro @search="makeSearch" @searchPage="pageFilter" ></Filtro>
+    <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
+      <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
+        <v-card
+          width="300px"
+          class="cards corpo-card"
+          elevation="1"
+        >
+          <v-row>
+            <v-col cols="12" class="img-card d-flex justify-center align-center">
+              <img
+                :src="produto.IMAGE"
+                :height="280"
+                :width="280"
+                @click="detailProduct(produto.ID)"
                 >
-                  <v-row class="d-flex justify-center">
-                    <v-col cols="12" class="img-card d-flex justify-center align-center">
-                      <img
-                        :src="produto.IMAGE"
-                        :height="250"
-                        :width="250"
-
-                        @click="detailProduct(produto.ID)"
-                      >
-                    </v-col>
-                  </v-row>
-
-
-                  <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
-                    {{produto.NOME}}
-                  </v-card-title>
-                  <v-card-subtitle class="desc-detail text-justify text-subtitle-1 font-weight-medium">
-                    {{produto.DESC}}
-                  </v-card-subtitle>
-                  <v-card-text  @click="detailProduct(produto.ID)"
-
-                  >
-                      <v-row>
-                        <v-col cols="12" class="text-caption">
-                          <p class=" desc-detail text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                          <p class=" desc-detail font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
-                          <p class=" desc-detail font-weight-medium">Categoria : {{produto.NOME_C}}</p>
-                        </v-col>
-
-                      </v-row>
-                  </v-card-text>
-                  <v-card-actions>
-                      <v-row>
-                        <v-col cols="6">
-                          <v-btn class="ml-n1" @click="detailProduct(produto.ID)"
-                          color="#B2FFFF" icon="mdi-information-outline">
-
-                          </v-btn>
-                          <v-btn color="#03C03C" @click="saveInCarrinho(produto.ID, produto.VALOR)"
-                          icon="mdi-cart-outline">
-
-                          </v-btn>
-                        </v-col>
-
-                        <v-spacer></v-spacer>
-                        <v-col>
-                          <v-btn class="ml-4" color="#03C03C" icon="mdi-whatsapp"></v-btn>
-                        </v-col>
-                      </v-row>
-                  </v-card-actions>
-              </v-card>
             </v-col>
-        </v-row>
-        <v-row class="d-flex flex-row">
-            <v-col cols="12" class="d-flex flex-row justify-center">
-              <v-pagination
-                color="teal lighten-1"
-                v-model="current_page"
-                  :length="storeApp.getLastPage"
-                  :total-visible="5"
-                >
-              </v-pagination>
-            </v-col>
-        </v-row>
-
+          </v-row>
+          <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
+            {{produto.NOME}}
+          </v-card-title>
+          <v-card-subtitle class="desc-detail text-justify text-subtitle-1 font-weight-medium">
+            {{produto.DESC}}
+          </v-card-subtitle>
+          <v-card-text  @click="detailProduct(produto.ID)">
+            <v-row>
+              <v-col cols="12" class="text-caption">
+                <p class=" desc-detail text-body-1 font-weight-medium">
+                  Valor : {{parseFloat(produto.VALOR).
+                    toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                </p>
+                <p class=" desc-detail font-weight-medium">
+                  Estoque : {{produto.QUANTIDADE}} unidades
+                </p>
+                <p class=" desc-detail font-weight-medium">
+                  Categoria : {{produto.NOME_C}}
+                </p>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+              <v-row>
+                <v-col cols="6">
+                  <v-btn class="ml-n1" @click="detailProduct(produto.ID)"
+                    color="#B2FFFF" icon="mdi-information-outline">
+                  </v-btn>
+                  <v-btn color="#03C03C" @click="defineCor(produto)"
+                    icon="mdi-cart-outline">
+                  </v-btn>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col>
+                <v-btn class="ml-4" color="#03C03C" icon="mdi-whatsapp"></v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row class="d-flex flex-row">
+        <v-col cols="12" class="d-flex flex-row justify-center">
+          <v-pagination
+            color="teal lighten-1"
+            v-model="current_page"
+            :length="storeApp.getLastPage"
+            :total-visible="5"
+          >
+        </v-pagination>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -83,6 +79,7 @@
   import Detail from '@/CompositionAP/CRUD'
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
+
 
   const Filtro = defineAsyncComponent(()=>
     import('@/components/Filtro.vue')
@@ -97,7 +94,7 @@
   const {saveInCarrinho} =
   Carrinho()
 
-  const {getAllList, applyFilter} =
+  const {getAllList, applyFilter, findById} =
   Detail()
 
   const current_page = ref(1)
@@ -115,7 +112,8 @@
   const search = ref('')
   const precos = ref('')
   const categoria = shallowRef(null)
-  const flagFiltroPagina = ref(false)
+
+
 
 
   watch(current_page, (val) => {
@@ -139,6 +137,12 @@
       getProdutos()
   }
 
+  async function defineCor(produto){
+    let payload = {Shop : 'T'}
+    let cor = await findById('getOneColorOfProduct', produto.ID, payload)
+    saveInCarrinho(produto.ID, produto.VALOR, cor[0].HASH)
+    dialog.value = false
+  }
 
   async function getProdutos(){
     listKey.value += 1;
@@ -209,24 +213,6 @@
   function detailProduct(id){
     router.push({name: 'Produto-Detalhe', params: {id : id}})
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 

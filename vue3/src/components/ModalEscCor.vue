@@ -1,0 +1,53 @@
+<template>
+  <div class="d-flex justify-center">
+    <v-card class="card-cores" >
+      <v-card-title class="text-body-2 d-flex justify-space-between">
+
+        <small class="ml-1">Escolha a cor</small>
+      </v-card-title>
+        <v-card-text>
+          <v-row class="d-flex ml-1 flex-row">
+            <v-col
+            class="d-flex justify-start"
+            v-for="(cor, index ) in produto.CORES" :key="cor.ID">
+              <v-sheet
+                :color="cor.HASH"
+                height="50"
+                width="50"
+                @click="defineColor(cor.HASH, index)"
+                elevation="2"
+                class="ml-md-0  cores-selec"
+              ></v-sheet>
+              <small class="ml-2">{{cor.ESTOQUE}} Unidades(s)</small>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions class="d-flex justify-end">
+          <v-btn @click="close" color="red"
+          variant="text" size="small">
+            Fechar
+          </v-btn>
+        </v-card-actions>
+    </v-card>
+  </div>
+</template>
+
+<script setup>
+  import { defineProps } from 'vue'
+  const props = defineProps({
+    produto : Object
+  })
+  const emit = defineEmits(['corEsc', 'close'])
+  function defineColor(color, index){
+      let payload = {color : color,
+      index : index }
+      emit('corEsc', payload)
+  }
+  function close(){
+      emit('close', false)
+  }
+</script>
+
+<style lang="scss" scoped>
+
+</style>

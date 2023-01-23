@@ -26,15 +26,15 @@
                 ><v-icon v-if="choosen[index] == true" color="green">mdi-check</v-icon></v-sheet>
               </div>
             </v-col >
-            <v-col cols="12" md="5" lg="5" xl="5" class="d-flex justify-start ">
-              <div class="mod-imagem">
+            <v-col cols="12" md="5" lg="5" xl="5" class="d-flex justify-md-start justify-center">
+              <div class="mod-imagem d-flex justify-center justify-md-start">
                 <inner-image-zoom
-                :src="url"
-                :zoomSrc="url"
-                :zoomScale="1"
-                :fadeDuration="150"
-                class="img ml-lg-n12  ml-md-n12 ml-0 "
-                :hideHint="true"
+                  :src="url"
+                  :zoomSrc="url"
+                  :zoomScale="1"
+                  :fadeDuration="150"
+                  class="img ml-lg-n12  ml-md-n12 ml-0 "
+                  :hideHint="true"
                 ></inner-image-zoom>
               </div>
 
@@ -176,43 +176,15 @@
       @keydown.escape="dialog = false"
 
     >
-      <div class="d-flex justify-center">
-        <v-card class="card-cores" >
-
-          <v-card-title class="text-body-2 d-flex justify-space-between">
-            <small class="ml-1">Escolha a cor</small>
-          </v-card-title>
-            <v-card-text>
-              <v-row class="d-flex ml-1 flex-row">
-                <v-col
-                class="d-flex justify-start"
-                v-for="(cor, index ) in produto.CORES" :key="cor.ID">
-                  <v-sheet
-                    :color="cor.HASH"
-                    height="50"
-                    width="50"
-                    @click="defineColor(cor.HASH, index)"
-                    elevation="2"
-                    class="ml-md-0  cores-selec"
-                  ></v-sheet>
-                  <small class="ml-2">{{cor.ESTOQUE}} Unidades(s)</small>
-                </v-col>
-              </v-row>
-            </v-card-text>
-            <v-card-actions class="d-flex justify-end">
-              <v-btn @click="dialog = false" color="red"
-              variant="text" size="small">
-                Fechar
-              </v-btn>
-            </v-card-actions>
-        </v-card>
-      </div>
+      <ModalEscCor :produto="produto" @close="close"
+      @corEsc="defineCor"
+      ></ModalEscCor>
     </v-dialog>
   </v-container>
 </template>
 
 <script setup>
-  import {ref, watch, shallowRef} from 'vue'
+  import {ref, shallowRef} from 'vue'
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
   import { useProdutoStore } from '@/store/produtoStore'
@@ -220,6 +192,7 @@
   import { useRoute } from 'vue-router';
   import InnerImageZoom from 'vue-inner-image-zoom'
   import 'vue-image-zoomer/dist/style.css';
+import ModalEscCor from '@/components/ModalEscCor.vue';
   const router = useRouter()
 
   const storeApp =
@@ -247,7 +220,9 @@
 
 
 
-
+  function close(e){
+      dialog.value = e
+  }
   async function findProduto(){
       let payload = {Shop : 'T'}
       produto.value = await findById('products', route.params.id,
@@ -261,17 +236,18 @@
       dialog.value = true
       buy.value = boolean
     }else{
-      defineColor(selectedColor.value)
+      saveInCarrinho(produto.value.ID, produto.value.VALOR, selectedColor.value)
     }
   }
-  function defineColor(color, index){
-      saveInCarrinho(produto.value.ID, produto.value.VALOR, color)
+  function defineCor(e){
+      saveInCarrinho(produto.value.ID, produto.value.VALOR, e.color)
       if(buy.value == true){
-        router.push('/carrinho')
+          router.push('/carrinho')
       }
       if(selectedColor.value == null){
-        saveCor(selectedColor.value, index)
+          saveCor(e.color, e.index)
       }
+      dialog.value = false
   }
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
@@ -281,6 +257,8 @@
       const end_url = `${url}${number}&text=${msg}`
       window.open(end_url, '_blank').focus();
   }
+
+
   function saveCor(cor, index){
       if(tmpChosen.value != index){
         choosen.value[tmpChosen.value] = false
@@ -298,7 +276,6 @@
     Shop: "T", Precos : null,
     categoria : produto.value.ID_CATEGORIA};
 
-
     if(flag.value){
       produtos.value = tmpAuxiliar.value
       produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
@@ -311,12 +288,15 @@
 
   }
 
+
   async function detailProduct(id){
       await router.push({name: 'Produto-Detalhe', params: {id : id}})
       choosen.value[tmpChosen.value] = false
       selectedColor.value = null
       findProduto()
   }
+
+
 
   function returnStore(){
     router.push({path : `/produtos`})
