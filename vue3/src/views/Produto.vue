@@ -4,26 +4,25 @@
         <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0" :key="listKey">
 
             <v-col  v-for="produto in produtos" :key="produto.ID" cols="12" md="4" class="d-flex justify-center " >
-              <v-card  width="380px"
+              <v-card  width="300px"
                     class="cards corpo-card"
                     elevation="1"
 
                 >
                   <v-row class="d-flex justify-center">
-                    <v-col cols="12" class="d-flex justify-center align-center">
+                    <v-col cols="12" class="img-card d-flex justify-center align-center">
+                      <img
+                        :src="produto.IMAGE"
+                        :height="250"
+                        :width="250"
 
-                          <v-img
-                          :src="produto.IMAGE"
-                          height="340px"
-                          cover @click="detailProduct(produto.ID)">
-                          </v-img>
-
-
+                        @click="detailProduct(produto.ID)"
+                      >
                     </v-col>
                   </v-row>
 
 
-                  <v-card-title class="text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
+                  <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}
                   </v-card-title>
                   <v-card-subtitle class="desc-detail text-justify text-subtitle-1 font-weight-medium">

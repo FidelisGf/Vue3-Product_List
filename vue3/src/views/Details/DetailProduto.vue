@@ -131,23 +131,25 @@
                 v-slot="{toggle, selectedClass }"
               >
                 <v-card
-
+                  @click="detailProduct(produto.ID)"
                   :class="['ma-3', selectedClass, 'cards', 'corpo-card'] "
                   min-height="365"
                   max-width="250"
                   min-width="220"
                   max-height="395"
 
-                  @click="toggle"
+
 
                 >
-                  <div class="div-img-cad-detail">
-                    <v-img :src="produto.IMAGE"
-                    height="220px"
-                    cover @click="detailProduct(produto.ID)" class="img-card"></v-img>
+                  <div class="div-img-cad-detail d-flex justify-center img-card">
+                    <img
+                      :src="produto.IMAGE"
+
+                      height="220"
+                    >
                   </div>
 
-                  <v-card-title class=" text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
+                  <v-card-title class=" text-h5 font-weight-bold"   >
                     {{produto.NOME}}
                   </v-card-title>
                   <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
