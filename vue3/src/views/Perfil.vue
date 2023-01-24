@@ -47,7 +47,7 @@
     </v-row>
     <v-row v-if="tela == 'edit-dados'">
       <v-col cols="12" >
-        <FormUser :cad="false" :is="current"></FormUser>
+        <FormUser :cad="false" ></FormUser>
       </v-col>
     </v-row>
 
@@ -79,35 +79,33 @@
 </template>
 
 <script setup>
-  import FormUser from '@/components/FormUser.vue';
-import UserComp from '@/CompositionAP/UserComp'
-  import { ref, computed } from 'vue'
-  import { useRouter } from 'vue-router';
-import Pedidos from './Pedidos.vue';
+  import UserComp from '@/CompositionAP/UserComp'
+  import { ref, defineAsyncComponent} from 'vue'
 
-  const router =
-  useRouter()
 
-  const {getPerfil, logoutUser} =
-  UserComp()
+  const FormUser = defineAsyncComponent(()=>
+      import('@/components/FormUser.vue')
+  )
+  const Pedidos = defineAsyncComponent(()=>
+      import('./Pedidos.vue')
+  )
+
+
+
+  const {
+    getPerfil,
+    logout} = UserComp()
 
   const user = ref(null)
   const renic = ref(0)
   const tela = ref('dados')
-  const current = ref('FormUser')
 
   async function getUser(){
       user.value = await getPerfil()
-
       user.value.CREATED_AT = new Date(user.value.CREATED_AT)
       user.value.CREATED_AT = user.value.CREATED_AT.toLocaleString()
   }
-  async function logout(){
-      logoutUser()
-      localStorage.clear('token')
-      router.push('/login')
 
-  }
   function reniciar(){
       getUser()
       renic.value += 1

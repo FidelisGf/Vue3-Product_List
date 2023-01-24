@@ -6,8 +6,6 @@
 
 <script setup>
   import FormUser from '@/components/FormUser.vue';
-
-
 </script>
 
 <style lang="scss" >

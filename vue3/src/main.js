@@ -18,7 +18,6 @@ import axios from '@/Service/Service'
 import 'vue-inner-image-zoom/lib/vue-inner-image-zoom.css';
 
 const app = createApp(App)
-app.use(pinia)
 
 app.use(VueAxios, axios)
 registerPlugins(app)

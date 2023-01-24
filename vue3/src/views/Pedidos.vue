@@ -141,20 +141,26 @@
 </template>
 
 <script setup>
-  import { ref, computed, shallowRef } from 'vue'
+  import {ref} from 'vue'
   import PedidoComp from '@/CompositionAP/PedidoComp'
   import CrudComp from '@/CompositionAP/CRUD';
-  const open = ref([])
-  const pedidos  = shallowRef(null)
+
+
   const renic = ref(0)
-  const rating = ref(0)
   const alteraNota = ref(0)
   const prodKey = ref(0)
 
-  const {getAllPedidos} =
-  PedidoComp()
+  const {
+    getAllPedidos,
+    pedidos,
+    open} = PedidoComp()
 
-  const {post, findById} = CrudComp()
+  const {
+    post,
+    findById} = CrudComp()
+
+
+
   async function openClose(index,id){
       open.value[index] = true
       let payload = {Shop : null}
@@ -189,6 +195,8 @@
         open.value[i] = false
     }
   }
+
+
   getPedidos()
 </script>
 
@@ -199,12 +207,11 @@
   }
 
   .fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+  .fade-leave-active {
+    transition: opacity 0.4s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 </style>

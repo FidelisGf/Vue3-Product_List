@@ -4,12 +4,23 @@ import { useUserStore } from '@/store/UserStore'
 import UserService from '@/Service/UserService'
 import { useRouter } from 'vue-router';
 export default function UserComp(){
-  const genericApp = useAppStore()
-  const userApp = useUserStore()
-  const router = useRouter()
-  const isNameGrande = computed(()=>
+  const genericApp =
+  useAppStore()
+
+
+  const userApp =
+  useUserStore()
+
+
+  const router =
+  useRouter()
+
+  const isNameGrande =
+  computed(()=>
       ifIsMaior()
   )
+
+
   const user = {
     ID : ref(0),
     NAME : ref(''),
@@ -103,21 +114,51 @@ export default function UserComp(){
         router.push({ path: '/produtos' })
       }
   }
-  function logoutUser(){
+  function logout(){
      userApp.logoutUser()
+     localStorage.clear('token')
+     router.push('/login')
   }
   function getPerfil(){
     return userApp.getUser()
   }
+
+
+
+   const NomeRules = [
+      v=> !!v || 'Nome é obrigatorio',
+      v=> (v && v.length >= 6) || 'Nome deve ter no minimo 6 caracteres'
+  ]
+  const EmailRules = [
+      v => !!v || 'Email é obrigatorio',
+      v => /.+@.+\..+/.test(v) || 'Email deve ser válido'
+  ]
+  const pwRules = [
+      v => !!v || 'Senha é obrigatoria',
+      v => (v && v.length >= 6) || 'Senha deve ter no minimo 6 caracteres'
+  ]
+  const cfPwRules = [
+      v => !!v || 'Confirmar a senha é obrigatorio',
+      v => (v == user.PASSWORD.value) || 'As senhas não conferem'
+  ]
+  const cpfRules = [
+      v => !!v || 'Cpf é obrigatorio',
+      v => (v && v.length == 11) || 'Cpf inválido'
+  ]
+
 
   return {
       user,
       register,
       clearUser,
       login,
-      logoutUser,
+      logout,
       getPerfil,
       update,
-      isNameGrande
+      NomeRules,
+      cpfRules,
+      EmailRules,
+      pwRules,
+      cfPwRules
   }
 }

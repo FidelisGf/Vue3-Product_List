@@ -59,8 +59,11 @@
                       <p class="text-md-h5 font-weight-black desc-detail">O WebShop</p>
                       <div class=" justify-start "
                         >
-                        <p class="desc-detail">O WebShop tem como objetivo ser uma lista de produtos online. Mas como assim ? No webshop você apenas irá
-                          escolher seus produtos, confirmar seu pedido e envia-lo para a empresa responsável, onde vocês irão discutir
+                        <p class="desc-detail">O WebShop tem como objetivo ser uma lista de
+                          produtos online. Mas como assim ? No webshop você apenas irá
+                          escolher seus produtos, confirmar
+                          seu pedido e envia-lo para a empresa responsável,
+                          onde vocês irão discutir
                           os termos de pagamento.
                         </p>
                       </div>
@@ -149,11 +152,13 @@
                   @click="detailProduct(produto.ID)"
 
                 >
-                  <div class="div-img-cad-detail">
-                    <v-img :src="produto.IMAGE"
-                    height="220px"
-                    cover @click="detailProduct(produto.ID)" class="img-card"></v-img>
-                  </div>
+                <div class="
+                  d-flex justify-center img-card">
+                  <v-img
+                    :src="produto.IMAGE"
+                    height="210"
+                  ></v-img>
+                </div>
 
                   <v-card-title class=" text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
                     {{produto.NOME}}
@@ -164,9 +169,17 @@
                   <v-card-text>
                     <v-row>
                       <v-col cols="12" class="text-caption">
-                        <p class="text-body-1 font-weight-medium">Valor : {{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                        <p class="font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
-                        <p class="font-weight-medium">Categoria : {{produto.NOME_C}}</p>
+                        <p class="text-body-1 font-weight-medium">
+                          Valor :
+                            {{parseFloat(produto.VALOR)
+                            .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                          </p>
+                        <p class="font-weight-medium">
+                          Estoque :
+                            {{produto.QUANTIDADE}} unidades
+                        </p>
+                        <p class="font-weight-medium">
+                          Categoria : {{produto.NOME_C}}</p>
                       </v-col>
 
                     </v-row>

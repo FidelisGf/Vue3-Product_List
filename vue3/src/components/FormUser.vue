@@ -105,7 +105,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, toRefs } from 'vue'
+  import { ref, defineProps} from 'vue'
   import { useRouter } from 'vue-router';
   import  UserComp from '@/CompositionAP/UserComp'
 
@@ -113,50 +113,41 @@ import { ref, defineProps, toRefs } from 'vue'
     cad : Boolean
   })
 
-  const route = useRouter()
-
+  const route =
+  useRouter()
 
 
   const image_file = ref(null)
   const image_url = ref(null)
   const image_colocada = ref(false)
-  const {user, register, clearUser, getPerfil, update} = UserComp()
-  const valid = ref(true)
 
+  const valid = ref(true)
   const title = ref('Cadastro de cliente')
   const txtBotao = ref('Cadastrar')
-
-
-
-  const NomeRules = [
-      v=> !!v || 'Nome é obrigatorio',
-      v=> (v && v.length >= 6) || 'Nome deve ter no minimo 6 caracteres'
-  ]
-  const EmailRules = [
-      v => !!v || 'Email é obrigatorio',
-      v => /.+@.+\..+/.test(v) || 'Email deve ser válido'
-  ]
-  const pwRules = [
-      v => !!v || 'Senha é obrigatoria',
-      v => (v && v.length >= 6) || 'Senha deve ter no minimo 6 caracteres'
-  ]
-  const cfPwRules = [
-      v => !!v || 'Confirmar a senha é obrigatorio',
-      v => (v == user.PASSWORD.value) || 'As senhas não conferem'
-  ]
-  const cpfRules = [
-      v => !!v || 'Cpf é obrigatorio',
-      v => (v && v.length == 11) || 'Cpf inválido'
-  ]
-
   let image_user = null
+
+  const {
+    user,
+    register,
+    clearUser,
+    getPerfil,
+    update,
+    NomeRules,
+    cpfRules,
+    EmailRules,
+    pwRules,
+    cfPwRules
+  } = UserComp()
+
+
+
+
 
 
   checkPropsAndForm()
 
   async function test(){
     if(props.cad ==  true){
-
       register(image_file, valid.value)
       clearUser()
       clearImage()
@@ -189,15 +180,15 @@ import { ref, defineProps, toRefs } from 'vue'
       user.EMAIL.value = prov.EMAIL
       user.CPF.value = prov.CPF
       user.NAME.value = prov.NAME
-      user.IMAGE = prov.BLOB
       image_url.value = prov.IMAGE
       image_colocada.value = true
 
   }
   async function updateUser(){
-
     update(image_file, valid.value)
   }
+
+
   function checkPropsAndForm(){
     if(props.cad == false){
       txtBotao.value = 'Editar'
@@ -205,46 +196,42 @@ import { ref, defineProps, toRefs } from 'vue'
       getUser()
     }
   }
+
+
   function voltar(){
       route.back()
   }
 </script>
 
 <style lang="scss" scoped>
-input[type="file"] {
-  width: 0.1px;
-height: 0.1px;
-opacity: 0;
-overflow: hidden;
-position: absolute;
-z-index: -1;
-}
-.arqv {
-  font-size: 1.05em;
-  font-weight: 500;
-  color: rgb(253, 247, 247);
-
-  display: inline-block;
-
-}
-input[type="file"]:focus + .arqv,
-input[type="file"] +  .arqv:hover{
-  background-color: rgb(194, 52, 52);
-}
-.card-cad{
-  background: #232526;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #414345, #232526) !important;  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-.mold-img{
+  input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .arqv {
+    font-size: 1.05em;
+    font-weight: 500;
+    color: rgb(253, 247, 247);
+    display: inline-block;
+  }
+  input[type="file"]:focus + .arqv,
+  input[type="file"] +  .arqv:hover{
+    background-color: rgb(194, 52, 52);
+  }
+  .card-cad{
+    background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  .mold-img{
     width: 80px !important;
     height: 80px !important;
     border: solid 0.1px rgb(185, 185, 185);
-
-}
-.img-cad{
+  }
+  .img-cad{
     width: 80%;
     height: 80%;
-
-}
+  }
 </style>

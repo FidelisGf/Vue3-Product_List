@@ -13,8 +13,10 @@
 
       <v-row class="d-flex flex-column">
         <v-col cols="12">
-          <p class=" desc-detail text-body-2 mt-n2 mt-sm-0 text-sm-body-1 font-weight-medium"> Quase tudo pronto. Agora nos envie o numero do seu pedido pelo whats ou por
-          e-mail para prosseguirmos ao pagamento.</p>
+          <p class=" desc-detail text-body-2 mt-n2 mt-sm-0 text-sm-body-1 font-weight-medium">
+            Quase tudo pronto. Agora nos envie o numero do seu pedido pelo whats ou por
+            e-mail para prosseguirmos ao pagamento.
+          </p>
         </v-col>
         <v-col cols="12" class="mt-n2 mt-sm-0 desc-detail">
             <p><b>Informações de contato : </b></p>
@@ -40,7 +42,7 @@
 
 <script setup>
   import { useCarrinhoStore } from '@/store/CarrinhoStore';
-  import { ref, computed } from 'vue'
+  import { computed } from 'vue'
 
 
   const storeApp = useCarrinhoStore()
@@ -55,7 +57,8 @@
   function goWhats(){
       const url = "https://api.whatsapp.com/send?phone="
       const number = '45998463475'
-      const msg = "Boa%20Tarde%20gostaria%20de%20ter%20informações%20sobre%20o%20meu%20pedido%20Numero%20" + storeApp.getIdPedido.toString()
+      const msg = "Boa%20Tarde%20gostaria%20de%20ter%20informações%20sobre%20o%20meu%20pedido%20Numero%20" +
+      storeApp.getIdPedido.toString()
       const end_url = `${url}${number}&text=${msg}`
       window.open(end_url, '_blank').focus();
   }

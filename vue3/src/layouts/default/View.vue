@@ -23,7 +23,7 @@
     <suspense>
       <router-view />
     </suspense>
-    <v-footer class="footers">
+    <v-footer class="footers" v-if="$route.name!='Perfil'">
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in icons"
@@ -173,7 +173,7 @@
     max-width: 320px !important;
     max-height: 320px !important;
     min-height: 200px;
-    border: solid 1.0px rgb(247, 239, 239);
+
   }
   .img{
     min-width: 90% !important;

@@ -1,8 +1,13 @@
-import { ref, computed } from 'vue'
+import { ref, shallowRef } from 'vue'
 import { useRouter } from 'vue-router';
 import { usePedidoStore } from '@/store/PedidoStore';
 export default function PedidoComp(){
-  const router = useRouter()
+  const router =
+  useRouter()
+
+
+  const pedidos  = shallowRef(null)
+  const open = ref([])
 
 
   function getAllPedidos(payload){
@@ -10,6 +15,8 @@ export default function PedidoComp(){
     return pedidoApp.getPedidos(payload)
   }
   return {
-    getAllPedidos
+    getAllPedidos,
+    pedidos,
+    open
   }
 }

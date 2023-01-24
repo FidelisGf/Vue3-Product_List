@@ -13,17 +13,16 @@
   </v-overlay>
 </template>
 
-<script>
-import { useAppStore } from '@/store/app'
-const storeApp = useAppStore()
+<script setup>
+  import { useAppStore } from '@/store/app'
+  import { computed } from 'vue';
+  const storeApp =
+  useAppStore()
 
-export default {
-   computed: {
-      value : function (){
-            return storeApp.loading
-      }
-   }
-}
+  const value = computed(()=>
+      storeApp.loading
+  )
+
 </script>
 
 <style lang="scss" scoped>

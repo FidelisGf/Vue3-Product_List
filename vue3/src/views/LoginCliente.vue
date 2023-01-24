@@ -52,17 +52,8 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
   import  UserComp from '@/CompositionAP/UserComp'
-  const {user, login, logoutUser, isNameGrande} = UserComp()
-  //logoutUser()
-  const valid = ref(true)
-  const NomeRules = [
-      v=> !!v || 'Nome é obrigatorio',
-  ]
-  const pwRules = [
-      v => !!v || 'Senha é obrigatoria',
-  ]
+  const {user, login, NomeRules, pwRules} = UserComp()
 </script>
 
 <style lang="scss" scoped>
@@ -79,8 +70,6 @@
         min-width: 50% !important;
         min-height: 100% !important;
         max-width: 100% !important;
-        background: #16222A;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #4a4c4d, #16222A);  /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #151616, #131c22); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
     .img{
@@ -94,9 +83,7 @@
         color : rgb(255, 255, 255)
     }
     .bg-login{
-      background: #000000 !important;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #434343, #000000) !important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #434343, #000000) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right, #434343, #000000) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     }
 </style>

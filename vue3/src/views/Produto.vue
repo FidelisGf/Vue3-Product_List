@@ -23,19 +23,20 @@
             :options="{ threshold: 0.5 }"
             >
               <v-card
-                max-width="330px"
+                width="330px"
+
                 class="cards corpo-card"
                 elevation="1"
               >
               <v-row :key="index" >
                 <v-col cols="12" class="img-card d-flex justify-center
                 align-content-center">
-                  <img
+                  <v-img
                     :src="produto.IMAGE"
                     :height="290"
                     class="img-detail"
                     @click="detailProduct(produto.ID)"
-                    >
+                    ></v-img>
                 </v-col>
               </v-row>
               <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"
