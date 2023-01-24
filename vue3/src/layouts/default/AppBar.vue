@@ -69,7 +69,6 @@
   const {mobile} =
   useDisplay()
 
-  const theme = ref('light')
   const dialog = ref(false)
 
 

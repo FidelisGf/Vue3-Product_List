@@ -10,20 +10,18 @@ const routes = [
       {
         path: '',
         name: 'Home',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+
+        component: () => import('@/views/Home.vue'),
       },
       {
         path: 'produtos',
         name: 'Produtos',
-        component: () => import(/* webpackChunkName: "home" */  '@/views/Produto.vue'),
+        component: () => import('@/views/Produto.vue'),
       },
       {
         path: 'produto/detalhes/:id',
         name: 'Produto-Detalhe',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Details/DetailProduto.vue')
+        component: () => import('@/views/Details/DetailProduto.vue')
 
       },
       {
@@ -57,12 +55,12 @@ const routes = [
               next('/login')
           }
         },
-        component:() => import(/* webpackChunkName: "home" */ '@/views/Carrinho.vue')
+        component:() => import('@/views/Carrinho.vue')
       },
       {
         path: 'cadastro',
         name: 'Cadastro',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/RegisterCliente.vue')
+        component: () => import('@/views/RegisterCliente.vue')
       },
       {
         path: 'login',
@@ -95,12 +93,12 @@ const routes = [
               next()
           }
         },
-        component: () => import(/* webpackChunkName: "home" */ '@/views/LoginCliente.vue')
+        component: () => import('@/views/LoginCliente.vue')
       },
       {
         path: 'perfil',
         name: 'Perfil',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Perfil.vue')
+        component: () => import('@/views/Perfil.vue')
       }
     ],
   },

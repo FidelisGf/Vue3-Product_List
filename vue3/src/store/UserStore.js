@@ -2,8 +2,7 @@
 import UserService from '@/Service/UserService'
 import { defineStore } from 'pinia'
 import { useAppStore } from '@/store/app'
-import { useRouter } from 'vue-router';
-import Service from '@/Service/Service';
+
 export const useUserStore = defineStore('user', {
   state: () => ({
 

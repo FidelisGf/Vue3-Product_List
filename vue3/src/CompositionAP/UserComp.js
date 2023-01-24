@@ -1,7 +1,6 @@
 import { ref, computed } from 'vue'
 import { useAppStore } from '@/store/app'
 import { useUserStore } from '@/store/UserStore'
-import UserService from '@/Service/UserService'
 import { useRouter } from 'vue-router';
 export default function UserComp(){
   const genericApp =

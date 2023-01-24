@@ -150,7 +150,6 @@
                   <div class="div-img-cad-detail d-flex justify-center img-card">
                     <img
                       :src="produto.IMAGE"
-
                       height="220"
                     >
                   </div>
@@ -202,20 +201,27 @@
   import InnerImageZoom from 'vue-inner-image-zoom'
   import 'vue-image-zoomer/dist/style.css';
   import ModalEscCor from '@/components/ModalEscCor.vue';
-  const router = useRouter()
 
 
+  const router =
+  useRouter()
 
-  const {saveInCarrinho} =
-  Carrinho()
+  const {
+    saveInCarrinho} = Carrinho()
 
-  const {findById, selecionaCor} =
-  Detail()
+  const {
+    findById,
+    selecionaCor} = Detail()
 
-  const {getAllProdutos, produto,
-    produtos, tmpAuxiliar} = ProdutoComp()
+  const {
+    getAllProdutos,
+    produto,
+    produtos,
+    tmpAuxiliar} = ProdutoComp()
 
-  const route = useRoute()
+  const route =
+  useRoute()
+
   const restart = ref(0)
   const flag = ref(false)
   const dialog = ref(false)

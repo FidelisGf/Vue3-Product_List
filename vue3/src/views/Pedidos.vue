@@ -170,7 +170,7 @@
       }
       prodKey.value += 1
   }
-  function close(index, id){
+  function close(index){
     open.value[index] = false
 
   }
