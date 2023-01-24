@@ -31,12 +31,13 @@
             <v-col cols="12" md="5" lg="5" xl="5" class="d-flex justify-md-start justify-center">
               <div class="mod-imagem d-flex justify-center justify-md-start">
                 <inner-image-zoom
-                  :src="url"
-                  :zoomSrc="url"
+                  :src="produto.IMAGE"
+                  :zoomSrc="produto.IMAGE"
                   :zoomScale="1"
                   :fadeDuration="150"
                   class="img ml-lg-n12  ml-md-n12 ml-0 "
                   :hideHint="true"
+                  :hasSpacer="true"
                 ></inner-image-zoom>
               </div>
 
@@ -195,16 +196,15 @@
   import {ref, shallowRef} from 'vue'
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
-  import { useProdutoStore } from '@/store/produtoStore'
+  import ProdutoComp from '@/CompositionAP/ProdutoComp';
   import { useRouter } from 'vue-router';
   import { useRoute } from 'vue-router';
   import InnerImageZoom from 'vue-inner-image-zoom'
   import 'vue-image-zoomer/dist/style.css';
-import ModalEscCor from '@/components/ModalEscCor.vue';
+  import ModalEscCor from '@/components/ModalEscCor.vue';
   const router = useRouter()
 
-  const storeApp =
-  useProdutoStore()
+
 
   const {saveInCarrinho} =
   Carrinho()
@@ -212,11 +212,10 @@ import ModalEscCor from '@/components/ModalEscCor.vue';
   const {findById, selecionaCor} =
   Detail()
 
+  const {getAllProdutos, produto,
+    produtos, tmpAuxiliar} = ProdutoComp()
+
   const route = useRoute()
-  const produto = ref(null)
-  const url = ref(null)
-  const produtos = shallowRef([])
-  const tmpAuxiliar = ref([])
   const restart = ref(0)
   const flag = ref(false)
   const dialog = ref(false)
@@ -224,6 +223,9 @@ import ModalEscCor from '@/components/ModalEscCor.vue';
   const selectedColor = ref(null)
   const choosen = ref([])
   const tmpChosen = ref(null)
+
+
+
   await findProduto()
 
 
@@ -231,14 +233,16 @@ import ModalEscCor from '@/components/ModalEscCor.vue';
   function close(e){
       dialog.value = e
   }
+
+
   async function findProduto(){
       let payload = {Shop : 'T'}
       produto.value = await findById('products', route.params.id,
       payload)
-      url.value = await produto.value.IMAGE
       getProdutos()
       restart.value += 1
   }
+
   function chooseColor(boolean, index){
     if(selectedColor.value == null){
       dialog.value = true
@@ -247,6 +251,7 @@ import ModalEscCor from '@/components/ModalEscCor.vue';
       saveInCarrinho(produto.value.ID, produto.value.VALOR, selectedColor.value)
     }
   }
+
   function defineCor(e){
       saveInCarrinho(produto.value.ID, produto.value.VALOR, e.color)
       if(buy.value == true){
@@ -290,7 +295,7 @@ import ModalEscCor from '@/components/ModalEscCor.vue';
       produtos.value = tmpAuxiliar.value
       produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
     }else{
-      produtos.value = await storeApp.getProdutos(payload)
+      produtos.value = await getAllProdutos(payload)
       tmpAuxiliar.value = produtos.value
       produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
     }

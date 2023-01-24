@@ -1,6 +1,25 @@
 import { useCarrinhoStore } from '@/store/CarrinhoStore'
-
+import { ref, computed } from 'vue'
 export default function CarrinhoComp(){
+      const itens = ref([])
+      const vlTotal = computed(()=>
+        getValorTotal()
+      )
+      function getValorTotal(){
+        if(itens.value != null){
+          let total = itens.value.reduce((accumulator, object)=>{
+          return parseFloat(accumulator) + (parseFloat(object.VALOR)
+            * (object.QUANTIDADE != 'Indisponivel' ? parseFloat(object.QUANTIDADE) : 1)) // separa parseFloat
+          },0)
+          if(isNaN(total)){
+            return 0
+          }else{
+            return total
+          }
+        }else{
+            return 0
+          }
+      }
 
       function  saveInCarrinho(ID, VALOR, COR){
         let storeApp = useCarrinhoStore()
@@ -44,7 +63,9 @@ export default function CarrinhoComp(){
           removeIndisponivel,
           finalizaPedido,
           getCupom,
-          applyCupom
+          applyCupom,
+          itens,
+          vlTotal
       }
 }
 

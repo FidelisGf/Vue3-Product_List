@@ -294,7 +294,6 @@
       if(check.value == 0){
         execSetFiltros.value = false
       }
-
       genericApp.setFiltros(payload)
     }
     tmpCheck.value = check.value

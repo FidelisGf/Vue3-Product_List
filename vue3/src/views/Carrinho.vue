@@ -87,26 +87,29 @@
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue'
+  import {ref} from 'vue'
   import { useAppStore } from '@/store/app'
   import Carrinho from '@/CompositionAP/Carrinho'
   import { useRouter } from 'vue-router';
   import ModalConfPedido from '@/components/ModalConfPedido.vue';
-import { isArray } from '@vue/shared';
-  const {getProdutosCarrinho
-  , addQuantidade, removeQuantidade, removeIndisponivel, finalizaPedido} =
-  Carrinho()
+
+  const {
+  getProdutosCarrinho
+  ,addQuantidade,
+  removeQuantidade,
+  removeIndisponivel ,
+  itens,
+  vlTotal} = Carrinho()
+
 
 
   const router =
   useRouter()
-  const itens = ref([])
+
   const dialog = ref(false)
   const flag = ref(false)
   const reni = ref(0)
-  const vlTotal = computed(()=>
-      getValorTotal()
-  )
+
 
 
   getCarrinho()
@@ -116,19 +119,23 @@ import { isArray } from '@vue/shared';
     getCarrinho()
     reni.value += 1
   }
+
+
   async function getCarrinho(){
-      itens.value = await getProdutosCarrinho()
-      console.log(itens.value)
-      flag.value = true
+    itens.value = await getProdutosCarrinho()
+    console.log(itens.value)
+    flag.value = true
   }
+
+
   async function addQuantidadeProduto(index){
-      const dt = await addQuantidade(index)
-      if(dt == 'Success'){
-          const item = itens.value[index]
-          if(item){
-            item.QUANTIDADE += 1
-          }
+    const dt = await addQuantidade(index)
+    if(dt == 'Success'){
+      const item = itens.value[index]
+      if(item){
+        item.QUANTIDADE += 1
       }
+    }
   }
 
   function finalizarPedido(){
@@ -144,44 +151,31 @@ import { isArray } from '@vue/shared';
       }
     }
     dialog.value = true
-    //finalizaPedido()
   }
+
+
   function removeIndis(index){
-      removeIndisponivel(index)
-      const item = itens.value[index]
-      if(item){
-        itens.value = itens.value.filter(o => o != item)
-      }
+    removeIndisponivel(index)
+    const item = itens.value[index]
+    if(item){
+      itens.value = itens.value.filter(o => o != item)
+    }
   }
 
   function removeQuantidadeProduto(index){
-      removeQuantidade(index)
-      const item = itens.value[index]
-      if(item){
-        if(item.QUANTIDADE == 1){
-          itens.value = itens.value.filter(o => o != item)
-        }else{
-          item.QUANTIDADE -= 1
-        }
-      }
-
-
-  }
-  function getValorTotal(){
-    if(itens.value != null){
-      let total = itens.value.reduce((accumulator, object)=>{
-      return parseFloat(accumulator) + (parseFloat(object.VALOR)
-        * (object.QUANTIDADE != 'Indisponivel' ? parseFloat(object.QUANTIDADE) : 1)) // separa parseFloat
-      },0)
-      if(isNaN(total)){
-        return 0
+    removeQuantidade(index)
+    const item = itens.value[index]
+    if(item){
+      if(item.QUANTIDADE == 1){
+        itens.value = itens.value.filter(o => o != item)
       }else{
-        return total
+        item.QUANTIDADE -= 1
       }
-    }else{
-        return 0
-      }
+    }
+
+
   }
+
   function detailProduct(id){
     router.push({name: 'Produto-Detalhe', params: {id : id}})
   }

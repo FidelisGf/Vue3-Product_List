@@ -2,10 +2,20 @@
   <v-container class="fill-height bg-real" fluid>
     <Filtro @search="makeSearch" @searchPage="pageFilter" ></Filtro>
 
+
     <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0"
     :key="listKey">
+
+      <v-col cols="12" class="d-flex ml-md-14 mt-3 mt-md-0 justify-center justify-md-start">
+        <p>{{ tmnho }}
+          produto(s)
+          encontrado(s)
+
+        </p>
+      </v-col>
       <v-col  v-for="(produto, index) in produtos" :key="produto.ID"
       cols="12" md="4" class="d-flex justify-center " >
+
         <v-sheet min-height="550" color="transparent">
           <v-lazy
             min-height="450"
@@ -13,16 +23,17 @@
             :options="{ threshold: 0.5 }"
             >
               <v-card
-                max-width="300px"
+                max-width="330px"
                 class="cards corpo-card"
                 elevation="1"
               >
               <v-row :key="index" >
-                <v-col cols="12" class="img-card d-flex justify-center align-center">
+                <v-col cols="12" class="img-card d-flex justify-center
+                align-content-center">
                   <img
                     :src="produto.IMAGE"
-                    :height="280"
-                    :width="310"
+                    :height="290"
+                    class="img-detail"
                     @click="detailProduct(produto.ID)"
                     >
                 </v-col>
@@ -76,7 +87,7 @@
           <v-pagination
             color="teal lighten-1"
             v-model="current_page"
-            :length="storeApp.getLastPage"
+            :length="lastPage"
             :total-visible="5"
           >
         </v-pagination>
@@ -86,10 +97,10 @@
 </template>
 
 <script setup>
-  import {ref, shallowRef, computed, watch, defineAsyncComponent} from 'vue'
-  import { useProdutoStore } from '@/store/produtoStore'
+  import {ref, watch, defineAsyncComponent} from 'vue'
   import Detail from '@/CompositionAP/CRUD'
   import Carrinho from '@/CompositionAP/Carrinho'
+  import ProdutoComp from '@/CompositionAP/ProdutoComp'
   import { useRouter } from 'vue-router';
 
 
@@ -100,35 +111,32 @@
   const router =
   useRouter()
 
-  const storeApp =
-  useProdutoStore()
+  const {
+    getAllProdutos,
+    produtos,
+    tmp,
+    lastPage,
+    categoria,
+    current_page } = ProdutoComp()
 
-  const {saveInCarrinho} =
-  Carrinho()
+  const {
+    saveInCarrinho} = Carrinho()
 
-  const {getAllList, applyFilter, findById} =
-  Detail()
-
-  const current_page = ref(1)
-  current_page.value = storeApp.getCurrent_Page
-
-  const totalPage = computed(()=>
-    storeApp.getLastPage
-  )
+  const {
+    getAllList,
+    applyFilter,
+    findById} = Detail()
 
 
-  const produtos = shallowRef(null)
-  const tmp = shallowRef(null)
   const tmpSea = ref('')
-  const check = ref("red")
   const listKey = ref(0)
   const search = ref('')
   const precos = ref('')
-  const categoria = shallowRef(null)
   const isActive = ref([])
+  const tmnho = ref(null)
 
 
-  watch(current_page, (val) => {
+  watch(current_page, () => {
     getProdutos()
   })
 
@@ -160,7 +168,8 @@
     listKey.value += 1;
     let payload = { current_page: current_page.value, opcao: null, start: null, end: null,
     search: search.value, Shop: "T", Precos : precos.value, categoria : categoria.value};
-    produtos.value = await storeApp.getProdutos(payload);
+    produtos.value = await getAllProdutos(payload)
+    tmnho.value = produtos.value.length
   }
 
  async function filterSearch(e, solo){
@@ -212,8 +221,9 @@
           }
       }
       if(e.search != undefined){
-        tmpSea.value = e.search // valor tmp para o search
+        tmpSea.value = e.search
       }
+      tmnho.value = produtos.value.length
 
   }
 
@@ -229,5 +239,7 @@
 </script>
 
 <style lang="scss">
-
+  .img-detail{
+      max-width: 380px !important;
+  }
 </style>
