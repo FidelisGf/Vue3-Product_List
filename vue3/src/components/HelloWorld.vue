@@ -34,7 +34,6 @@
 
             >
               <v-card
-
                 elevation="8"
                 height="400"
                 :min-width="mobile ? '100' : 1000"
@@ -78,23 +77,29 @@
                   :min-height="smAndDown ? '400' : '400'"
                   :min-width="mobile ? '100' : 1000"
                   max-width="1000"
-                  class="d-flex justify-md-center justify-start align-center sliders"
+                  class="d-flex justify-md-center
+                  justify-start align-center sliders flex-column"
                 >
                   <v-card-text>
-                      <v-row>
-                          <v-col cols="12" sm="5" md="5" class="d-flex justify-center align-center">
-                            <v-img
-                            class="mt-md-0"
-                            :height="mobile ? '150' : '300px'"
+                    <v-row>
 
+                    </v-row>
+                  </v-card-text>
+                  <v-card-text>
+                      <v-row>
+                          <v-col cols="12" sm="5" md="5" class="
+                          d-flex justify-center">
+                            <v-img
+                            class="mt-md-0 "
+                            :height="mobile ? '100px' : '300px'"
                               src="../assets/cupom.png"
                             >
 
                             </v-img>
                           </v-col>
                           <v-col cols="12" sm="7" md="7" class="d-flex flex-column
-                          justify-md-center mt-12 mt-md-0">
-                            <p class="text-md-h5 font-weight-black desc-detail">
+                          justify-md-center  mt-md-0">
+                            <p class="text-md-h5 font-weight-black mt-5 mt-md-0 desc-detail">
                               Cupom WELCOME25</p>
                             <div class=" justify-start desc-detail">
                               <p >Aproveite nosso cupom para começar com o
@@ -103,14 +108,7 @@
                                 ao finalizar um pedido no carrinho. Atenção, é
                                 necessário criar uma conta para usufruir do cupom.
                               </p>
-                              <v-btn variant="text"
-                              @click="getRoute('produtos')"
-                              color="white" class="mt-2 ml-n4">
-                                <v-icon class="ml-n0  mt-0">
-                                  mdi-store
-                                </v-icon>
-                                <p class="ml-1 desc-detail">Loja</p>
-                              </v-btn>
+
                             </div>
                           </v-col>
                       </v-row>

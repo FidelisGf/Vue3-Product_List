@@ -1,59 +1,58 @@
 <template>
-  <v-app-bar class="app-bar">
-    <v-app-bar-nav-icon class="hidden-md-and-up" @click="dialog = true"></v-app-bar-nav-icon>
-      <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
-        <p class="mt-1 font-app">WebShop</p>
-      </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <div class="mr-5">
-      <v-btn @click="$router.push('/produtos')"
-      class="text-sm-body-1 hidden-sm-and-down desc-detail"
-      prepend-icon="mdi-store" color="white">Loja</v-btn>
+  <div>
+    <v-app-bar class="app-bar">
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click="ativaNav"></v-app-bar-nav-icon>
+        <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
+          <p class="mt-1 font-app">WebShop</p>
+        </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <div class="mr-5">
+        <v-btn @click="$router.push('/produtos')"
+        class="text-sm-body-1 hidden-sm-and-down desc-detail"
+        prepend-icon="mdi-store" color="white">Loja</v-btn>
 
-      <v-btn @click="$router.push('/carrinho')"
-      class="text-sm-body-1 hidden-sm-and-down desc-detail"
-      prepend-icon="mdi-cart" color="white">
-        <v-badge
-        v-show="(counter > 0)"
-        class="mt-1 mr-3"
-        color="grey-lighten-2"
-        :content="counter"
-        >
-        </v-badge>
-        Carrinho
-      </v-btn>
+        <v-btn @click="$router.push('/carrinho')"
+        class="text-sm-body-1 hidden-sm-and-down desc-detail"
+        prepend-icon="mdi-cart" color="white">
+          <v-badge
+          v-show="(counter > 0)"
+          class="mt-1 mr-3"
+          color="grey-lighten-2"
+          :content="counter"
+          >
+          </v-badge>
+          Carrinho
+        </v-btn>
 
-      <v-btn @click="$router.push('/login')"
-      class="text-sm-body-1 hidden-sm-and-down desc-detail"
-      prepend-icon="mdi-account" color="white">Conta</v-btn>
-    </div>
-
-    <v-dialog
-        v-if="mobile"
-        persistent
-        v-model="dialog"
-        @keydown.escape="dialog = false"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
+        <v-btn @click="$router.push('/login')"
+        class="text-sm-body-1 hidden-sm-and-down desc-detail"
+        prepend-icon="mdi-account" color="white">Conta</v-btn>
+      </div>
+    </v-app-bar>
+    <v-navigation-drawer
+      v-model="dialog"
+      temporary
     >
-        <v-card class="app-bar">
-          <v-card-actions>
-              <v-btn @click="dialog = false"><v-icon>mdi-close</v-icon></v-btn>
-          </v-card-actions>
-          <v-card-text class="d-flex flex-column">
-            <v-btn  size="x-large" text class="text-caption text-md-body-1 cards corpo-card" prepend-icon="mdi-store"
-            @click="getRouteMobile('produtos')">Loja</v-btn>
-            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3
-            cards corpo-card" prepend-icon="mdi-cart"
-            @click="getRouteMobile('carrinho')">Carrinho</v-btn>
-            <v-btn color="#E6E6FA" size="x-large" class="text-caption text-md-body-1 mt-3
-            cards corpo-card" prepend-icon="mdi-account"
-            @click="getRouteMobile('login')">Conta</v-btn>
-          </v-card-text>
-        </v-card>
-    </v-dialog>
-  </v-app-bar>
+    <v-list density="compact">
+      <v-list-subheader>Menu</v-list-subheader>
+      <v-list-item
+        v-for="(item, i) in items"
+        :key="i"
+        :value="item"
+        active-color="primary"
+        class="mt-4"
+        @click="getRouteMobile(item.value)"
+      >
+        <template v-slot:prepend>
+          <v-icon :icon="item.icon"></v-icon>
+        </template>
+        <template v-slot:title>
+          <p>{{item.text}}</p>
+        </template>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
+</div>
 </template>
 
 <script setup>
@@ -71,7 +70,9 @@
 
   const dialog = ref(false)
 
-
+  function ativaNav(){
+    dialog.value = dialog.value == false ? true : false
+  }
   const counter = computed(()=>
     storeApp.getCountCarrinho
   )
@@ -80,6 +81,13 @@
     dialog.value = false
     router.push('/' + route)
   }
+
+  const items = [
+    { text: 'Home', icon: 'mdi-home', value: '/' },
+    { text: 'Loja', icon: 'mdi-store', value: 'produtos' },
+    { text: 'Carrinho', icon: 'mdi-cart', value: 'carrinho' },
+    { text: 'Login', icon: 'mdi-account', value: 'login' },
+  ]
 
 
 
