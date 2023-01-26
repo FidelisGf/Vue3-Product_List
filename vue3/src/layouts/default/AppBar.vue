@@ -3,7 +3,7 @@
     <v-app-bar class="app-bar">
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="ativaNav"></v-app-bar-nav-icon>
         <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
-          <p class="mt-1 font-app">WebShop</p>
+          <p class="mt-1 font-app">{{appN.getEmpresa}}</p>
         </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="mr-5">
@@ -56,10 +56,11 @@
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue'
+  import { ref, computed, onBeforeMount } from 'vue'
   import { useCarrinhoStore } from '@/store/CarrinhoStore'
   import { useDisplay } from 'vuetify/lib/framework.mjs';
   import { useRouter } from 'vue-router';
+import { useAppStore } from '@/store/app';
 
   const storeApp =
   useCarrinhoStore()
@@ -67,6 +68,14 @@
   useRouter()
   const {mobile} =
   useDisplay()
+
+  const appN =
+  useAppStore()
+
+  onBeforeMount(async ()=>{
+    appN.empresaAtiva()
+  })
+
 
   const dialog = ref(false)
 

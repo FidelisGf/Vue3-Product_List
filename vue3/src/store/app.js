@@ -10,16 +10,24 @@ export const useAppStore = defineStore({
       filtros : null,
       msg : '',
       snack : false,
-      timeout : 0.5
+      timeout : 0.5,
+      EmpresaNome : null
   }),
+  persist: {
+    paths: ['EmpresaNome']
+  },
   actions: {
       async findById(route, id, payload){
           const data = Service.findById(route, id, payload).then((res)=>{
+
               return res.data
           }).catch((error)=>{
               return error
           })
           return data
+      },
+      setEmpresa(py){
+          this.EmpresaNome = py
       },
       activeSnack(msg){
           this.msg = msg
@@ -55,6 +63,14 @@ export const useAppStore = defineStore({
           }).catch((error)=>{
               this.activeSnack("Erro :" + error.response.data.message)
           })
+      },
+      empresaAtiva(){
+          let py = {Shop : 'T'}
+          Service.get('getEmpresaFromUser', py).then((res)=>{
+              this.setEmpresa(res.data)
+          }).catch((error)=>{
+              return error
+          })
       }
 
   },
@@ -73,6 +89,9 @@ export const useAppStore = defineStore({
         },
         getTime(){
             return this.timeout
+        },
+        getEmpresa(){
+            return this.EmpresaNome
         }
   }
 })

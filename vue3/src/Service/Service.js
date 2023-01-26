@@ -2,9 +2,9 @@ import axios from "axios"
 import { useAppStore } from '@/store/app'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
-if(localStorage.getItem('token') !=null || localStorage.getItem('token') != undefined){
+if(localStorage.getItem('tkn') !=null || localStorage.getItem('tkn') != undefined){
   axios.defaults.headers.common['Authorization'] =
-  'Bearer' + localStorage.getItem('token')
+  'Bearer' + localStorage.getItem('tkn')
 }
 axios.interceptors.request.use((config)=>{
   const storeApp = useAppStore()

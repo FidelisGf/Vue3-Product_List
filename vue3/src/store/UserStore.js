@@ -50,7 +50,8 @@ export const useUserStore = defineStore('user', {
         //const router = useRouter()
         const genericApp = useAppStore()
         const data = UserService.login(form).then((res)=>{
-          localStorage.setItem('token', res.data.access_token)
+
+          localStorage.setItem('tkn', res.data.access_token)
           genericApp.activeSnack('Login realizado com sucesso !')
           return true
         }).catch((error)=>{

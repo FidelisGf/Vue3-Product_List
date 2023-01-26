@@ -28,10 +28,10 @@ const routes = [
         path: 'carrinho',
         name: 'Carrinho',
         beforeEnter(to, from, next){
-          if(localStorage.getItem('token') != null ||
-            localStorage.getItem('token') != undefined){
+          if(localStorage.getItem('tkn') != null ||
+            localStorage.getItem('tkn') != undefined){
               axios.defaults.headers.common['Authorization'] = 'Bearer' +
-              localStorage.getItem('token')
+              localStorage.getItem('tkn')
               axios.get("/auth/validateTkn").then((res)=>{
                 next()
               }).catch((error)=>{
@@ -66,18 +66,18 @@ const routes = [
         path: 'login',
         name: 'Login',
         beforeEnter(to, from, next){
-          if(localStorage.getItem('token') != null ||
-            localStorage.getItem('token') != undefined){
+          if(localStorage.getItem('tkn') != null ||
+            localStorage.getItem('tkn') != undefined){
               axios.defaults.headers.common['Authorization'] = 'Bearer' +
-              localStorage.getItem('token')
+              localStorage.getItem('tkn')
               axios.get("/auth/validateTkn").then((res)=>{
                 next({name : 'Perfil'})
               }).catch((error)=>{
-                const access_token = localStorage.getItem("token");
+                const access_token = localStorage.getItem("tkn");
 
                 if(error.response.status == 401 &&
                   access_token && error.response.data != 'token_invalid'){
-                  localStorage.setItem('token', error.response.data)
+                  localStorage.setItem('tkn', error.response.data)
 
                   axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
                   next()
