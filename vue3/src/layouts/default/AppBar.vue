@@ -17,7 +17,7 @@
           <v-badge
           v-show="(counter > 0)"
           class="mt-1 mr-3"
-          color="grey-lighten-2"
+          color="grey-lighten-1"
           :content="counter"
           >
           </v-badge>

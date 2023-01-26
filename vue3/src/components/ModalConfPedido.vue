@@ -2,7 +2,9 @@
   <div class="d-flex justify-center" v-if="flag == false">
     <v-card class="bg-carrinho"  >
       <v-card-title>Confirmação do pedido...</v-card-title>
-      <v-card-subtitle>Verifique os dados do pedido, depois cliquem em "confirmar" para finalizá-lo</v-card-subtitle>
+      <v-card-subtitle>
+        Verifique os dados do pedido, depois cliquem em "confirmar" para finalizá-lo
+      </v-card-subtitle>
       <v-card-text>
           <v-row>
             <v-col cols="12" md="11" sm="11" class="d-flex flex-row">

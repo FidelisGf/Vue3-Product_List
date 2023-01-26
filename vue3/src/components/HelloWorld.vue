@@ -53,7 +53,8 @@
                       </v-img>
                     </v-col>
                     <v-col cols="12" sm="7" md="5"
-                     class="d-flex justify-start flex-column mt-n5 mt-md-0"
+                     class="d-flex justify-start flex-column mt-n5
+                     mt-md-0"
                     >
                       <p class="text-md-h5 font-weight-black desc-detail">O WebShop</p>
                       <div class=" justify-start "
@@ -73,44 +74,42 @@
             </v-window-item>
             <v-window-item>
                 <v-card
-                  elevation="8"
-                  :min-height="smAndDown ? '400' : '400'"
-                  :min-width="mobile ? '100' : 1000"
-                  max-width="1000"
-                  class="d-flex justify-md-center
-                  justify-start align-center sliders flex-column"
+                elevation="8"
+                height="400"
+                :min-width="mobile ? '100' : 1000"
+                max-width="1000"
+                class="d-flex justify-md-center justify-start align-center
+                sliders"
                 >
-                  <v-card-text>
-                    <v-row>
 
-                    </v-row>
-                  </v-card-text>
-                  <v-card-text>
-                      <v-row>
-                          <v-col cols="12" sm="5" md="5" class="
-                          d-flex justify-center">
+                  <v-card-text class="d-flex justify-center">
+                      <v-row class="d-flex justify-center">
+                          <v-col cols="12" sm="5" md="6" class="
+                          d-flex justify-center ml-md-n16 mt-4 mt-sm-0">
                             <v-img
-                            class="mt-md-0 "
-                            :height="mobile ? '100px' : '300px'"
+                            :height="mobile ? '220' : '300px'"
                               src="../assets/cupom.png"
                             >
 
                             </v-img>
                           </v-col>
-                          <v-col cols="12" sm="7" md="7" class="d-flex flex-column
-                          justify-md-center  mt-md-0">
-                            <p class="text-md-h5 font-weight-black mt-5 mt-md-0 desc-detail">
-                              Cupom WELCOME25</p>
-                            <div class=" justify-start desc-detail">
-                              <p >Aproveite nosso cupom para começar com o
-                                pé direito, são 25% de desconto na compra que
-                                você utiliza-lo. Basta inserí-lo e aplica-lo
-                                ao finalizar um pedido no carrinho. Atenção, é
-                                necessário criar uma conta para usufruir do cupom.
-                              </p>
-
-                            </div>
-                          </v-col>
+                          <v-col cols="12" sm="7" md="5"
+                            class="d-flex flex-column
+                            mt-n0 mt-md-0 justify-center
+                            "
+                          >
+                           <p class="text-md-h5 font-weight-black
+                           desc-detail">WELCOME25</p>
+                           <div class=" justify-center align-center "
+                             >
+                             <p >Aproveite nosso cupom para começar com o
+                              pé direito, são 25% de desconto na compra que
+                              você utiliza-lo. Basta inserí-lo e aplica-lo
+                              ao finalizar um pedido no carrinho. Atenção, é
+                              necessário criar uma conta para usufruir do cupom.
+                            </p>
+                           </div>
+                         </v-col>
                       </v-row>
                   </v-card-text>
                 </v-card>
@@ -120,73 +119,68 @@
       </v-row>
 
       <v-row>
-          <v-col cols="12" class="d-flex justify-center text-md-h5 desc-detail font-italic font-weight-medium">
+          <v-col cols="12" class="d-flex justify-center text-md-h5
+          desc-detail font-italic font-weight-medium mt-10">
             <p class="ml-2 ml-md-3 mt-0">Produtos em destaque para você</p>
           </v-col>
           <v-col cols="12" class="d-flex justify-center">
             <v-icon  class="mt-2" >mdi-arrow-down</v-icon>
           </v-col>
-          <v-col cols="12" class="mt-2">
-              <v-slide-group
-              class=""
-              selected-class="bg-success"
-              :show-arrows="false"
-              center-active
-              >
-              <v-slide-group-item
-                v-for="produto in destaques"
-                :key="produto.ID"
 
-                v-slot="{toggle, selectedClass }"
-              >
-                <v-card
-
-                  :class="['ma-3', selectedClass, 'cards', 'corpo-card'] "
-                  min-height="365"
-                  max-width="250"
-                  min-width="220"
-                  max-height="395"
-
-                  @click="detailProduct(produto.ID)"
-
-                >
-                <div class="
-                  d-flex justify-center img-card">
-                  <v-img
-                    :src="produto.IMAGE"
-                    height="210"
-                  ></v-img>
-                </div>
-
-                  <v-card-title class=" text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
-                    {{produto.NOME}}
-                  </v-card-title>
-                  <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
-                    {{produto.DESC}}
-                  </v-card-subtitle>
-                  <v-card-text>
-                    <v-row>
-                      <v-col cols="12" class="text-caption">
-                        <p class="text-body-1 font-weight-medium">
-                          Valor :
-                            {{parseFloat(produto.VALOR)
-                            .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
-                          </p>
-                        <p class="font-weight-medium">
-                          Estoque :
-                            {{produto.QUANTIDADE}} unidades
-                        </p>
-                        <p class="font-weight-medium">
-                          Categoria : {{produto.NOME_C}}</p>
-                      </v-col>
-
-                    </v-row>
-                </v-card-text>
-                </v-card>
-              </v-slide-group-item>
-            </v-slide-group>
-          </v-col>
       </v-row>
+      <v-slide-group
+        class="mt-10 ml-n3 ml-sm-0"
+        selected-class="bg-success"
+        :show-arrows="false"
+        center-active
+          >
+          <v-slide-group-item
+            v-for="produto in destaques"
+            :key="produto.ID"
+            v-slot="{toggle, selectedClass }"
+          >
+            <v-card
+              :class="['ma-3', selectedClass, 'cards', 'corpo-card'] "
+              min-height="365"
+              max-width="250"
+              min-width="220"
+              max-height="395"
+              @click="detailProduct(produto.ID)"
+            >
+            <div class="
+              d-flex justify-center img-card">
+              <v-img
+                :src="produto.IMAGE"
+                height="210"
+              ></v-img>
+            </div>
+            <v-card-title class=" text-h5 font-weight-bold"  @click="detailProduct(produto.ID)" >
+              {{produto.NOME}}
+            </v-card-title>
+            <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
+              {{produto.DESC}}
+            </v-card-subtitle>
+            <v-card-text>
+                <v-row>
+                  <v-col cols="12" class="text-caption">
+                  <p class="text-body-1 font-weight-medium">
+                    Valor :
+                    {{parseFloat(produto.VALOR)
+                    .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                  </p>
+                  <p class="font-weight-medium">
+                    Estoque :
+                    {{produto.QUANTIDADE}} unidades
+                  </p>
+                  <p class="font-weight-medium">
+                  Categoria : {{produto.NOME_C}}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-slide-group-item>
+      </v-slide-group>
     </v-responsive>
   </v-container>
 </template>
