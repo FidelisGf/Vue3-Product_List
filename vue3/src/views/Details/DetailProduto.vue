@@ -86,7 +86,8 @@
                   </v-tooltip>
                 </div>
                 <v-btn @click="chooseColor(false)" block
-                 class="desc-detail text-black ml-sm-n2 ml-0 mt-4 mt-md-3 btns" rounded>
+                 class="desc-detail
+                 text-black ml-sm-n2 ml-0 mt-4 mt-md-3 btns" rounded>
                   <v-icon
                     left
                     dark
@@ -147,7 +148,8 @@
                   min-width="220"
                   max-height="395"
                 >
-                  <div class="div-img-cad-detail d-flex justify-center img-card">
+                  <div class="div-img-cad-detail
+                  d-flex justify-center img-card">
                     <img
                       :src="produto.IMAGE"
                       height="220"
