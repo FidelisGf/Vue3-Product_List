@@ -46,7 +46,7 @@
               ></v-autocomplete>
 
         </v-list-item>
-        <v-list-item class="mt-n2">
+        <v-list-item class="mt-n2 ">
             <v-btn color="#00674b" @click="searchFilter"   block >
               <v-icon>
                 mdi-magnify
@@ -105,12 +105,12 @@
 
                 </v-col>
 
-                <v-col cols="6" class="">
+                <v-col cols="6" class="btn-filtro-1">
                   <v-btn class="ma-2 auto"
                   variant="text"
                   icon="mdi-magnify"
                   @click="searchFilter"
-                  color="#66CDAA">
+                  >
 
                   </v-btn>
                   <v-btn class="ma-2 auto"

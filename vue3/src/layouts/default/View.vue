@@ -61,12 +61,10 @@
         storeApp.closeSnack()
       }
   })
-
   const msg = computed({
       get: ()=> storeApp.getMsg
   })
   const timeout = ref(2000)
-
   function close(){
       storeApp.closeSnack()
   }
@@ -86,35 +84,28 @@
   .footers{
     background-color: #2d2d2d;
     background-image: linear-gradient(62deg, #2d2d2d 0%, #111111 100%);
-
   }
-
   .cores{
-
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
   .imagem:hover{
     transform: scale(1.05);
   }
-
   .mod-img{
     overflow: hidden;
   }
   .cores:hover{
     transform: translate(0px, -0.9px);
-
     transition: 0.1s;
     box-shadow: rgba(226, 222, 222, 0.397) 0px 0px 15px;
   }
   .cores-selec{
     border: 1px solid rgb(112, 112, 112);
-
   }
   .cores-selec:hover{
     transform: translate(1px, -0.10px);
     transition: 0.5s;
     cursor: pointer;
-
     box-shadow: 2px 1px 1px 0px #8a8a8a !important;
   }
   .cores-selec:active{
@@ -124,14 +115,11 @@
   .app-bar{
     background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
-
-
   .slides{
       width: 100% !important;
   }
   .princip{
     background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   }
   .princip-list{
     background-color: #e2edf6;
@@ -143,12 +131,7 @@
   }
   .corpo-card{
     background: linear-gradient(to right, #151616, #131c22); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-
   }
-
   .bg-real{
     background: linear-gradient(to right, #434343, #000000) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
@@ -173,22 +156,17 @@
     max-width: 320px !important;
     max-height: 320px !important;
     min-height: 200px;
-
   }
   .img{
     min-width: 90% !important;
     max-width: 100% !important;
     height: 100% !important;
-
   }
   .mod-imagem{
     width: 22.5rem;
     height: 22.6rem;
-
     box-shadow: 0px 0px 0px 0px #414749 !important;
-
   }
-
   .font-app{
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
@@ -202,22 +180,15 @@
   .div-img-cad-produto{
     height: 325px !important;
     width: 100% !important;
-
   }
   .div-img-cad-detail{
     height: 225px !important;
-
   }
   .img-card{
     background-color: #353535;
     background-image: linear-gradient(160deg, #353535 0%, #262626 100%);
-
-
   }
   .btn-home{
     background-color: #131c22;
   }
-
-
-
 </style>
