@@ -4,7 +4,7 @@
     <v-row :key="renic" v-if="tela == 'dados'" >
       <v-col cols="12" class="d-flex
      justify-center">
-          <v-card :width="smAndDown ? 350 : 850"  class="bg-pedidos">
+          <v-card :width="smAndDown ? 350 : 850"  :style="storeApp.getTemas.CARDS_PERFIL">
               <v-card-title>
                 <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text">
                 </v-btn>

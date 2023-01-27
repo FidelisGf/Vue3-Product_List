@@ -126,16 +126,7 @@
     background: linear-gradient(to right, #4d4b4b, #284263);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
-  .bg-pedidos{
-    background: linear-gradient(to right, #2e455c, #356381); /* W3C, IE 10+/ Edge, Firefox 16+, Chr*/
-  }
-  .bg-footer{
-    background : #e2f1ff !important
-  }
 
-  .bg-bottom{
-    background-color: #E6E6FA !important;
-  }
   .auto{
       color: rgb(255, 255, 255) !important;
       font-weight: bold;

@@ -1,5 +1,5 @@
 <template>
-  <v-card width="800" class="bg-pedidos">
+  <v-card width="800" :style="storeApp.getTemas.CARDS_PERFIL">
       <v-card-title>
           <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text"></v-btn>
           Seus Pedidos...
@@ -7,7 +7,7 @@
       <v-card-text>
         <v-row v-for="(pedido, index) in pedidos" :key="pedido.ID">
           <v-col cols="12">
-            <v-card class="bg-pedidos-list">
+            <v-card :style="storeApp.getTemas.CARD_PEDIDOS">
               <v-card-title class="d-flex justify-space-between desc-detail">
                 <p>Pedido #{{pedido.ID}}</p>
                 <v-icon v-if="pedido.APROVADO == 'T'" color="#03C03C">
@@ -144,8 +144,9 @@
   import {ref} from 'vue'
   import PedidoComp from '@/CompositionAP/PedidoComp'
   import CrudComp from '@/CompositionAP/CRUD';
+  import { useAppStore } from '@/store/app';
 
-
+  const storeApp = useAppStore()
   const renic = ref(0)
   const alteraNota = ref(0)
   const prodKey = ref(0)
@@ -214,10 +215,7 @@
   .fade-leave-to {
     opacity: 0;
   }
-  .bg-pedidos-list{
-    background: linear-gradient(to right, #22597e, #193857); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-  }
   .text-pendente{
     color : #ffef09 !important;
   }
