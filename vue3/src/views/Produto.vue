@@ -1,5 +1,7 @@
 <template>
-  <v-container class="fill-height bg-real" fluid>
+  <v-container class="fill-height "
+  :style="storeApp.getTemas.PRIMARIA "
+  fluid>
     <Filtro @search="makeSearch" @searchPage="pageFilter" ></Filtro>
 
 
@@ -103,6 +105,8 @@
   import Carrinho from '@/CompositionAP/Carrinho'
   import ProdutoComp from '@/CompositionAP/ProdutoComp'
   import { useRouter } from 'vue-router';
+  import { useAppStore } from '@/store/app';
+
 
 
   const Filtro = defineAsyncComponent(()=>
@@ -111,6 +115,10 @@
 
   const router =
   useRouter()
+
+  const storeApp =
+  useAppStore()
+
 
   const {
     getAllProdutos,
@@ -162,7 +170,6 @@
     let payload = {Shop : 'T'}
     let cor = await findById('getOneColorOfProduct', produto.ID, payload)
     saveInCarrinho(produto.ID, produto.VALOR, cor[0].HASH)
-    dialog.value = false
   }
 
   async function getProdutos(){

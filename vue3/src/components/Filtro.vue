@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer class="filtros ">
+    <v-navigation-drawer :style="genericApp.getTemas.FILTROS">
       <v-list class="d-flex flex-column " >
         <v-list-item>
             <v-list-item-title class="text-h6 auto">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar class="app-bar">
+    <v-app-bar :style="appN.getTemas.NAVBAR">
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="ativaNav"></v-app-bar-nav-icon>
         <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
           <p class="mt-1 desc-detail">
@@ -69,7 +69,7 @@
   import { useCarrinhoStore } from '@/store/CarrinhoStore'
   import { useDisplay } from 'vuetify/lib/framework.mjs';
   import { useRouter } from 'vue-router';
-import { useAppStore } from '@/store/app';
+  import { useAppStore } from '@/store/app';
 
   const storeApp =
   useCarrinhoStore()

@@ -4,16 +4,24 @@
     <Loading class="d-flex justify-center align-center"></Loading>
     <default-bar @modeOn="onclickMode"/>
     <default-view/>
-
   </v-app>
 </template>
 
 <script setup>
   import DefaultView from './View.vue'
   import DefaultBar from './AppBar.vue'
-  import { ref } from 'vue'
+  import { ref, onBeforeMount } from 'vue'
   import Loading from '@/components/Loading.vue';
+  import { useAppStore } from '@/store/app';
+
+  const storeApp = useAppStore()
+
   const theme = ref('dark')
+
+  onBeforeMount(async ()=>{
+    await storeApp.getTemasEmpresa()
+  })
+
   function onclickMode(e){
       console.log(e)
       theme.value = theme.value === 'dark' ? 'light' : 'dark'

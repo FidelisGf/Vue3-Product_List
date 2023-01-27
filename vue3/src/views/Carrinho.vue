@@ -1,5 +1,6 @@
 <template>
-  <v-container class="fill-height bg-real" fluid>
+  <v-container class="fill-height "
+   fluid :style="storeApp.getTemas.PRIMARIA">
     <v-row >
         <v-col cols="12" :key="reni" >
               <v-card
@@ -109,7 +110,7 @@
   const dialog = ref(false)
   const flag = ref(false)
   const reni = ref(0)
-
+  const storeApp = useAppStore()
 
 
   getCarrinho()
@@ -139,7 +140,7 @@
   }
 
   function finalizarPedido(){
-    const storeApp = useAppStore()
+
     if(itens.value == null || itens.value.length == 0){
       storeApp.activeSnack('O carrinho não possui nenhum item !')
       return

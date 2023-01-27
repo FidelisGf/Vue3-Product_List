@@ -23,7 +23,7 @@
     <suspense>
       <router-view />
     </suspense>
-    <v-footer class="footers" v-if="$route.name!='Perfil'">
+    <v-footer :style="storeApp.getTemas.FOOTER" v-if="$route.name!='Perfil'">
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in icons"
@@ -81,9 +81,7 @@
    height: 100%;
    float: right;
   }
-  .footers{
-    background: linear-gradient(to right, #141e30, #243b55) !important;
-  }
+
   .cores{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
@@ -111,15 +109,11 @@
     border: 2px solid rgb(250, 247, 247);
     box-shadow: 1px 2px 1px 2px #414749 !important;
   }
-  .app-bar{
-    background: linear-gradient(to right, #141e30, #243b55) !important;
-  }
+
   .slides{
       width: 100% !important;
   }
-  .princip{
-    background: linear-gradient(to right, #1b283f, #243b55) !important;
-  }
+
   .princip-list{
     background-color: #e2edf6;
   }
@@ -131,18 +125,14 @@
   .corpo-card{
     background: linear-gradient(to right, #4d4b4b, #284263);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
-  .bg-real{
-    background: linear-gradient(to right, #1b283f, #243b55) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
+
   .bg-pedidos{
     background: linear-gradient(to right, #2e455c, #356381); /* W3C, IE 10+/ Edge, Firefox 16+, Chr*/
   }
   .bg-footer{
     background : #e2f1ff !important
   }
-  .filtros{
-    background: linear-gradient(to right, #1b283d, #121b25) !important;
-  }
+
   .bg-bottom{
     background-color: #E6E6FA !important;
   }
@@ -155,13 +145,11 @@
     height: 620px !important;
 
   }
-  .img{
-    width: 620px !important;
-    height: 620px !important;
-  }
+
   .mod-imagem{
-    width: 22.5rem;
-    height: 22.6rem;
+    width: 500px !important;
+    min-height: 420px !important;
+    max-height: 500px !important;
     box-shadow: 0px 0px 0px 0px #414749 !important;
   }
   .font-app{

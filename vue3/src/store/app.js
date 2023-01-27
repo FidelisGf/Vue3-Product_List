@@ -11,10 +11,11 @@ export const useAppStore = defineStore({
       msg : '',
       snack : false,
       timeout : 0.5,
-      EmpresaNome : null
+      EmpresaNome : null,
+      temas : null,
   }),
   persist: {
-    paths: ['EmpresaNome']
+    paths: ['EmpresaNome', 'temas']
   },
   actions: {
       async findById(route, id, payload){
@@ -79,8 +80,17 @@ export const useAppStore = defineStore({
             return error
         })
         return data
+      },
+      getTemasEmpresa(){
+        if(this.temas == null){
+          let payload = {Shop : 'T'}
+          Service.get('getTema', payload).then((res)=>{
+            this.temas = res.data
+          }).catch((error) => {
+              return error
+          })
+        }
       }
-
   },
   getters: {
         getLoad(){
@@ -100,6 +110,9 @@ export const useAppStore = defineStore({
         },
         getEmpresa(){
             return this.EmpresaNome
+        },
+        getTemas(){
+            return this.temas
         }
   }
 })

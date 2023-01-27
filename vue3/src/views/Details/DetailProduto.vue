@@ -1,6 +1,10 @@
 <template>
-  <v-container fluid :key="restart" class="princip fill-height">
-    <v-row class="d-flex justify-space-between mt-0 mt-md-0 flex-column flex-sm-row mt-n4">
+  <v-container fluid :key="restart"
+    class="fill-height"
+    :style="storeApp.getTemas.SECUNDARIA"
+  >
+    <v-row class="d-flex justify-space-between mt-0 mt-md-0
+    flex-column flex-sm-row mt-n4">
         <v-col class="mt-md-n6" cols=12>
           <v-btn icon @click="returnStore"
           class="ml-md-n1" variant="text" >
@@ -9,7 +13,8 @@
             </v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="12" md="12" lg="12" class="d-flex flex-md-row flex-column-reverse ">
+        <v-col cols="12" md="12" lg="12" class="d-flex flex-md-row
+        flex-column-reverse ">
           <v-row class="d-flex">
             <v-col  cols="12" md="4" lg="2" xl="2"
             class="d-flex flex-md-column flex-row ">
@@ -24,26 +29,31 @@
                   rounded
                   @click="saveCor(cor.HASH, index)"
                   active
-                  class="ml-7 mt-md-2 mt-0 cores-selec d-flex justify-center align-center"
+                  class="ml-7 mt-md-2 mt-0 cores-selec
+                  d-flex justify-center align-center"
                 ><v-icon v-if="choosen[index] == true" color="green">mdi-check</v-icon></v-sheet>
               </div>
             </v-col >
-            <v-col cols="12" md="5" lg="6" xl="5" class="d-flex justify-md-start justify-center">
-              <div class="mod-imagem d-flex justify-center justify-md-start
+            <v-col cols="12" md="5" lg="5" xl="5" class="d-flex
+              justify-md-start justify-center">
+              <div class="d-flex justify-center
+              justify-md-center
               justify-lg-center">
                 <inner-image-zoom
                   :src="produto.IMAGE"
                   :zoomSrc="produto.IMAGE"
-                  :zoomScale="1"
+                  :zoomScale="1.4"
                   :fadeDuration="150"
                   class="img ml-lg-n12  ml-md-n12 ml-0 "
                   :hideHint="true"
                   :hasSpacer="true"
+                  :width="smAndDown ? 350 : 500"
+                  :height="smAndDown ? 350 : 470"
                 ></inner-image-zoom>
               </div>
 
             </v-col>
-            <v-col cols="12" md="12" lg="4" >
+            <v-col cols="12" md="12" lg="5" >
               <v-row>
                 <v-col cols="12" class="d-flex justify-center flex-column">
                   <p class="desc-detail
@@ -54,7 +64,8 @@
                       currency: 'BRL'})}})
                     [{{produto.ESTOQUE}}] {{produto.medida.NOME}}(s).
                   </p>
-                  <div class="d-flex justify-lg-start justify-center mt-n4 mt-md-0 mt-lg-n2
+                  <div class="d-flex justify-lg-start
+                  justify-center mt-n4 mt-md-0 mt-lg-n2
                   ml-md-n6  div-rating">
 
                     <v-rating
@@ -119,8 +130,10 @@
             justify-start mt-lg-8 mt-0 ">
               <div class="d-flex flex-column
               ml-0 ml-lg-10 text-detail ">
-                <p class="text-justify text-caption text-md-subtitle-1 ml-1
-                font-weight-medium ml-lg-n0
+                <p class="text-justify
+                text-caption
+                text-md-body-1 ml-1
+                font-weight-medium ml-lg-6
                 desc-detail">
                   {{produto.DESC}}...
                 </p>
@@ -161,7 +174,8 @@
                   <v-card-title class=" text-h5 font-weight-bold"   >
                     {{produto.NOME}}
                   </v-card-title>
-                  <v-card-subtitle class="text-justify text-subtitle-1 font-weight-medium">
+                  <v-card-subtitle class="text-justify text-subtitle-1
+                  font-weight-medium">
                     {{produto.DESC}}
                   </v-card-subtitle>
                   <v-card-text>
@@ -196,7 +210,7 @@
 </template>
 
 <script setup>
-  import {ref, shallowRef} from 'vue'
+  import {ref} from 'vue'
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
   import ProdutoComp from '@/CompositionAP/ProdutoComp';
@@ -205,10 +219,16 @@
   import InnerImageZoom from 'vue-inner-image-zoom'
   import 'vue-image-zoomer/dist/style.css';
   import ModalEscCor from '@/components/ModalEscCor.vue';
-
+  import { useDisplay } from 'vuetify/lib/framework.mjs';
+  import { useAppStore } from '@/store/app';
 
   const router =
   useRouter()
+
+  const storeApp =
+  useAppStore()
+
+  const {smAndDown} = useDisplay()
 
   const {
     saveInCarrinho} = Carrinho()
@@ -233,7 +253,6 @@
   const selectedColor = ref(null)
   const choosen = ref([])
   const tmpChosen = ref(null)
-
 
 
   await findProduto()
