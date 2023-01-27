@@ -1,5 +1,5 @@
 <template>
-  <v-parallax src="../assets/paralax.jpg"
+  <v-parallax :src="img_fundo"
     class="paralax">
     <v-container class="fill-height " fluid>
 
@@ -7,7 +7,7 @@
         <v-row>
           <v-col cols="12" class="d-flex justify-center align-center">
             <img
-              src="@/assets/WeBSHOP__2_-removebg-preview.png"
+              :src="icon"
               :height="mobile ? '560' : '520'"
             >
           </v-col>
@@ -90,26 +90,44 @@
 </template>
 
 <script setup>
-import { shallowRef } from 'vue';
+import { shallowRef, onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import Detail from '@/CompositionAP/CRUD'
+import { useAppStore } from '@/store/app';
+
 const router =
   useRouter()
 
-const {mobile, smAndDown} =
-  useDisplay()
+const storeApp =
+  useAppStore()
+
+const {
+  mobile} = useDisplay()
+
 const destaques = shallowRef([])
-const slides = shallowRef(null)
-
 const {getDestaques} = Detail()
+const img_fundo = ref(null)
+const icon = ref(null)
 
+
+
+
+
+onBeforeMount(async ()=>{
+    await getConfigSite()
+})
 
 getDest()
 
-function getRoute(route){
-  router.push('/' + route)
+
+
+async function getConfigSite(){
+  const dt = await storeApp.getConfigSite()
+  img_fundo.value = dt.fundo
+  icon.value = dt.icon
 }
+
 function detailProduct(id){
   router.push({name: 'Produto-Detalhe', params: {id : id}})
 }
@@ -120,6 +138,9 @@ async function getDest(){
     }
   destaques.value = await getDestaques(payload)
 }
+
+
+
 
 </script>
 <style lang="scss">

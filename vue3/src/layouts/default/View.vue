@@ -82,8 +82,7 @@
    float: right;
   }
   .footers{
-    background-color: #2d2d2d;
-    background-image: linear-gradient(62deg, #2d2d2d 0%, #111111 100%);
+    background: linear-gradient(to right, #141e30, #243b55) !important;
   }
   .cores{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -113,13 +112,13 @@
     box-shadow: 1px 2px 1px 2px #414749 !important;
   }
   .app-bar{
-    background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #141e30, #243b55) !important;
   }
   .slides{
       width: 100% !important;
   }
   .princip{
-    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #1b283f, #243b55) !important;
   }
   .princip-list{
     background-color: #e2edf6;
@@ -130,20 +129,19 @@
     box-shadow: 2px 5.2px 8px #8a8a8a !important;
   }
   .corpo-card{
-    background: linear-gradient(to right, #151616, #131c22); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #4d4b4b, #284263);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .bg-real{
-    background: linear-gradient(to right, #434343, #000000) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #1b283f, #243b55) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .bg-pedidos{
-    background: linear-gradient(to right, #434343, #2c2c2c); /* W3C, IE 10+/ Edge, Firefox 16+, Chr*/
+    background: linear-gradient(to right, #2e455c, #356381); /* W3C, IE 10+/ Edge, Firefox 16+, Chr*/
   }
   .bg-footer{
     background : #e2f1ff !important
   }
   .filtros{
-    background-image: linear-gradient(180deg, #424242 0%, #414141 100%) !important;
-    border-right-color: #2e2e2e !important;
+    background: linear-gradient(to right, #1b283d, #121b25) !important;
   }
   .bg-bottom{
     background-color: #E6E6FA !important;

@@ -1,19 +1,19 @@
 <template>
   <v-card width="800" class="bg-pedidos">
       <v-card-title>
-          <v-btn @click="reniciar" size="x-small" color="blue" icon="mdi-reload" variant="text"></v-btn>
+          <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text"></v-btn>
           Seus Pedidos...
       </v-card-title>
       <v-card-text>
         <v-row v-for="(pedido, index) in pedidos" :key="pedido.ID">
           <v-col cols="12">
-            <v-card class="bg-real">
+            <v-card class="bg-pedidos-list">
               <v-card-title class="d-flex justify-space-between desc-detail">
                 <p>Pedido #{{pedido.ID}}</p>
                 <v-icon v-if="pedido.APROVADO == 'T'" color="#03C03C">
                   mdi-package-variant-closed-check
                 </v-icon>
-                <v-icon v-else color="red-darken-1">
+                <v-icon v-else color="yellow">
                   mdi-package-variant-minus
                 </v-icon>
               </v-card-title>
@@ -25,8 +25,8 @@
                     <span class="text-green" v-if="pedido.APROVADO == 'T'">
                       Pago
                     </span>
-                    <span class="text-red-accent-2" v-else>
-                      Pendente
+                    <span class="text-pendente font-weight-tin" v-else>
+                      Pagamento pendente !
                     </span>
                   </p>
                 </div>
@@ -213,5 +213,12 @@
   .fade-enter-from,
   .fade-leave-to {
     opacity: 0;
+  }
+  .bg-pedidos-list{
+    background: linear-gradient(to right, #22597e, #193857); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  }
+  .text-pendente{
+    color : #ffef09 !important;
   }
 </style>

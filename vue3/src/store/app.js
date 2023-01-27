@@ -40,7 +40,6 @@ export const useAppStore = defineStore({
         this.filtros = payload
       },
 
-      //fazer o search dos produtos
 
       setLoad(Valor){
           this.loading = Valor
@@ -71,6 +70,15 @@ export const useAppStore = defineStore({
           }).catch((error)=>{
               return error
           })
+      },
+      getConfigSite(){
+        let payload  = {Shop : 'T'}
+        const data = Service.get('getConfigSite', payload).then((res)=>{
+            return res.data
+        }).catch((error)=>{
+            return error
+        })
+        return data
       }
 
   },

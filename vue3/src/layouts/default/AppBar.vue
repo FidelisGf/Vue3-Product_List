@@ -3,10 +3,19 @@
     <v-app-bar class="app-bar">
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="ativaNav"></v-app-bar-nav-icon>
         <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
-          <p class="mt-1 font-app">{{appN.getEmpresa}}</p>
+          <p class="mt-1 desc-detail">
+            {{appN.getEmpresa}}
+          </p>
         </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="mr-5">
+
+        <v-btn @click="$router.push('/')"
+        class="text-sm-body-1 hidden-sm-and-down desc-detail"
+        prepend-icon="mdi-home" color="white">
+          Inicio
+        </v-btn>
+
         <v-btn @click="$router.push('/produtos')"
         class="text-sm-body-1 hidden-sm-and-down desc-detail"
         prepend-icon="mdi-store" color="white">Loja</v-btn>

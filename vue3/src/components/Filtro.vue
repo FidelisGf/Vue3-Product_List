@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-navigation-drawer class="filtros">
-      <v-list>
+    <v-navigation-drawer class="filtros ">
+      <v-list class="d-flex flex-column " >
         <v-list-item>
             <v-list-item-title class="text-h6 auto">
               Filtros
@@ -46,7 +46,8 @@
               ></v-autocomplete>
 
         </v-list-item>
-        <v-list-item class="mt-n2 ">
+        <v-spacer></v-spacer>
+        <v-list-item>
             <v-btn color="#00674b" @click="searchFilter"   block >
               <v-icon>
                 mdi-magnify
@@ -309,4 +310,5 @@
   .bg-fundo{
     background: #f0f8ff !important;
   }
+
 </style>

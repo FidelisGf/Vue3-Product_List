@@ -2,9 +2,9 @@
   <v-container class="fill-height bg-real" fluid>
     <v-row :key="renic" v-if="tela == 'dados'" >
       <v-col cols="12" class="d-flex align-center align-content-center justify-center">
-          <v-card width="850" class="corpo-card">
+          <v-card width="850" class="bg-pedidos">
               <v-card-title>
-                <v-btn @click="reniciar" size="x-small" color="blue" icon="mdi-reload" variant="text">
+                <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text">
                 </v-btn>
                 Meus dados...
               </v-card-title>

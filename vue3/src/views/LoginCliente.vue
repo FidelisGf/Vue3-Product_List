@@ -83,7 +83,7 @@
         color : rgb(255, 255, 255)
     }
     .bg-login{
-      background: linear-gradient(to right, #434343, #000000) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right, #1b283f, #243b55) !important;
 
     }
 </style>
