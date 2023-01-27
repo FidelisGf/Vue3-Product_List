@@ -151,14 +151,13 @@
       font-weight: bold;
   }
   .encx-img{
-    max-width: 320px !important;
-    max-height: 320px !important;
-    min-height: 200px;
+    width: 620px !important;
+    height: 620px !important;
+
   }
   .img{
-    min-width: 90% !important;
-    max-width: 100% !important;
-    height: 100% !important;
+    width: 620px !important;
+    height: 620px !important;
   }
   .mod-imagem{
     width: 22.5rem;

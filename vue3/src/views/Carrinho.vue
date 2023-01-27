@@ -172,18 +172,10 @@
         item.QUANTIDADE -= 1
       }
     }
-
-
   }
-
   function detailProduct(id){
     router.push({name: 'Produto-Detalhe', params: {id : id}})
   }
-
-
-
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -215,5 +207,6 @@
     color : rgb(255, 252, 252) !important;
     font-weight: bold !important;
   }
+
 
 </style>
