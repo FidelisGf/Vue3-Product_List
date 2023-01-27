@@ -97,7 +97,7 @@
     </v-form>
     </v-card-text>
     <v-card-actions class="d-flex justify-end mt-n3">
-      <v-btn variant="text" color="#E52B50" @click="voltar" >Voltar</v-btn>
+      <v-btn variant="text" color="#FEBE10" @click="voltar" >Voltar</v-btn>
       <v-btn variant="text" color="#03C03C" @click="test" >{{txtBotao}}</v-btn>
     </v-card-actions>
   </v-card>
@@ -223,7 +223,7 @@
     background-color: rgb(194, 52, 52);
   }
   .card-cad{
-    background: linear-gradient(to right, #414345, #232526) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #1c445f, #152d46) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .mold-img{
     width: 80px !important;

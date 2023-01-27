@@ -1,7 +1,8 @@
 <template>
-  <v-container class="fill-height bg-real" fluid>
+  <v-container class="fill-height bg-real fundo-perfil" fluid>
     <v-row :key="renic" v-if="tela == 'dados'" >
-      <v-col cols="12" class="d-flex align-center align-content-center justify-center">
+      <v-col cols="12" class="d-flex align-center
+      align-content-center justify-center">
           <v-card width="850" class="bg-pedidos">
               <v-card-title>
                 <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text">
@@ -116,5 +117,9 @@
 
 <style lang="scss" >
 
+  .fundo-perfil{
 
+      display: flex !important;
+      align-items: center !important;
+  }
 </style>
