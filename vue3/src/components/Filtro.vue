@@ -65,7 +65,7 @@
       <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
-          class="bg-real"
+          :style="genericApp.getTemas.FILTROS"
         >
           <v-expansion-panel-text  class="bg-real">
             <v-row   class="d-flex flex-row">
