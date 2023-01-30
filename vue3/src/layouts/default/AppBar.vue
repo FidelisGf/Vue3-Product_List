@@ -65,28 +65,21 @@
 </template>
 
 <script setup>
-  import { ref, computed, onBeforeMount } from 'vue'
+  import { ref, computed } from 'vue'
   import { useCarrinhoStore } from '@/store/CarrinhoStore'
-  import { useDisplay } from 'vuetify/lib/framework.mjs';
   import { useRouter } from 'vue-router';
   import { useAppStore } from '@/store/app';
 
   const storeApp =
   useCarrinhoStore()
+
   const router =
   useRouter()
-  const {mobile} =
-  useDisplay()
-
 
   const appN =
   useAppStore()
 
-  onBeforeMount(async ()=>{
-    appN.getTemasEmpresa()
-    appN.empresaAtiva()
-  })
-
+  appN.empresaAtiva()
 
   const dialog = ref(false)
 

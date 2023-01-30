@@ -12,7 +12,10 @@ export const useAppStore = defineStore({
       snack : false,
       timeout : 0.5,
       EmpresaNome : null,
-      temas : null,
+      temas : {
+          FOOTER : 'background : #5CBBF6',
+          NAVBAR : 'background : #5CBBF6'
+      }
   }),
   persist: {
     paths: ['EmpresaNome', 'temas']
@@ -80,14 +83,12 @@ export const useAppStore = defineStore({
         return data
       },
       getTemasEmpresa(){
-        if(this.temas == null){
-          let payload = {Shop : 'T'}
-          Service.get('getTema', payload).then((res)=>{
-            this.temas = res.data
-          }).catch((error) => {
-              return error
-          })
-        }
+        let payload = {Shop : 'T'}
+        Service.get('getTema', payload).then((res)=>{
+          this.temas = res.data
+        }).catch((error) => {
+          return error
+        })
       }
   },
   getters: {
