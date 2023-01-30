@@ -40,8 +40,6 @@ export const useAppStore = defineStore({
       setFiltros(payload){
         this.filtros = payload
       },
-
-
       setLoad(Valor){
           this.loading = Valor
       },

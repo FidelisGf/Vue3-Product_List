@@ -1,5 +1,7 @@
 <template>
-  <v-card width="800" :style="storeApp.getTemas.CARDS_PERFIL">
+  <v-card
+  :style="storeApp.getTemas.CARDS_PERFIL"
+  :width="smAndUp ? 800 : 'auto'">
       <v-card-title>
           <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text"></v-btn>
           Seus Pedidos...
@@ -145,7 +147,10 @@
   import PedidoComp from '@/CompositionAP/PedidoComp'
   import CrudComp from '@/CompositionAP/CRUD';
   import { useAppStore } from '@/store/app';
+  import { useDisplay } from 'vuetify/lib/framework.mjs';
 
+
+  const {smAndUp} = useDisplay()
   const storeApp = useAppStore()
   const renic = ref(0)
   const alteraNota = ref(0)

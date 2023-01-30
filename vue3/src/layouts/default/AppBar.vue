@@ -78,10 +78,12 @@
   const {mobile} =
   useDisplay()
 
+
   const appN =
   useAppStore()
 
   onBeforeMount(async ()=>{
+    appN.getTemasEmpresa()
     appN.empresaAtiva()
   })
 
@@ -94,6 +96,7 @@
   const counter = computed(()=>
     storeApp.getCountCarrinho
   )
+
 
   function getRouteMobile(route){
     dialog.value = false
