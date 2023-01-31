@@ -13,6 +13,7 @@ axios.interceptors.request.use((config)=>{
   }, (erorr)=>{
       const storeApp = useAppStore()
       storeApp.setLoad(false)
+      localStorage.clear('tkn')
       return Promise.reject(erorr)
   })
     axios.interceptors.response.use((response)=>{
@@ -25,9 +26,12 @@ axios.interceptors.request.use((config)=>{
     if (error.response.status === 401 && access_token) {
         localStorage.setItem('token', error.response.data)
         axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
+    }else{
+      localStorage.clear('tkn')
+      storeApp.setLoad(false)
+      return Promise.reject(error);
     }
-    storeApp.setLoad(false)
-    return Promise.reject(error);
+
 })
 export default{
 

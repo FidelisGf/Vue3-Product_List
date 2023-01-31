@@ -71,7 +71,7 @@ const routes = [
               axios.defaults.headers.common['Authorization'] = 'Bearer' +
               localStorage.getItem('tkn')
               axios.get("/auth/validateTkn").then((res)=>{
-                next({name : 'Perfil'})
+                 next({name : 'Perfil'})
               }).catch((error)=>{
                 const access_token = localStorage.getItem("tkn");
 
