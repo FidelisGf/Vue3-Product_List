@@ -7,14 +7,13 @@ if(localStorage.getItem('tkn') !=null || localStorage.getItem('tkn') != undefine
   'Bearer' + localStorage.getItem('tkn')
 }
 axios.interceptors.request.use((config)=>{
-  const storeApp = useAppStore()
-     storeApp.setLoad(true)
-      return config;
+    const storeApp = useAppStore()
+    storeApp.setLoad(true)
+    return config;
   }, (erorr)=>{
-      const storeApp = useAppStore()
-      storeApp.setLoad(false)
-      localStorage.clear('tkn')
-      return Promise.reject(erorr)
+    const storeApp = useAppStore()
+    storeApp.setLoad(false)
+    return Promise.reject(erorr)
   })
     axios.interceptors.response.use((response)=>{
     const storeApp = useAppStore()
@@ -24,10 +23,9 @@ axios.interceptors.request.use((config)=>{
     const storeApp = useAppStore()
     const access_token = localStorage.getItem("token");
     if (error.response.status === 401 && access_token) {
-        localStorage.setItem('token', error.response.data)
-        axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
+      localStorage.setItem('token', error.response.data)
+      axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
     }else{
-      localStorage.clear('tkn')
       storeApp.setLoad(false)
       return Promise.reject(error);
     }
