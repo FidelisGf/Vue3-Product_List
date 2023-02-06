@@ -64,9 +64,18 @@
                           </div>
                           <v-spacer></v-spacer>
                           <div class="d-flex flex-column justify-center">
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#4FFFB0" @click="addQuantidadeProduto(index)"><v-icon>mdi-plus</v-icon></v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'" color="#FF033E" @click="removeQuantidadeProduto(index)"><v-icon>mdi-minus</v-icon></v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'" color="red" @click="removeIndis(index)" ><v-icon>mdi-delete</v-icon></v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'"
+                            color="#4FFFB0" @click="addQuantidadeProduto(index)">
+                              <v-icon>mdi-plus</v-icon>
+                            </v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'"
+                            color="#FF033E" @click="removeQuantidadeProduto(index)">
+                              <v-icon>mdi-minus</v-icon>
+                            </v-btn>
+                            <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'"
+                            color="red" @click="removeIndis(index)" >
+                              <v-icon>mdi-delete</v-icon>
+                            </v-btn>
                           </div>
                         </v-col>
                         <v-divider></v-divider>

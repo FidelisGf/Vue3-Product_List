@@ -44,11 +44,11 @@
                   :zoomSrc="produto.IMAGE"
                   :zoomScale="1.4"
                   :fadeDuration="150"
-                  class="img ml-lg-n12  ml-md-n12 ml-0 "
-                  :hideHint="true"
+                  class="img ml-lg-n12
+                   ml-md-n12 ml-0 "
                   :hasSpacer="true"
                   :width="smAndDown ? 350 : 500"
-                  :height="smAndDown ? 350 : 470"
+                  :height="smAndDown ? 350 : 500"
                 ></inner-image-zoom>
               </div>
 
@@ -146,7 +146,7 @@
         <v-col cols="12" md="12" class="d-flex mt-lg-6">
             <v-slide-group
               selected-class="bg-success"
-              :show-arrows="false"
+              :show-arrows="smAndDown ? false : true"
               center-active
             >
               <v-slide-group-item

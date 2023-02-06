@@ -1,7 +1,9 @@
 <template>
   <v-card min-height="315px" class="bg-carrinho" >
     <v-card-actions class="mt-n4 ml-n4">
-      <v-btn @click="fecharModal" size="small" icon color="red" variant="text"><v-icon>mdi-close</v-icon></v-btn>
+      <v-btn @click="fecharModal" size="small" icon color="red" variant="text">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-card-actions>
     <v-card-title class="desc-detail text-subtitle-1 text-md-h5 font-weight-bold mt-n6">
       Pedido {{numero_pedido}} aberto com sucesso...

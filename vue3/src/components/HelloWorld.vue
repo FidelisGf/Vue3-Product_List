@@ -82,7 +82,6 @@
           </v-slide-group>
           </v-col>
         </v-row>
-
       </v-responsive>
     </v-container>
   </v-parallax>

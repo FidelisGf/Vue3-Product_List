@@ -72,7 +72,7 @@
         min-width: 50% !important;
         min-height: 100% !important;
         max-width: 100% !important;
-        background: linear-gradient(to right, #151616, #131c22); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, #151616, #131c22);
     }
     .img{
         width: 100%;

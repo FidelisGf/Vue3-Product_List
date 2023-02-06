@@ -31,9 +31,15 @@
               </v-btn>
             </v-col>
             <v-col class="d-flex flex-column mt-n8 ml-2">
-              <p class="text-body-1 font-italic font-weight-bold">Valor do Pedido : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-              <p class="text-body-1 font-italic font-weight-bold pt-1">Valor do Desconto : {{parseFloat(vlDesconto).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-              <p class="text-body-1 font-italic font-weight-bold pt-1">Subtotal : {{parseFloat(vlFinal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }} </p>
+              <p class="text-body-1 font-italic font-weight-bold">
+                Valor do Pedido : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+              </p>
+              <p class="text-body-1 font-italic font-weight-bold pt-1">
+                Valor do Desconto : {{parseFloat(vlDesconto).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+              </p>
+              <p class="text-body-1 font-italic font-weight-bold pt-1">
+                Subtotal : {{parseFloat(vlFinal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}
+              </p>
             </v-col>
           </v-row>
       </v-card-text>
