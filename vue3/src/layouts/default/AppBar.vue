@@ -1,9 +1,12 @@
 <template>
   <div>
     <v-app-bar
-      :style="isNull(appN.getTemas.NAVBAR) ? '' : appN.getTemas.NAVBAR">
-      <v-app-bar-nav-icon class="hidden-md-and-up" @click="ativaNav"></v-app-bar-nav-icon>
-        <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
+      :style="isNull(appN.getTemas.NAVBAR) ? ''
+      : appN.getTemas.NAVBAR">
+      <v-app-bar-nav-icon class="hidden-md-and-up"
+      @click="ativaNav"></v-app-bar-nav-icon>
+        <v-toolbar-title class="hidden-sm-and-down toolbar-title"
+        @click="$router.push('/')">
           <p class="mt-1 desc-detail">
             {{appN.getEmpresa}}
           </p>

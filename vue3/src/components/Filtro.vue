@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-navigation-drawer
-      :style="isNull(genericApp.getTemas.FILTROS) ? '' : genericApp.getTemas.FILTROS"
+      :style="isNull(genericApp.getTemas.FILTROS) ? ''
+      : genericApp.getTemas.FILTROS"
     >
       <v-list class="d-flex flex-column " >
         <v-list-item>
@@ -25,7 +26,8 @@
               Valores
           </v-list-item-title>
           <v-radio-group v-model="check" class="auto">
-            <v-radio class="auto text-black" label="Todos" value="0"></v-radio>
+            <v-radio class="auto text-black" label="Todos"
+            value="0"></v-radio>
             <v-radio label="0 a 25" value="1"></v-radio>
             <v-radio label="25 a 50" value="2"></v-radio>
             <v-radio label="50 a 100" value="3"></v-radio>
@@ -67,13 +69,17 @@
       <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
-          :style="isNull(genericApp.getTemas.FILTROS) ? '' : genericApp.getTemas.FILTROS"
+          :style="isNull(genericApp.getTemas.FILTROS) ? ''
+          : genericApp.getTemas.FILTROS"
         >
           <v-expansion-panel-text  class="bg-real">
             <v-row  class="d-flex flex-row">
               <v-col >
                 <p>Valores</p>
-                <v-radio-group  inline v-model="check" title="Valores">
+                <v-radio-group
+                  inline v-model="check"
+                  title="Valores"
+                >
                   <v-radio label="Todos" value="0"></v-radio>
                   <v-radio label="0 a 25" value="1"></v-radio>
                   <v-radio label="25 a 50" value="2"></v-radio>

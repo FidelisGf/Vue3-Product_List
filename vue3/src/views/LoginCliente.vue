@@ -2,9 +2,14 @@
   <v-container
   class="fill-height d-flex justify-center align-center"
   fluid
-  :style="isNull(storeApp.getTemas.PRIMARIA) ? '' : storeApp.getTemas.PRIMARIA">
-    <div class="fundo d-flex justify-center align-center " color="red">
-        <v-card class="conteudo d-flex flex-sm-row flex-column justify-center card"
+  :style="isNull(storeApp.getTemas.PRIMARIA) ? '' :
+  storeApp.getTemas.PRIMARIA">
+    <div
+      class="fundo d-flex justify-center align-center "
+      color="red"
+     >
+        <v-card class="conteudo d-flex flex-sm-row
+        flex-column justify-center card"
          >
             <div>
               <img
@@ -17,7 +22,8 @@
               <v-card-title class="d-flex justify-center mt-1">
                   Login
               </v-card-title>
-              <v-card-text class="d-flex justify-center flex-column mt-2">
+              <v-card-text class="d-flex justify-center
+              flex-column mt-2">
                 <v-text-field
                   v-model="user.NAME.value"
                   color="teal-darken-1"
@@ -39,11 +45,19 @@
                   :rules="pwRules"
                   required
                 ></v-text-field>
-                <a class="link " @click="$router.push('/cadastro')">Cadastre-se aqui</a>
+                <a
+                  class="link "
+                  @click="$router.push('/cadastro')"
+                >
+                  Cadastre-se aqui
+                </a>
               </v-card-text>
               <v-card-actions class="d-flex justify-center flex-row">
-                <v-btn variant="text" color="#E32636" >Voltar</v-btn>
-                <v-btn variant="text" color="#018749" @click="login" >Logar</v-btn>
+                <v-btn variant="text" color="#E32636">Voltar</v-btn>
+                <v-btn variant="text" color="#018749"
+                 @click="login" >
+                  Logar
+                </v-btn>
               </v-card-actions>
             </div>
 

@@ -188,7 +188,9 @@
                     >
                   </div>
 
-                  <v-card-title class=" text-h5 font-weight-bold"   >
+                  <v-card-title
+                    class="text-h5 font-weight-bold"
+                  >
                     {{produto.NOME}}
                   </v-card-title>
                   <v-card-subtitle class="text-justify

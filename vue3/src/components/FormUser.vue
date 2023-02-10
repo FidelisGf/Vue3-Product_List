@@ -5,7 +5,9 @@
       <v-card-title class="font-weight-bold">
         {{title}}
       </v-card-title>
-      <v-card-subtitle class="font-weight-black text-md-subtitle-1 text-caption ">
+      <v-card-subtitle
+        class="font-weight-black text-md-subtitle-1 text-caption"
+      >
           <p>As informações colocadas aqui serão confirmadas </p>
           <p>posteriormente.</p>
           <label  class="arqv mt-3" for="arqv">Anexar Foto</label>
@@ -19,7 +21,8 @@
           <v-row>
 
             <v-col cols="12" class="d-flex justify-center  ml-sm-0">
-              <div class="mold-img d-flex justify-center align-center">
+              <div class="mold-img d-flex justify-center
+              align-center">
                 <input
                   type="file"
                   ref="image"
@@ -27,7 +30,11 @@
                   @change="uploadImage"
                   id="arqv"
                 >
-                <v-avatar  v-if="image_colocada" rounded="0"  size="80">
+                <v-avatar
+                  v-if="image_colocada"
+                  rounded="0"
+                  size="80"
+                >
                   <img
 
                     class="mt-0 mt-sm-0 img-cad"
@@ -97,8 +104,10 @@
     </v-form>
     </v-card-text>
     <v-card-actions class="d-flex justify-end mt-n3">
-      <v-btn variant="text" color="#FEBE10" @click="voltar" >Voltar</v-btn>
-      <v-btn variant="text" color="#03C03C" @click="test" >{{txtBotao}}</v-btn>
+      <v-btn variant="text" color="#FEBE10"
+      @click="voltar" >Voltar</v-btn>
+      <v-btn variant="text" color="#03C03C"
+       @click="test" >{{txtBotao}}</v-btn>
     </v-card-actions>
   </v-card>
 </div>

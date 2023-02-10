@@ -19,6 +19,9 @@ export default function ProdutoComp(){
   const tmp = shallowRef(null)
   const categoria = shallowRef(null)
 
+
+
+
   function getAllProdutos(payload){
       return storeApp.getProdutos(payload)
   }

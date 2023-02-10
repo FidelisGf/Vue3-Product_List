@@ -211,14 +211,17 @@
 
   async function defineCor(produto){
     let payload = {Shop : 'T'}
-    let cor = await findById('getOneColorOfProduct', produto.ID, payload)
+    let cor = await
+    findById('getOneColorOfProduct',
+    produto.ID, payload)
     saveInCarrinho(produto.ID, produto.VALOR, cor[0].HASH)
   }
 
   async function getProdutos(){
     listKey.value += 1;
-    let payload = { current_page: current_page.value, opcao: null, start: null, end: null,
-    search: search.value, Shop: "T", Precos : precos.value, categoria : categoria.value};
+    let payload = {current_page: current_page.value,
+    search: search.value, Shop: "T",
+    Precos : precos.value, categoria : categoria.value};
     produtos.value = await getAllProdutos(payload)
     tmnho.value = produtos.value.length
   }

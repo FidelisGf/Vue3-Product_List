@@ -23,7 +23,8 @@
     <suspense>
       <router-view />
     </suspense>
-    <v-footer :style="storeApp.getTemas.FOOTER" v-if="$route.name!='Perfil'">
+    <v-footer :style="storeApp.getTemas.FOOTER"
+    v-if="$route.name!='Perfil'">
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in icons"
@@ -36,7 +37,8 @@
           <v-icon>{{ link }}</v-icon>
         </v-btn>
         <v-col class="text-center mt-4" cols="12">
-          {{ new Date().getFullYear() }} <strong>© Empresarial LTDA</strong>
+          {{ new Date().getFullYear() }}
+          <strong>© Empresarial LTDA</strong>
         </v-col>
       </v-row>
     </v-footer>

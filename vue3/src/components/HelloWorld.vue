@@ -5,7 +5,9 @@
 
       <v-responsive>
         <v-row>
-          <v-col cols="12" class="d-flex justify-center align-center">
+          <v-col
+          cols="12"
+          class="d-flex justify-center align-center">
             <img
               :src="icon"
               :height="mobile ? '560' : '520'"
@@ -13,10 +15,18 @@
           </v-col>
         </v-row>
         <v-row>
-            <v-col cols="12" class="d-flex justify-center text-md-h5
-            text-body-1
-            font-home  font-italic font-weight-medium mt-n10 mt-md-0">
-              <p class="ml-2 ml-md-3 mt-0">Produtos em destaque para você</p>
+            <v-col
+              cols="12"
+              class="d-flex
+              justify-center text-md-h5
+              text-body-1
+              font-home
+              font-italic font-weight-medium
+              mt-n10 mt-md-0"
+            >
+              <p class="ml-2 ml-md-3 mt-0">
+                Produtos em destaque para você
+              </p>
             </v-col>
             <v-col cols="12" class="d-flex justify-center">
               <v-icon  class="mt-2" >mdi-arrow-down</v-icon>
@@ -52,20 +62,28 @@
                     height="210"
                   ></v-img>
                 </div>
-                <v-card-title class=" text-h5 font-weight-bold desc-detail"  @click="detailProduct(produto.ID)" >
+                <v-card-title
+                  class="text-h5 font-weight-bold
+                  desc-detail"
+                  @click="detailProduct(produto.ID)"
+                >
                   {{produto.NOME}}
                 </v-card-title>
-                <v-card-subtitle class="text-justify text-subtitle-1 ,
-                font-weight-medium desc-detail">
+                <v-card-subtitle
+                  class="text-justify text-subtitle-1 ,
+                  font-weight-medium desc-detail"
+                >
                   {{produto.DESC}}
                 </v-card-subtitle>
                 <v-card-text>
                     <v-row>
                       <v-col cols="12" class="text-caption">
-                      <p class="text-body-1 font-weight-medium desc-detail">
+                      <p class="text-body-1 font-weight-medium
+                      desc-detail">
                         Valor :
                         {{parseFloat(produto.VALOR)
-                        .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                        .toLocaleString('pt-br',{style: 'currency',
+                        currency: 'BRL'})}}
                       </p>
                       <p class="font-weight-medium desc-detail">
                         Estoque :
