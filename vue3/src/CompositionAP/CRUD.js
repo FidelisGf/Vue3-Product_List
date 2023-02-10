@@ -11,7 +11,13 @@ export default function CrudComp(){
     async function selecionaCor(){
         storeApp.activeSnack('Cor escolhida com sucesso !')
     }
-
+    function isNull(param){
+      if(param != null){
+          return false
+      }else{
+          return true
+      }
+    }
     async function getAllList(route, payload){
         return storeApp.getList(route, payload)
     }
@@ -88,7 +94,8 @@ export default function CrudComp(){
         applyFilter,
         post,
         selecionaCor,
-        getDestaques
+        getDestaques,
+        isNull
     }
 
 }

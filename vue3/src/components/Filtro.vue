@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-navigation-drawer :style="genericApp.getTemas.FILTROS">
+    <v-navigation-drawer
+      :style="isNull(genericApp.getTemas.FILTROS) ? '' : genericApp.getTemas.FILTROS"
+    >
       <v-list class="d-flex flex-column " >
         <v-list-item>
             <v-list-item-title class="text-h6 auto">
@@ -65,10 +67,10 @@
       <v-expansion-panels  >
         <v-expansion-panel
           title="Filtros"
-          :style="genericApp.getTemas.FILTROS"
+          :style="isNull(genericApp.getTemas.FILTROS) ? '' : genericApp.getTemas.FILTROS"
         >
           <v-expansion-panel-text  class="bg-real">
-            <v-row   class="d-flex flex-row">
+            <v-row  class="d-flex flex-row">
               <v-col >
                 <p>Valores</p>
                 <v-radio-group  inline v-model="check" title="Valores">
@@ -132,10 +134,12 @@
 
 <script setup>
   import { useAppStore } from '@/store/app'
+  import CrudComp from '@/CompositionAP/CRUD';
   import {ref, watch, computed, onBeforeMount} from 'vue'
   import { useDisplay } from 'vuetify/lib/framework.mjs';
 
   const {mobile} = useDisplay()
+  const {isNull} = CrudComp()
   const genericApp = useAppStore()
 
   const search = ref('')

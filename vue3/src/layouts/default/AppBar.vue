@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-app-bar :style="appN.getTemas.NAVBAR">
+    <v-app-bar
+      :style="isNull(appN.getTemas.NAVBAR) ? '' : appN.getTemas.NAVBAR">
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="ativaNav"></v-app-bar-nav-icon>
         <v-toolbar-title class="hidden-sm-and-down toolbar-title" @click="$router.push('/')">
           <p class="mt-1 desc-detail">
@@ -69,7 +70,7 @@
   import { useCarrinhoStore } from '@/store/CarrinhoStore'
   import { useRouter } from 'vue-router';
   import { useAppStore } from '@/store/app';
-
+  import CrudComp from '@/CompositionAP/CRUD';
   const storeApp =
   useCarrinhoStore()
 
@@ -78,6 +79,8 @@
 
   const appN =
   useAppStore()
+
+  const {isNull} = CrudComp()
 
   appN.empresaAtiva()
 
@@ -90,7 +93,6 @@
     storeApp.getCountCarrinho
   )
 
-
   function getRouteMobile(route){
     dialog.value = false
     router.push('/' + route)
@@ -102,8 +104,6 @@
     { text: 'Carrinho', icon: 'mdi-cart', value: 'carrinho' },
     { text: 'Login', icon: 'mdi-account', value: 'login' },
   ]
-
-
 
 </script>
 <style lang="scss">

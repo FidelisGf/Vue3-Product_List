@@ -2,10 +2,14 @@ import { ref, computed } from 'vue'
 import { useAppStore } from '@/store/app'
 import { useUserStore } from '@/store/UserStore'
 import { useRouter } from 'vue-router';
+import CrudComp from './CRUD';
 export default function UserComp(){
   const genericApp =
   useAppStore()
 
+  const {
+    isNull
+  } = CrudComp()
 
   const userApp =
   useUserStore()
@@ -154,6 +158,7 @@ export default function UserComp(){
       logout,
       getPerfil,
       update,
+      isNull,
       NomeRules,
       cpfRules,
       EmailRules,

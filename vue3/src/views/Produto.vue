@@ -1,24 +1,40 @@
 <template>
-  <v-container class="fill-height "
-  :style="storeApp.getTemas.PRIMARIA "
+  <v-container class="fill-height"
+  :style="isNull(storeApp.getTemas.PRIMARIA)
+  ? '' : storeApp.getTemas.PRIMARIA"
   fluid>
     <Filtro @search="makeSearch" @searchPage="pageFilter" ></Filtro>
-
-
-    <v-row color="primary"  class="d-flex justify-center flex-column flex-sm-row mt-2 mt-lg-0"
+    <v-row color="primary"
+    class="
+      justify-center
+      flex-column
+      flex-sm-row mt-2 mt-lg-0"
     :key="listKey">
 
-      <v-col cols="12" class="d-flex ml-md-14 mt-3 mt-md-0 justify-center justify-md-start">
+      <v-col cols="12"
+       class="
+        d-flex
+        ml-md-14 mt-3 mt-md-0
+        justify-center
+        justify-md-start"
+      >
         <p>{{ tmnho }}
           produto(s)
           encontrado(s)
 
         </p>
       </v-col>
-      <v-col  v-for="(produto, index) in produtos" :key="produto.ID"
-      cols="12" md="4" class="d-flex justify-center " >
+      <v-col
+        v-for="(produto, index) in produtos"
+        :key="produto.ID"
+        cols="12" md="4" xl="3"
+        class="d-flex justify-center"
+      >
 
-        <v-sheet min-height="550" color="transparent">
+        <v-sheet
+          min-height="550"
+          color="transparent"
+        >
           <v-lazy
             min-height="450"
             v-model="isActive[index]"
@@ -26,13 +42,15 @@
             >
               <v-card
                 width="330px"
-
                 class="cards corpo-card"
                 elevation="1"
               >
               <v-row :key="index" >
-                <v-col cols="12" class="img-card d-flex justify-center
-                align-content-center">
+                <v-col cols="12"
+                  class="img-card
+                  justify-center
+                  align-content-center"
+                >
                   <v-img
                     :src="produto.IMAGE"
                     :height="290"
@@ -41,21 +59,36 @@
                     ></v-img>
                 </v-col>
               </v-row>
-              <v-card-title class="mt-3 text-h5 font-weight-bold desc-detail"
-              @click="detailProduct(produto.ID)" >
+              <v-card-title
+                class="mt-3
+                text-h5
+                font-weight-bold
+                desc-detail"
+                @click="detailProduct(produto.ID)"
+              >
                 {{produto.NOME}}
               </v-card-title>
-              <v-card-subtitle class="desc-detail text-justify text-subtitle-1 font-weight-medium">
+              <v-card-subtitle
+                class="desc-detail text-justify
+                text-subtitle-1
+                font-weight-medium"
+              >
                 {{produto.DESC}}
               </v-card-subtitle>
-              <v-card-text  @click="detailProduct(produto.ID)">
+              <v-card-text
+               @click="detailProduct(produto.ID)"
+              >
                 <v-row>
-                  <v-col cols="12" class="text-caption">
-                    <p class=" desc-detail text-body-1 font-weight-medium">
+                  <v-col cols="12"
+                  class="text-caption">
+                    <p class="desc-detail text-body-1
+                    font-weight-medium">
+
                       Valor : {{parseFloat(produto.VALOR).
-                        toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                      toLocaleString('pt-br',{style: 'currency',
+                      currency: 'BRL'})}}
                     </p>
-                    <p class=" desc-detail font-weight-medium">
+                    <p class="desc-detail font-weight-medium">
                       Estoque : {{produto.QUANTIDADE}} unidades
                     </p>
                     <p class=" desc-detail font-weight-medium">
@@ -67,16 +100,24 @@
               <v-card-actions>
                   <v-row>
                     <v-col cols="6">
-                      <v-btn class="ml-n1" @click="detailProduct(produto.ID)"
-                        color="#B2FFFF" icon="mdi-information-outline">
+                      <v-btn class="ml-n1"
+                       @click="detailProduct(produto.ID)"
+                        color="#B2FFFF"
+                        icon="mdi-information-outline">
                       </v-btn>
-                      <v-btn color="#03C03C" @click="defineCor(produto)"
-                        icon="mdi-cart-outline">
+                      <v-btn color="#03C03C"
+                       @click="defineCor(produto)"
+                        icon="mdi-cart-outline"
+                      >
                       </v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col>
-                    <v-btn class="ml-4" color="#03C03C" icon="mdi-whatsapp"></v-btn>
+                    <v-btn class="ml-4"
+                      color="#03C03C"
+                      icon="mdi-whatsapp"
+                    >
+                    </v-btn>
                   </v-col>
                 </v-row>
               </v-card-actions>
@@ -85,8 +126,9 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row class="d-flex flex-row">
-        <v-col cols="12" class="d-flex flex-row justify-center">
+    <v-row >
+        <v-col cols="12"
+          class="justify-center">
           <v-pagination
             color="teal lighten-1"
             v-model="current_page"
@@ -134,7 +176,8 @@
   const {
     getAllList,
     applyFilter,
-    findById} = Detail()
+    findById,
+    isNull} = Detail()
 
 
   const tmpSea = ref('')

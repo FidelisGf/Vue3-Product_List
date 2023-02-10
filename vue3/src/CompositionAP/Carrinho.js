@@ -1,7 +1,12 @@
 import { useCarrinhoStore } from '@/store/CarrinhoStore'
 import { ref, computed } from 'vue'
+import CrudComp from './CRUD'
 export default function CarrinhoComp(){
       const itens = ref([])
+      const {
+        isNull
+      } = CrudComp()
+
       const vlTotal = computed(()=>
         getValorTotal()
       )
@@ -65,7 +70,8 @@ export default function CarrinhoComp(){
           getCupom,
           applyCupom,
           itens,
-          vlTotal
+          vlTotal,
+          isNull
       }
 }
 

@@ -1,18 +1,26 @@
 <template>
   <v-container class="fill-height  fundo-perfil"
-   fluid :style="storeApp.getTemas.PRIMARIA">
-    <v-row :key="renic" v-if="tela == 'dados'" >
-      <v-col cols="12" class="d-flex
-     justify-center">
-          <v-card :width="smAndDown ? 350 : 850"  :style="storeApp.getTemas.CARDS_PERFIL">
+   fluid :style="isNull(storeApp.getTemas.PRIMARIA)
+   ? '' : storeApp.getTemas.PRIMARIA">
+    <v-row
+      :key="renic"
+      v-if="tela == 'dados'"
+    >
+      <v-col cols="12"
+      class="d-flex
+      justify-center">
+          <v-card :width="smAndDown ? 350 : 850"
+          :style="isNull(storeApp.getTemas.CARDS_PERFIL) ? '' :
+          storeApp.getTemas.CARDS_PERFIL">
               <v-card-title>
-                <v-btn @click="reniciar" size="x-small" color="yellow" icon="mdi-reload" variant="text">
+                <v-btn @click="reniciar" size="x-small"
+                color="yellow" icon="mdi-reload" variant="text">
                 </v-btn>
                 Meus dados...
               </v-card-title>
               <v-card-text class=" mt-md-6 mt-4">
-                <v-row class="d-flex  flex-sm-row flex-column">
-                  <v-col cols="12" md="6" class="d-flex
+                <v-row class="flex-sm-row flex-column">
+                  <v-col cols="12" md="6" class="
                   justify-center
                   justify-md-center">
                     <v-img
@@ -36,12 +44,24 @@
                    justify-md-center">
                     <div class="d-flex flex-column align-
                     content-center justify-center">
-                      <p class="text-subtitle-1 text-md-h6 "><b>Nome :</b> {{user.NAME}}</p>
-                      <p class="text-subtitle-1 text-md-h6 "><b>Email :</b> {{user.EMAIL}}</p>
-                      <p class="text-subtitle-1 text-md-h6 "><b>Cpf :</b> {{user.CPF}}</p>
-                      <p class="text-subtitle-1 text-md-h6 "><b>Pedidos realizados :</b>{{user.pRealizados}}</p>
-                      <p class="text-subtitle-1 text-md-h6 "><b>Pedidos pagos</b> {{user.pPagos}}</p>
-                      <p class="text-subtitle-1 text-md-h6 "><b>Entrou em : </b> {{user.CREATED_AT}}</p>
+                      <p class="text-subtitle-1 text-md-h6 ">
+                        <b>Nome :</b> {{user.NAME}}
+                      </p>
+                      <p class="text-subtitle-1 text-md-h6 ">
+                        <b>Email :</b> {{user.EMAIL}}
+                      </p>
+                      <p class="text-subtitle-1 text-md-h6 ">
+                        <b>Cpf :</b> {{user.CPF}}
+                      </p>
+                      <p class="text-subtitle-1 text-md-h6 ">
+                        <b>Pedidos realizados :</b>
+                        {{user.pRealizados}}</p>
+                      <p class="text-subtitle-1 text-md-h6 ">
+                        <b>Pedidos pagos</b> {{user.pPagos}}
+                      </p>
+                      <p class="text-subtitle-1 text-md-h6 ">
+                        <b>Entrou em : </b> {{user.CREATED_AT}}
+                      </p>
                     </div>
                   </v-col>
 
@@ -61,7 +81,10 @@
       </v-col>
     </v-row>
 
-    <v-bottom-navigation  :style="storeApp.getTemas.NAVBAR" :elevation="7" v-model="tela">
+    <v-bottom-navigation
+    :style="isNull(storeApp.getTemas.NAVBAR) ? ''
+    : storeApp.getTemas.NAVBAR"
+    :elevation="7" v-model="tela">
       <v-btn value="pedidos">
         <v-icon color="#03C03C">mdi-package-variant-closed</v-icon>
         <span class="desc-detail">Meus pedidos</span>
@@ -104,7 +127,8 @@
 
   const {
     getPerfil,
-    logout} = UserComp()
+    logout,
+    isNull} = UserComp()
 
   const user = ref(null)
   const renic = ref(0)

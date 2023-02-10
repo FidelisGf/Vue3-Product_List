@@ -1,9 +1,11 @@
 <template>
   <v-container fluid :key="restart"
     class="fill-height"
-    :style="storeApp.getTemas.SECUNDARIA"
+    :style="isNull(storeApp.getTemas.SECUNDARIA)
+    ? '' : storeApp.getTemas.SECUNDARIA"
   >
-    <v-row class="d-flex justify-space-between mt-0 mt-md-0
+    <v-row class="d-flex
+    justify-space-between mt-0 mt-md-0
     flex-column flex-sm-row mt-n4">
         <v-col class="mt-md-n6" cols=12>
           <v-btn icon @click="returnStore"
@@ -13,7 +15,8 @@
             </v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="12" md="12" lg="12" class="d-flex flex-md-row
+        <v-col cols="12" md="12" lg="12"
+        class="d-flex flex-md-row
         flex-column-reverse ">
           <v-row class="d-flex">
             <v-col  cols="12" md="4" lg="2" xl="2"
@@ -31,7 +34,13 @@
                   active
                   class="ml-7 mt-md-2 mt-0 cores-selec
                   d-flex justify-center align-center"
-                ><v-icon v-if="choosen[index] == true" color="green">mdi-check</v-icon></v-sheet>
+                >
+                <v-icon
+                  v-if="choosen[index] == true"
+                  color="green"
+                >
+                  mdi-check
+                </v-icon></v-sheet>
               </div>
             </v-col >
             <v-col cols="12" md="5" lg="5" xl="5" class="d-flex
@@ -55,10 +64,13 @@
             </v-col>
             <v-col cols="12" md="12" lg="5" >
               <v-row>
-                <v-col cols="12" class="d-flex justify-center flex-column">
+                <v-col cols="12" class="d-flex justify-center
+                flex-column">
                   <p class="desc-detail
-                  text-md-h6 text-body-2 font-weight-bold ml-md-n3 text-white
-                  d-flex justify-center justify-lg-start ">{{produto.NOME}}
+                  text-md-h6 text-body-2
+                  font-weight-bold ml-md-n3 text-white
+                  d-flex justify-center justify-lg-start">
+                    {{produto.NOME}}
                     ({{parseFloat(produto.VALOR).
                       toLocaleString('pt-br',{style: 'currency',
                       currency: 'BRL'})}})
@@ -67,7 +79,6 @@
                   <div class="d-flex justify-lg-start
                   justify-center mt-n4 mt-md-0 mt-lg-n2
                   ml-md-n6  div-rating">
-
                     <v-rating
                       class="mt-4"
                       v-model="produto.AVALIACAO"
@@ -86,7 +97,8 @@
                   </div>
                   <v-btn @click="chooseColor(false)"
                    class="desc-detail
-                   text-black ml-sm-n2 ml-0 mt-4 mt-md-3 btns" rounded>
+                   text-black ml-sm-n2
+                   ml-0 mt-4 mt-md-3 btns" rounded>
                     <v-icon
                       left
                       dark
@@ -98,7 +110,8 @@
 
                   </v-btn>
                   <v-btn  @click="chooseColor(true)"
-                   class=" desc-detail text-black ml-sm-n2 ml-0 mt-5  btns" rounded>
+                   class=" desc-detail text-black
+                   ml-sm-n2 ml-0 mt-5  btns" rounded>
                     <v-icon
                       left
                       dark
@@ -108,7 +121,8 @@
                     </v-icon>
                     <p class="mr-16">Comprar Agora</p>
                   </v-btn>
-                  <v-btn @click="goWhats"  rounded  class="text-black ml-sm-n2 ml-0 mt-5 btns">
+                  <v-btn @click="goWhats"  rounded
+                  class="text-black ml-sm-n2 ml-0 mt-5 btns">
                     <v-icon
                       left
                       dark
@@ -130,11 +144,13 @@
             justify-start mt-lg-8 mt-0 ">
               <div class="d-flex flex-column
               ml-0 ml-lg-10 text-detail ">
-                <p class="text-justify
-                text-caption
-                text-md-body-1 ml-1
-                font-weight-medium ml-lg-6
-                desc-detail">
+                <p
+                  class="text-justify
+                  text-caption
+                  text-md-body-1 ml-1
+                  font-weight-medium ml-lg-6
+                  desc-detail"
+                >
                   {{produto.DESC}}...
                 </p>
               </div>
@@ -157,7 +173,8 @@
               >
                 <v-card
                   @click="detailProduct(produto.ID)"
-                  :class="['ma-3', selectedClass, 'cards', 'corpo-card'] "
+                  :class="['ma-3', selectedClass,
+                  'cards', 'corpo-card'] "
                   min-height="365"
                   max-width="250"
                   min-width="220"
@@ -174,19 +191,26 @@
                   <v-card-title class=" text-h5 font-weight-bold"   >
                     {{produto.NOME}}
                   </v-card-title>
-                  <v-card-subtitle class="text-justify text-subtitle-1
+                  <v-card-subtitle class="text-justify
+                  text-subtitle-1
                   font-weight-medium">
                     {{produto.DESC}}
                   </v-card-subtitle>
                   <v-card-text>
                     <v-row>
                       <v-col cols="12" class="text-caption">
-                        <p class="text-body-1 font-weight-medium">Valor :
+                        <p class="text-body-1 font-weight-medium">
+                          Valor :
                           {{parseFloat(produto.VALOR).
-                            toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}
+                            toLocaleString('pt-br',{style:
+                            'currency', currency: 'BRL'})}}
                           </p>
-                        <p class="font-weight-medium">Estoque : {{produto.QUANTIDADE}} unidades </p>
-                        <p class="font-weight-medium">Categoria : {{produto.NOME_C}}</p>
+                        <p class="font-weight-medium">
+                          Estoque : {{produto.QUANTIDADE}} unidades
+                        </p>
+                        <p class="font-weight-medium">Categoria :
+                          {{produto.NOME_C}}
+                        </p>
                       </v-col>
 
                     </v-row>
@@ -235,7 +259,8 @@
 
   const {
     findById,
-    selecionaCor} = Detail()
+    selecionaCor,
+    isNull} = Detail()
 
   const {
     getAllProdutos,

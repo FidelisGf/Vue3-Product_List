@@ -144,26 +144,24 @@ async function getDest(){
 </script>
 <style lang="scss">
   .bg-home{
-    background: linear-gradient(to right, #213c47, #16252b, #0a1418); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #213c47, #16252b, #0a1418);
 
   }
   .img-card-home{
-    background: linear-gradient(to right, #1c313a, #16252b, #142830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #1c313a, #16252b, #142830);
 
   }
-
   .sliders{
-    background: linear-gradient(to right, #333333, #181717); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #333333, #181717);
   }
   .font-home {
     font-family:'Courier New', Courier, monospace !important;
     font-weight: bold !important;
   }
   .card-in-home{
-    background: #141E30;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #243B55, #141E30) ; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    background: #141E30;
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    background: linear-gradient(to right, #243B55, #141E30) ;
 
   }
 

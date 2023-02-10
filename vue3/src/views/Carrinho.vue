@@ -1,7 +1,8 @@
 <template>
-  <v-container class="fill-height "
-   fluid :style="storeApp.getTemas.PRIMARIA">
-    <v-row >
+  <v-container class="fill-height"
+   fluid :style="isNull(storeApp.getTemas.PRIMARIA) ? ''
+   : storeApp.getTemas.PRIMARIA">
+    <v-row>
         <v-col cols="12" :key="reni" >
               <v-card
                   dark
@@ -11,20 +12,32 @@
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
                     <div class="d-flex flex-row">
-                      <v-icon color="#7FFFD4" class="mt-sm-0 mt-n1">mdi-cart</v-icon>
-                      <p class="text-md-h6 text-caption font-weight-bold ml-3 mt-0 auto
+                      <v-icon color="#7FFFD4"
+                      class="mt-sm-0 mt-n1">mdi-cart</v-icon>
+                      <p class="text-md-h6
+                      text-caption font-weight-bold ml-3 mt-0 auto
                       desc-detail">Meu Carrinho...</p>
                     </div>
                   <div class="d-flex flex-row">
-                    <v-icon color="#7FFFD4" class="mt-sm-0 mt-2 mt-sm-n1
-                      mt-md-0 ml-0 ml-sm-6 desc-detail">
+                    <v-icon color="#7FFFD4"
+                      class="mt-sm-0 mt-2
+                      mt-sm-n1
+                      mt-md-0 ml-0 ml-sm-6 desc-detail"
+                    >
                       mdi-cash
                     </v-icon>
-                      <p class="ml-2 text-md-h6 text-caption font-weight-bold mt-3 mt-sm-0
-                      desc-detail">Valor total : {{parseFloat(vlTotal).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
+                      <p
+                      class="ml-2 text-md-h6 text-caption
+                      font-weight-bold mt-3 mt-sm-0
+                      desc-detail">
+                        Valor total : {{parseFloat(vlTotal)
+                        .toLocaleString('pt-br',{style: 'currency',
+                        currency: 'BRL'})}}
+                      </p>
                   </div>
                   <v-spacer></v-spacer>
-                  <v-btn @click="finalizarPedido" prepend-icon="mdi-cash" variant="text"
+                  <v-btn @click="finalizarPedido"
+                  prepend-icon="mdi-cash" variant="text"
                   class="finalizar mt-sm-0  mt-2">
                       Finalizar Lista
                   </v-btn>
@@ -32,8 +45,10 @@
                 </v-card-title>
                 <v-card-text>
                   <TransitionGroup name="list" tag="ul">
-                    <v-row v-for="(produto, index) in itens" :key="produto.ID" class="mt-2">
-                      <v-col  cols="12" class="d-flex flex-row justify-start" >
+                    <v-row v-for="(produto, index) in itens"
+                    :key="produto.ID" class="mt-2">
+                      <v-col  cols="12"
+                      class="d-flex flex-row justify-start" >
                         <div class="bg-img">
                           <v-img :src="produto.IMAGE"
                             @click="detailProduct(produto.ID)"
@@ -45,35 +60,70 @@
                           </v-img>
                           </div>
                             <div class="d-flex flex-column ml-3">
-                              <p class="text-h5 font-weight-black desc-detail">{{produto.NOME}}</p>
-                              <p class="text-caption text-sm-subtitle-1 desc-detail font-weight-bold">{{parseFloat(produto.VALOR).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</p>
-                              <p class="text-caption text-sm-subtitle-1 desc-detail font-weight-bold">
-                                <span v-if="produto.QUANTIDADE != 'Indisponivel'">Quantidade : {{produto.QUANTIDADE}} {{produto.medida.NOME}} (s)</span>
-                                <span v-else><p class="text-yellow desc-detail">Sem Estoque</p></span>
+                              <p class="text-h5
+                              font-weight-black desc-detail">
+                                {{produto.NOME}}
+                              </p>
+                              <p class="text-caption
+                              text-sm-subtitle-1 desc-detail
+                              font-weight-bold">
+                                {{parseFloat(produto.VALOR).
+                                  toLocaleString('pt-br',{style:
+                                  'currency', currency: 'BRL'})}}
+                              </p>
+                              <p class="text-caption
+                              text-sm-subtitle-1 desc-detail
+                              font-weight-bold">
+                                <span
+                                  v-if="produto.QUANTIDADE !=
+                                  'Indisponivel'"
+                                >
+                                  Quantidade : {{produto.QUANTIDADE}}
+                                   {{produto.medida.NOME}} (s)
+                                </span>
+                                <span v-else>
+                                  <p class="text-yellow desc-detail">
+                                    Sem Estoque
+                                  </p>
+                                </span>
                               </p>
                               <div class="d-flex flex-row">
-                                <p class="text-caption text-sm-subtitle-1 font-weight-bold desc-detail">Cor: </p>
+                                <p class="text-caption
+                                text-sm-subtitle-1
+                                font-weight-bold desc-detail">
+                                  Cor:
+                                </p>
                                 <v-sheet
                                   :color="produto.COR_ESCOLHIDA"
                                   height="20"
                                   width="20"
                                   elevation="2"
-                                  class="ml-2 ml-md-3 mt-md-1  cores"
+                                  class="ml-2 ml-md-3 mt-md-1 cores"
                                 ></v-sheet>
                               </div>
                           </div>
                           <v-spacer></v-spacer>
-                          <div class="d-flex flex-column justify-center">
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'"
-                            color="#4FFFB0" @click="addQuantidadeProduto(index)">
+                          <div class="d-flex flex-column
+                           justify-center">
+                            <v-btn icon variant="text"
+                            v-if="produto.QUANTIDADE != 'Indisponivel'"
+                            color="#4FFFB0"
+                            @click="addQuantidadeProduto(index)">
                               <v-icon>mdi-plus</v-icon>
                             </v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE != 'Indisponivel'"
-                            color="#FF033E" @click="removeQuantidadeProduto(index)">
+                            <v-btn icon variant="text"
+                              v-if="produto.QUANTIDADE
+                              != 'Indisponivel'"
+                              color="#FF033E"
+                              @click="removeQuantidadeProduto(index)"
+                            >
                               <v-icon>mdi-minus</v-icon>
                             </v-btn>
-                            <v-btn icon variant="text" v-if="produto.QUANTIDADE == 'Indisponivel'"
-                            color="red" @click="removeIndis(index)" >
+                            <v-btn icon variant="text"
+                              v-if="produto.QUANTIDADE ==
+                             'Indisponivel'"
+                              color="red" @click="removeIndis(index)"
+                            >
                               <v-icon>mdi-delete</v-icon>
                             </v-btn>
                           </div>
@@ -91,7 +141,8 @@
         @keydown.escape="dialog = false"
         transition="dialog-bottom-transition"
     >
-      <ModalConfPedido @fechar="fechaModal" :vl-total="vlTotal"></ModalConfPedido>
+      <ModalConfPedido @fechar="fechaModal"
+      :vl-total="vlTotal"></ModalConfPedido>
     </v-dialog>
   </v-container>
 </template>
@@ -109,6 +160,7 @@
   removeQuantidade,
   removeIndisponivel ,
   itens,
+  isNull,
   vlTotal} = Carrinho()
 
 

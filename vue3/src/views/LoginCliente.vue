@@ -1,6 +1,8 @@
 <template>
-  <v-container class="fill-height d-flex justify-center align-center"
-  fluid :style="storeApp.getTemas.PRIMARIA">
+  <v-container
+  class="fill-height d-flex justify-center align-center"
+  fluid
+  :style="isNull(storeApp.getTemas.PRIMARIA) ? '' : storeApp.getTemas.PRIMARIA">
     <div class="fundo d-flex justify-center align-center " color="red">
         <v-card class="conteudo d-flex flex-sm-row flex-column justify-center card"
          >
@@ -55,7 +57,7 @@
   import  UserComp from '@/CompositionAP/UserComp'
   import { useAppStore } from '@/store/app';
   const storeApp = useAppStore()
-  const {user, login, NomeRules, pwRules} = UserComp()
+  const {user, login, NomeRules, pwRules, isNull} = UserComp()
 </script>
 
 <style lang="scss" scoped>
