@@ -197,9 +197,9 @@
   async function makeSearch(e){
       if(e.search == '' && e.check == null
       && e.categoria == null){
-        search.value = null
-        precos.value = null
-        categoria.value = null
+        search.value
+        = precos.value =
+        categoria.value =
         tmp.value = null
       }else{
         search.value = e.search
@@ -278,7 +278,6 @@
         tmpSea.value = e.search
       }
       tmnho.value = produtos.value.length
-
   }
 
   async function getCategorias(){

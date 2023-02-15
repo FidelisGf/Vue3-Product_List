@@ -1,8 +1,11 @@
 import { useAppStore } from '@/store/app'
 import { useProdutoStore } from '@/store/produtoStore'
-const storeApp = useAppStore()
+import { useRouter } from 'vue-router';
 const produtoApp = useProdutoStore()
 export default function CrudComp(){
+
+    const router = useRouter()
+    const storeApp = useAppStore()
 
     async function findById(route, id, payload){
         let data = await storeApp.findById(route, id, payload)
@@ -95,7 +98,9 @@ export default function CrudComp(){
         post,
         selecionaCor,
         getDestaques,
-        isNull
+        isNull,
+        storeApp,
+        router
     }
 
 }

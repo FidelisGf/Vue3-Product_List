@@ -57,7 +57,7 @@
                    ml-md-n12 ml-0 "
                   :hasSpacer="true"
                   :width="smAndDown ? 350 : 500"
-                  :height="smAndDown ? 350 : 500"
+                  :height="smAndDown ? 350 : 440"
                 ></inner-image-zoom>
               </div>
 
@@ -240,46 +240,59 @@
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
   import ProdutoComp from '@/CompositionAP/ProdutoComp';
-  import { useRouter } from 'vue-router';
   import { useRoute } from 'vue-router';
   import InnerImageZoom from 'vue-inner-image-zoom'
   import 'vue-image-zoomer/dist/style.css';
   import ModalEscCor from '@/components/ModalEscCor.vue';
   import { useDisplay } from 'vuetify/lib/framework.mjs';
-  import { useAppStore } from '@/store/app';
 
-  const router =
-  useRouter()
 
-  const storeApp =
-  useAppStore()
+
 
   const {smAndDown} = useDisplay()
 
   const {
-    saveInCarrinho} = Carrinho()
+    saveInCarrinho
+  } = Carrinho()
 
   const {
     findById,
     selecionaCor,
-    isNull} = Detail()
+    isNull,
+    storeApp,
+    router
+  } = Detail()
 
   const {
     getAllProdutos,
     produto,
     produtos,
-    tmpAuxiliar} = ProdutoComp()
+    tmpAuxiliar
+  } = ProdutoComp()
 
   const route =
   useRoute()
 
-  const restart = ref(0)
-  const flag = ref(false)
-  const dialog = ref(false)
-  const buy = ref(false)
-  const selectedColor = ref(null)
-  const choosen = ref([])
-  const tmpChosen = ref(null)
+  const restart
+  = ref(0)
+
+  const flag
+  = ref(false)
+
+  const dialog
+  = ref(false)
+
+  const buy
+  = ref(false)
+
+  const selectedColor
+  = ref(null)
+
+  const choosen
+  = ref([])
+
+  const tmpChosen
+  = ref(null)
 
 
   await findProduto()
@@ -304,7 +317,8 @@
       dialog.value = true
       buy.value = boolean
     }else{
-      saveInCarrinho(produto.value.ID, produto.value.VALOR, selectedColor.value)
+      saveInCarrinho(produto.value.ID, produto.value.VALOR,
+      selectedColor.value)
     }
   }
 
@@ -349,11 +363,13 @@
 
     if(flag.value){
       produtos.value = tmpAuxiliar.value
-      produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
+      produtos.value = produtos.value
+      .filter(o => o.ID !== produto.value.ID)
     }else{
       produtos.value = await getAllProdutos(payload)
       tmpAuxiliar.value = produtos.value
-      produtos.value = produtos.value.filter(o => o.ID !== produto.value.ID)
+      produtos.value = produtos.value
+      .filter(o => o.ID !== produto.value.ID)
     }
     flag.value = true
 
@@ -366,6 +382,8 @@
       selectedColor.value = null
       findProduto()
   }
+
+
 
 
 

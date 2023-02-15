@@ -35,7 +35,7 @@ const routes = [
               axios.get("/auth/validateTkn").then((res)=>{
                 next()
               }).catch((error)=>{
-                const access_token = localStorage.getItem("token");
+                const access_token = localStorage.getItem("tkn");
 
                 if(error.response.status == 401 &&
                   access_token && error.response.data != 'token_invalid'){
@@ -107,6 +107,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+})
+router.onError((error, to) => { // devido ao erro que ocorre com o vite
+  if (error.message.includes('Failed to fetch dynamically imported module')) {
+    window.location = to.fullPath
+  }
 })
 
 export default router

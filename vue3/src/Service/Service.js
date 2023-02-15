@@ -21,9 +21,9 @@ axios.interceptors.request.use((config)=>{
     return response
   },async function (error) {
     const storeApp = useAppStore()
-    const access_token = localStorage.getItem("token");
+    const access_token = localStorage.getItem("tkn");
     if (error.response.status === 401 && access_token) {
-      localStorage.setItem('token', error.response.data)
+      localStorage.setItem('tkn', error.response.data)
       axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
     }else{
       storeApp.setLoad(false)
