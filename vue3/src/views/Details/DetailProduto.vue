@@ -48,17 +48,17 @@
               <div class="d-flex justify-center
               justify-md-center
               justify-lg-center">
-                <inner-image-zoom
-                  :src="produto.IMAGE"
-                  :zoomSrc="produto.IMAGE"
-                  :zoomScale="1.4"
-                  :fadeDuration="150"
-                  class="img ml-lg-n12
-                   ml-md-n12 ml-0 "
-                  :hasSpacer="true"
-                  :width="smAndDown ? 350 : 500"
-                  :height="smAndDown ? 350 : 440"
-                ></inner-image-zoom>
+               <ImageZoom
+                  :img-normal="produto.IMAGE"
+                  :scale="'2.0'"
+                  :min_height_md_lg="'230px'"
+                  :max_height_md_lg="'348px'"
+                  :max_height="'330px'"
+                  :min_height="'180px'"
+                  :max_height_xl="'400px'"
+                  :min_height_xl="'348px'"
+               >
+               </ImageZoom>
               </div>
 
             </v-col>
@@ -241,7 +241,7 @@
   import Detail from '@/CompositionAP/CRUD'
   import ProdutoComp from '@/CompositionAP/ProdutoComp';
   import { useRoute } from 'vue-router';
-  import InnerImageZoom from 'vue-inner-image-zoom'
+  import ImageZoom from '@/components/ImageZoom.vue';
   import 'vue-image-zoomer/dist/style.css';
   import ModalEscCor from '@/components/ModalEscCor.vue';
   import { useDisplay } from 'vuetify/lib/framework.mjs';
