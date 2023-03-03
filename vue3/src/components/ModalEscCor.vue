@@ -1,15 +1,15 @@
 <template>
   <div class="d-flex justify-center">
-    <v-card class="card-cores" >
+    <v-card class="card-cores"  color="#424242">
       <v-card-title class="text-body-2 d-flex justify-space-between">
-
-        <small class="ml-1">Escolha a cor</small>
+        <small class="ml-1 text-h6">Escolha a cor do item...</small>
       </v-card-title>
         <v-card-text>
           <v-row class="d-flex ml-1 flex-row">
             <v-col
-            class="d-flex justify-start"
-            v-for="(cor, index ) in produto.CORES" :key="cor.ID">
+            :cols="Object.keys(produto.CORES).length < 4 ? '6' : '3'"
+            class="d-flex justify-start  flex-column"
+            v-for="(cor, index) in produto.CORES" :key="cor.ID">
               <v-sheet
                 :color="cor.HASH"
                 height="50"
@@ -18,12 +18,12 @@
                 elevation="2"
                 class="ml-md-0  cores-selec"
               ></v-sheet>
-              <small class="ml-2">{{cor.ESTOQUE}} Unidades(s)</small>
+              <small >{{cor.ESTOQUE}} Unidades(s)</small>
             </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions class="d-flex justify-end">
-          <v-btn @click="close" color="red"
+          <v-btn @click="close" color="#EF5350"
           variant="text" size="small">
             Fechar
           </v-btn>

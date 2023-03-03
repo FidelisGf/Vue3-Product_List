@@ -7,6 +7,11 @@ export default function CrudComp(){
     const router = useRouter()
     const storeApp = useAppStore()
 
+
+    function convertDate(data){
+        let date = new Date(data)
+        return date.toLocaleString()
+    }
     async function findById(route, id, payload){
         let data = await storeApp.findById(route, id, payload)
         return data
@@ -100,7 +105,8 @@ export default function CrudComp(){
         getDestaques,
         isNull,
         storeApp,
-        router
+        router,
+        convertDate
     }
 
 }

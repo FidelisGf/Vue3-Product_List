@@ -41,7 +41,7 @@
                   font-weight-medium"
                 >
                   <p class="font-weight-medium">
-                    Data do Pedido : {{pedido.CREATED_AT}}
+                    Data do Pedido : {{convertDate(pedido.CREATED_AT)}}
                   </p>
                   <p class="pl-md-4">
                     Estado :
@@ -219,7 +219,7 @@
 
   const {
     post,
-    findById, isNull} = CrudComp()
+    findById, isNull, convertDate} = CrudComp()
 
 
 

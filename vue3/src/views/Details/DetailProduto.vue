@@ -8,7 +8,7 @@
     justify-space-between mt-0 mt-md-0
     flex-column flex-sm-row mt-n4">
         <v-col class="mt-md-n6" cols=12>
-          <v-btn icon @click="returnStore"
+          <v-btn icon @click="returnRoute"
           class="ml-md-n1" variant="text" >
             <v-icon color="white">
               mdi-arrow-left
@@ -98,7 +98,7 @@
                   <v-btn @click="chooseColor(false)"
                    class="desc-detail
                    text-black ml-sm-n2
-                   ml-0 mt-4 mt-md-3 btns" rounded>
+                   ml-0 mt-4 mt-md-3 btns-detail" rounded>
                     <v-icon
                       left
                       dark
@@ -111,7 +111,8 @@
                   </v-btn>
                   <v-btn  @click="chooseColor(true)"
                    class=" desc-detail text-black
-                   ml-sm-n2 ml-0 mt-5  btns" rounded>
+                   ml-sm-n2 ml-0 mt-5  btns-detail"
+                    rounded>
                     <v-icon
                       left
                       dark
@@ -122,7 +123,7 @@
                     <p class="mr-16">Comprar Agora</p>
                   </v-btn>
                   <v-btn @click="goWhats"  rounded
-                  class="text-black ml-sm-n2 ml-0 mt-5 btns">
+                  class="text-black ml-sm-n2 ml-0 mt-5 btns-detail">
                     <v-icon
                       left
                       dark
@@ -236,16 +237,19 @@
 </template>
 
 <script setup>
-  import {ref} from 'vue'
+  import {ref, defineAsyncComponent, watch} from 'vue'
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
   import ProdutoComp from '@/CompositionAP/ProdutoComp';
-  import { useRoute } from 'vue-router';
+  import { onBeforeRouteLeave, useRoute } from 'vue-router';
   import ImageZoom from '@/components/ImageZoom.vue';
   import 'vue-image-zoomer/dist/style.css';
-  import ModalEscCor from '@/components/ModalEscCor.vue';
   import { useDisplay } from 'vuetify/lib/framework.mjs';
 
+
+  const ModalEscCor = defineAsyncComponent(()=>
+      import('@/components/ModalEscCor.vue')
+  )
 
 
 
@@ -254,6 +258,8 @@
   const {
     saveInCarrinho
   } = Carrinho()
+
+
 
   const {
     findById,
@@ -275,6 +281,12 @@
 
   const restart
   = ref(0)
+
+  const prevRoute
+  = ref(null)
+
+  const fRoute
+  = ref(null)
 
   const flag
   = ref(false)
@@ -385,11 +397,15 @@
 
 
 
+  async function returnRoute(){
 
-
-  function returnStore(){
-    router.push({path : `/produtos`})
+    window.location.reload();
+    router.go(-1)
+    restart.value += 1
   }
+
+
+
 
 
 </script>
@@ -399,10 +415,10 @@
       max-width: 500px !important;
       min-width: 300px !important;
   }
-  .btns{
-    background: #C9CCD3;
-    background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
-    background-blend-mode: lighten;
+  .btns-detail{
+    background: #C9CCD3 !important;
+    background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%) !important;
+    background-blend-mode: lighten !important;
   }
 
 </style>

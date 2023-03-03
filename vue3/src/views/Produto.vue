@@ -7,8 +7,7 @@
     <v-row color="primary"
     class="
       justify-center
-      flex-column
-      flex-sm-row mt-2 mt-lg-0"
+      flex-row mt-2 mt-lg-0"
     :key="listKey">
 
       <v-col cols="12"
@@ -27,23 +26,16 @@
       <v-col
         v-for="(produto, index) in produtos"
         :key="produto.ID"
-        cols="12" md="4" xl="3"
-        class="d-flex justify-center"
+        cols="6" md="4" xl="3"
+
       >
 
-        <v-sheet
-          min-height="550"
-          color="transparent"
-        >
-          <v-lazy
-            min-height="450"
-            v-model="isActive[index]"
-            :options="{ threshold: 0.5 }"
-            >
+
               <v-card
-                width="330px"
+                :width="smAndDown ? '' : '330px'"
                 class="cards corpo-card"
                 elevation="1"
+                :height="smAndDown ? '400' : ''"
               >
               <v-row :key="index" >
                 <v-col cols="12"
@@ -53,7 +45,7 @@
                 >
                   <v-img
                     :src="produto.IMAGE"
-                    :height="290"
+                    :height="smAndDown ?  '160px' : '290px'"
                     class="img-detail"
                     @click="detailProduct(produto.ID)"
                     ></v-img>
@@ -61,7 +53,7 @@
               </v-row>
               <v-card-title
                 class="mt-3
-                text-h5
+                text-md-h5
                 font-weight-bold
                 desc-detail"
                 @click="detailProduct(produto.ID)"
@@ -70,7 +62,7 @@
               </v-card-title>
               <v-card-subtitle
                 class="desc-detail text-justify
-                text-subtitle-1
+                text-sm-subtitle-1
                 font-weight-medium"
               >
                 {{produto.DESC}}
@@ -98,8 +90,8 @@
                 </v-row>
               </v-card-text>
               <v-card-actions>
-                  <v-row>
-                    <v-col cols="6">
+                  <v-row >
+                    <v-col cols="12" sm="6" :align="smAndDown ? 'center' : 'start' ">
                       <v-btn class="ml-n1"
                        @click="detailProduct(produto.ID)"
                         color="#B2FFFF"
@@ -110,20 +102,23 @@
                         icon="mdi-cart-outline"
                       >
                       </v-btn>
+                      <v-btn v-if="smAndDown" class="ml-md-4"
+                        color="#03C03C"
+                        icon="mdi-whatsapp"
+                      >
+                      </v-btn>
                     </v-col>
-                    <v-spacer></v-spacer>
-                    <v-col>
-                    <v-btn class="ml-4"
-                      color="#03C03C"
-                      icon="mdi-whatsapp"
-                    >
-                    </v-btn>
-                  </v-col>
+                    <v-spacer v-if="!smAndDown"></v-spacer>
+                    <v-col cols="3">
+                      <v-btn v-if="!smAndDown" class="ml-md-4"
+                        color="#03C03C"
+                        icon="mdi-whatsapp"
+                      >
+                      </v-btn>
+                    </v-col>
                 </v-row>
               </v-card-actions>
             </v-card>
-          </v-lazy>
-        </v-sheet>
       </v-col>
     </v-row>
     <v-row >
@@ -148,8 +143,12 @@
   import ProdutoComp from '@/CompositionAP/ProdutoComp'
   import { useRouter } from 'vue-router';
   import { useAppStore } from '@/store/app';
+  import { useDisplay } from 'vuetify/lib/framework.mjs';
 
-
+  const {
+    smAndDown
+  }
+  = useDisplay()
 
   const Filtro = defineAsyncComponent(()=>
     import('@/components/Filtro.vue')

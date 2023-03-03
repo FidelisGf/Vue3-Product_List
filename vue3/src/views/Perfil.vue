@@ -12,11 +12,12 @@
           <v-card :width="smAndDown ? 350 : 850"
           :style="isNull(storeApp.getTemas.CARDS_PERFIL) ? '' :
           storeApp.getTemas.CARDS_PERFIL">
-              <v-card-title>
+              <v-card-title class="d-flex justify-space-between justify-md-start ">
                 <v-btn @click="reniciar" size="x-small"
                 color="yellow" icon="mdi-reload" variant="text">
                 </v-btn>
                 Meus dados...
+                <v-icon v-if="smAndDown" size="small" color="yellow" class="ml-md-4 mt-1">mdi-pencil</v-icon>
               </v-card-title>
               <v-card-text class=" mt-md-6 mt-4">
                 <v-row class="flex-sm-row flex-column">
@@ -84,12 +85,15 @@
     <v-bottom-navigation
     :style="isNull(storeApp.getTemas.NAVBAR) ? ''
     : storeApp.getTemas.NAVBAR"
-    :elevation="7" v-model="tela">
+    :elevation="7" v-model="tela"
+    class="text-caption text-md-body"
+
+    >
       <v-btn value="pedidos">
         <v-icon color="#03C03C">mdi-package-variant-closed</v-icon>
-        <span class="desc-detail">Meus pedidos</span>
+        <span class="desc-detail text-caption">Meus pedidos</span>
       </v-btn>
-      <v-btn value="edit-dados">
+      <v-btn value="edit-dados" v-if="!smAndDown">
         <v-icon color="#03C03C">mdi-account-edit</v-icon>
 
         <span class="desc-detail">Editar dados</span>
