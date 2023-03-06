@@ -120,14 +120,8 @@
   .princip-list{
     background-color: #e2edf6;
   }
-  .cards:hover{
-    transform: translate(1px, -2.0px);
-    transition: 0.5s;
-    box-shadow: 2px 5.2px 8px #8a8a8a !important;
-  }
-  .corpo-card{
-    background: linear-gradient(to right, #4d4b4b, #284263);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
+
+
 
 
   .auto{

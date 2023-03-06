@@ -158,7 +158,6 @@
             </v-col>
           </v-row>
         </v-col>
-
         <v-divider class="dividers" ></v-divider>
         <v-col cols="12" md="12" class="d-flex mt-lg-6">
             <v-slide-group
@@ -167,58 +166,21 @@
               center-active
             >
               <v-slide-group-item
-                v-for="produto in produtos"
+                v-for="(produto, index) in produtos"
                 :key="produto.ID"
 
                 v-slot="{toggle, selectedClass }"
               >
-                <v-card
-                  @click="detailProduct(produto.ID)"
-                  :class="['ma-3', selectedClass,
-                  'cards', 'corpo-card'] "
-                  min-height="365"
-                  max-width="250"
-                  min-width="220"
-                  max-height="395"
+                <CardProdutos
+                    :width-card="smAndDown ?  '180' : '210'"
+                    :height-card="smAndDown ? '280' :  '365'"
+                    :height-img="smAndDown ? '120' : '180'"
+                    :index="index"
+                    :produto="produto"
+                    @detail-product-esp="detailProduct"
+                    :detail="true"
                 >
-                  <div class="div-img-cad-detail
-                  d-flex justify-center img-card">
-                    <img
-                      :src="produto.IMAGE"
-                      height="220"
-                    >
-                  </div>
-
-                  <v-card-title
-                    class="text-h5 font-weight-bold"
-                  >
-                    {{produto.NOME}}
-                  </v-card-title>
-                  <v-card-subtitle class="text-justify
-                  text-subtitle-1
-                  font-weight-medium">
-                    {{produto.DESC}}
-                  </v-card-subtitle>
-                  <v-card-text>
-                    <v-row>
-                      <v-col cols="12" class="text-caption">
-                        <p class="text-body-1 font-weight-medium">
-                          Valor :
-                          {{parseFloat(produto.VALOR).
-                            toLocaleString('pt-br',{style:
-                            'currency', currency: 'BRL'})}}
-                          </p>
-                        <p class="font-weight-medium">
-                          Estoque : {{produto.QUANTIDADE}} unidades
-                        </p>
-                        <p class="font-weight-medium">Categoria :
-                          {{produto.NOME_C}}
-                        </p>
-                      </v-col>
-
-                    </v-row>
-                </v-card-text>
-                </v-card>
+                </CardProdutos>
               </v-slide-group-item>
             </v-slide-group>
         </v-col>
@@ -241,11 +203,15 @@
   import Carrinho from '@/CompositionAP/Carrinho'
   import Detail from '@/CompositionAP/CRUD'
   import ProdutoComp from '@/CompositionAP/ProdutoComp';
-  import { onBeforeRouteLeave, useRoute } from 'vue-router';
+  import { useRoute } from 'vue-router';
   import ImageZoom from '@/components/ImageZoom.vue';
   import 'vue-image-zoomer/dist/style.css';
   import { useDisplay } from 'vuetify/lib/framework.mjs';
 
+
+  const CardProdutos = defineAsyncComponent(()=>
+      import('@/components/CardProdutos.vue')
+  )
 
   const ModalEscCor = defineAsyncComponent(()=>
       import('@/components/ModalEscCor.vue')
@@ -388,8 +354,9 @@
   }
 
 
-  async function detailProduct(id){
-      await router.push({name: 'Produto-Detalhe', params: {id : id}})
+  async function detailProduct(e){
+      console.log(e)
+      await router.push({name: 'Produto-Detalhe', params: {id : parseInt(e)}})
       choosen.value[tmpChosen.value] = false
       selectedColor.value = null
       findProduto()

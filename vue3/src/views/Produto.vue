@@ -15,7 +15,7 @@
         d-flex
         ml-md-14 mt-3 mt-md-0
         justify-center
-        justify-md-start"
+        justify-sm-start"
       >
         <p>{{ tmnho }}
           produto(s)
@@ -28,97 +28,18 @@
         :key="produto.ID"
         cols="6" md="4" xl="3"
 
+        class="d-flex justify-center"
       >
-
-
-              <v-card
-                :width="smAndDown ? '' : '330px'"
-                class="cards corpo-card"
-                elevation="1"
-                :height="smAndDown ? '400' : ''"
-              >
-              <v-row :key="index" >
-                <v-col cols="12"
-                  class="img-card
-                  justify-center
-                  align-content-center"
-                >
-                  <v-img
-                    :src="produto.IMAGE"
-                    :height="smAndDown ?  '160px' : '290px'"
-                    class="img-detail"
-                    @click="detailProduct(produto.ID)"
-                    ></v-img>
-                </v-col>
-              </v-row>
-              <v-card-title
-                class="mt-3
-                text-md-h5
-                font-weight-bold
-                desc-detail"
-                @click="detailProduct(produto.ID)"
-              >
-                {{produto.NOME}}
-              </v-card-title>
-              <v-card-subtitle
-                class="desc-detail text-justify
-                text-sm-subtitle-1
-                font-weight-medium"
-              >
-                {{produto.DESC}}
-              </v-card-subtitle>
-              <v-card-text
-               @click="detailProduct(produto.ID)"
-              >
-                <v-row>
-                  <v-col cols="12"
-                  class="text-caption">
-                    <p class="desc-detail text-body-1
-                    font-weight-medium">
-
-                      Valor : {{parseFloat(produto.VALOR).
-                      toLocaleString('pt-br',{style: 'currency',
-                      currency: 'BRL'})}}
-                    </p>
-                    <p class="desc-detail font-weight-medium">
-                      Estoque : {{produto.QUANTIDADE}} unidades
-                    </p>
-                    <p class=" desc-detail font-weight-medium">
-                      Categoria : {{produto.NOME_C}}
-                    </p>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-              <v-card-actions>
-                  <v-row >
-                    <v-col cols="12" sm="6" :align="smAndDown ? 'center' : 'start' ">
-                      <v-btn class="ml-n1"
-                       @click="detailProduct(produto.ID)"
-                        color="#B2FFFF"
-                        icon="mdi-information-outline">
-                      </v-btn>
-                      <v-btn color="#03C03C"
-                       @click="defineCor(produto)"
-                        icon="mdi-cart-outline"
-                      >
-                      </v-btn>
-                      <v-btn v-if="smAndDown" class="ml-md-4"
-                        color="#03C03C"
-                        icon="mdi-whatsapp"
-                      >
-                      </v-btn>
-                    </v-col>
-                    <v-spacer v-if="!smAndDown"></v-spacer>
-                    <v-col cols="3">
-                      <v-btn v-if="!smAndDown" class="ml-md-4"
-                        color="#03C03C"
-                        icon="mdi-whatsapp"
-                      >
-                      </v-btn>
-                    </v-col>
-                </v-row>
-              </v-card-actions>
-            </v-card>
+        <CardProdutos
+          :width-card="smAndDown ?  '200' : '260'"
+          :height-card="smAndDown ? '360' :  ''"
+          :height-img="smAndDown ? '155' : '200'"
+          :index="index"
+          :produto="produto"
+          @detail-product-esp="detailProduct"
+          @defineCorEsp="defineCor"
+          :detail="false"
+        ></CardProdutos>
       </v-col>
     </v-row>
     <v-row >
@@ -152,6 +73,9 @@
 
   const Filtro = defineAsyncComponent(()=>
     import('@/components/Filtro.vue')
+  )
+  const CardProdutos = defineAsyncComponent(()=>
+    import('@/components/CardProdutos.vue')
   )
 
   const router =
@@ -284,8 +208,9 @@
     await getAllList("categorys", payload);
   }
 
-  function detailProduct(id){
-    router.push({name: 'Produto-Detalhe', params: {id : id}})
+  function detailProduct(e){
+
+    router.push({name: 'Produto-Detalhe', params: {id : parseInt(e)}})
   }
 
 </script>
