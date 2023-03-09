@@ -31,9 +31,9 @@
         class="d-flex justify-center"
       >
         <CardProdutos
-          :width-card="smAndDown ?  '200' : '260'"
-          :height-card="smAndDown ? '360' :  ''"
-          :height-img="smAndDown ? '155' : '200'"
+          :width-card="smAndDown ?  '210' : '260'"
+          :height-card="smAndDown ? '340' :  ''"
+          :height-img="smAndDown ? '150' : '200'"
           :index="index"
           :produto="produto"
           @detail-product-esp="detailProduct"
