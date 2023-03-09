@@ -50,9 +50,8 @@
     </v-card-text>
     <v-card-actions v-if="!detail">
       <v-row>
-        <v-col cols="12" sm="12" class="mt-n5 mt-sm-0" :align="'start'">
-          <v-btn class="ml-n1 "
-            v-if="!smAndDown"
+        <v-col cols="12" sm="12" :align="smAndDown ? 'center' : 'start' ">
+          <v-btn class="ml-n1"
            @click="detailProductEsp(produto.ID)"
             color="#B2FFFF"
             icon="mdi-information-outline"

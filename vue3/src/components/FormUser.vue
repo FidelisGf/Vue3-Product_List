@@ -36,8 +36,10 @@
                   size="80"
                 >
                   <img
+
                     class="mt-0 mt-sm-0 img-cad"
                     :src="image_url"
+
                   />
                 </v-avatar>
               </div>
@@ -143,8 +145,13 @@
     cpfRules,
     EmailRules,
     pwRules,
-    cfPwRules,
+    cfPwRules
   } = UserComp()
+
+
+
+
+
 
   checkPropsAndForm()
 

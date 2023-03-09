@@ -7,8 +7,7 @@
               <v-card
                   dark
                   elevation="4"
-                  :style="isNull(storeApp.getTemas.CARD_PEDIDOS) ? ''
-                  : storeApp.getTemas.CARD_PEDIDOS"
+                  class="bg-carrinho"
               >
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
