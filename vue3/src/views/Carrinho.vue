@@ -7,19 +7,20 @@
               <v-card
                   dark
                   elevation="4"
-                  class="bg-carrinho"
+                  :style="isNull(storeApp.getTemas.CARD_PEDIDOS) ? ''
+                  : storeApp.getTemas.CARD_PEDIDOS"
               >
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
                     <div class="d-flex flex-row">
-                      <v-icon color="#7FFFD4"
+                      <v-icon color="white"
                       class="mt-sm-0 mt-n1">mdi-cart</v-icon>
                       <p class="text-md-h6
-                      text-caption font-weight-bold ml-3 mt-0 auto
+                      text-caption font-weight-bold ml-3 mt-0
                       desc-detail">Meu Carrinho...</p>
                     </div>
                   <div class="d-flex flex-row">
-                    <v-icon color="#7FFFD4"
+                    <v-icon color="green-accent-3"
                       class="mt-sm-0 mt-2
                       mt-sm-n1
                       mt-md-0 ml-0 ml-sm-6 desc-detail"
@@ -38,7 +39,7 @@
                   <v-spacer></v-spacer>
                   <v-btn @click="finalizarPedido"
                   prepend-icon="mdi-cash" variant="text"
-                  class="finalizar mt-sm-0  mt-2">
+                  class="mt-sm-0  mt-2" color="yellow">
                       Finalizar Lista
                   </v-btn>
                   </div>
@@ -253,9 +254,7 @@
     background: linear-gradient(to right, #253557, #1f365c);
 
   }
-  .finalizar{
-      color : #7FFFD4 !important;
-  }
+
   .list-enter-active,
   .list-leave-active {
     transition: all 0.5s ease;

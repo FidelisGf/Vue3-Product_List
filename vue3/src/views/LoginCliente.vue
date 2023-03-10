@@ -26,20 +26,20 @@
               flex-column mt-2">
                 <v-text-field
                   v-model="user.NAME.value"
-                  color="teal-darken-1"
+                  color="indigo"
                   label="Nome"
                   variant="underlined"
                   prepend-inner-icon="mdi-account"
                   :rules="NomeRules"
-                  dark
+
                   required
                 ></v-text-field>
                 <v-text-field
                   v-model="user.PASSWORD.value"
-                  color="teal-darken-1"
+                  color="indigo"
                   label="Senha"
                   variant="underlined"
-                  dark
+
                   prepend-inner-icon="mdi-lock"
                   type="password"
                   :rules="pwRules"
@@ -88,7 +88,7 @@
         min-width: 50% !important;
         min-height: 100% !important;
         max-width: 100% !important;
-        background: linear-gradient(to right, #151616, #131c22);
+        background: linear-gradient(to right, #b5bad6, #b2b9e0);
     }
     .img{
         width: 100%;
@@ -98,7 +98,7 @@
     .link {
         cursor: pointer;
         text-decoration: underline;
-        color : rgb(255, 255, 255)
+        color : rgb(46, 45, 45)
     }
     .bg-login{
       background: linear-gradient(to right, #1b283f, #243b55) !important;

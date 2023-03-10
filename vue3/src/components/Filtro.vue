@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-navigation-drawer
+
       :style="isNull(genericApp.getTemas.FILTROS) ? ''
       : genericApp.getTemas.FILTROS"
     >
-      <v-list class="d-flex flex-column " >
+      <v-list class="d-flex flex-column">
         <v-list-item>
             <v-list-item-title class="text-h6 auto">
               Filtros
@@ -34,7 +35,7 @@
             <v-radio label="Acima de 100" value="4"></v-radio>
           </v-radio-group>
         </v-list-item>
-        <v-list-item class="mt-n2 ">
+        <v-list-item class="mt-n2 text-white ">
               <v-autocomplete
                   variant="underlined"
                   v-model="categoria"
@@ -51,18 +52,20 @@
 
         </v-list-item>
         <v-spacer></v-spacer>
-        <v-list-item>
-            <v-btn color="#00674b" @click="searchFilter"   block >
-              <v-icon>
-                mdi-magnify
-              </v-icon>Pesquisar</v-btn>
-        </v-list-item>
-        <v-list-item>
-          <v-btn color="#00416A"   @click="clear"  block >
-            <v-icon >
-              mdi-delete
-            </v-icon>Limpar</v-btn>
-        </v-list-item>
+        <div class="fixedBottom">
+          <v-list-item class="ml-n1 d-flex justify-center" >
+              <v-btn variant="text" color="#00674b" @click="searchFilter"  >
+                <v-icon>
+                  mdi-magnify
+                </v-icon>Pesquisar</v-btn>
+          </v-list-item>
+          <v-list-item class="ml-n1 d-flex justify-center">
+            <v-btn variant="text" @click="clear">
+              <v-icon >
+                mdi-delete
+              </v-icon>Limpar</v-btn>
+          </v-list-item>
+        </div>
       </v-list>
     </v-navigation-drawer>
     <v-row class="hidden-lg-and-up " v-if="mobile">
@@ -314,11 +317,20 @@
 
 <style lang="scss" scoped>
   .auto{
-    color : rgb(255, 252, 252) !important;
+    color : rgb(0, 0, 0) !important;
     font-weight: bold !important;
   }
   .bg-fundo{
     background: #f0f8ff !important;
+  }
+
+  .fixedBottom {
+    position: fixed !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+  .border-filter{
+    border: 0px solid !important;
   }
 
 </style>

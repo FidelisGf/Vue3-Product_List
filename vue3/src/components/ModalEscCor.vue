@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex justify-center">
-    <v-card class="card-cores"  color="#424242">
+    <v-card class="card-cores"
+    :style="isNull(storeApp.getTemas.CARDS_PERFIL)
+    ? '' : storeApp.getTemas.CARDS_PERFIL">
       <v-card-title class="text-body-2 d-flex justify-space-between">
         <small class="ml-1 text-h6">Escolha a cor do item...</small>
       </v-card-title>
@@ -34,6 +36,11 @@
 
 <script setup>
   import { defineProps } from 'vue'
+  import { useAppStore } from '@/store/app';
+  import CrudComp from '@/CompositionAP/CRUD';
+
+  const {isNull} = CrudComp()
+  const storeApp = useAppStore();
   const props = defineProps({
     produto : Object
   })

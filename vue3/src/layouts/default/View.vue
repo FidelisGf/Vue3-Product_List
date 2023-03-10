@@ -29,7 +29,6 @@
         <v-btn
           v-for="link in icons"
           :key="link"
-          color="white"
           variant="text"
           class="mx-2"
           rounded="xl"

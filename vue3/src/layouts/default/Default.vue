@@ -20,7 +20,7 @@
 
 
 
-  const theme = ref('dark')
+  const theme = ref('light')
 
 
 

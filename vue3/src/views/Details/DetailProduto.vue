@@ -147,7 +147,7 @@
               ml-0 ml-lg-10 text-detail ">
                 <p
                   class="text-justify
-                  text-caption
+                  text-caption text-grey-lighten-3
                   text-md-body-1 ml-1
                   font-weight-medium ml-lg-6
                   desc-detail"
@@ -172,13 +172,12 @@
                 v-slot="{toggle, selectedClass }"
               >
                 <CardProdutos
-                    :width-card="smAndDown ?  '180' : '210'"
-                    :height-card="smAndDown ? '280' :  '365'"
-                    :height-img="smAndDown ? '120' : '180'"
+                    :width-card="smAndDown ?  '180' : '200'"
+                    :height-card="smAndDown ? '280' :  '345'"
+                    :height-img="smAndDown ? '120' : '160'"
                     :index="index"
                     :produto="produto"
                     @detail-product-esp="detailProduct"
-                    :detail="true"
                 >
                 </CardProdutos>
               </v-slide-group-item>

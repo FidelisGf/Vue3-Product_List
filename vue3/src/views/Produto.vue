@@ -31,9 +31,9 @@
         class="d-flex justify-center"
       >
         <CardProdutos
-          :width-card="smAndDown ?  '200' : '260'"
-          :height-card="smAndDown ? '360' :  ''"
-          :height-img="smAndDown ? '155' : '200'"
+          :width-card="smAndDown ?  '200' : '230'"
+          :height-card="smAndDown ? '335':'358'"
+          :height-img="smAndDown ? '155' : '175'"
           :index="index"
           :produto="produto"
           @detail-product-esp="detailProduct"
@@ -46,7 +46,6 @@
         <v-col cols="12"
           class="justify-center">
           <v-pagination
-            color="teal lighten-1"
             v-model="current_page"
             :length="lastPage"
             :total-visible="5"

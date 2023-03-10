@@ -45,57 +45,15 @@
                 :key="produto.ID"
                 v-slot="{toggle, selectedClass }"
               >
-                <v-card
-                  :class="['ma-3', selectedClass] "
-                  min-height="365"
-                  max-width="250"
-                  min-width="220"
-                  max-height="395"
-
-                  variant="outlined"
-                  @click="detailProduct(produto.ID)"
-                >
-                <div class="
-                  d-flex justify-center ">
-                  <v-img
-                    :src="produto.IMAGE"
-                    height="210"
-                  ></v-img>
-                </div>
-                <v-card-title
-                  class="text-h5 font-weight-bold
-                  desc-detail"
-                  @click="detailProduct(produto.ID)"
-                >
-                  {{produto.NOME}}
-                </v-card-title>
-                <v-card-subtitle
-                  class="text-justify text-subtitle-1 ,
-                  font-weight-medium desc-detail"
-                >
-                  {{produto.DESC}}
-                </v-card-subtitle>
-                <v-card-text>
-                    <v-row>
-                      <v-col cols="12" class="text-caption">
-                      <p class="text-body-1 font-weight-medium
-                      desc-detail">
-                        Valor :
-                        {{parseFloat(produto.VALOR)
-                        .toLocaleString('pt-br',{style: 'currency',
-                        currency: 'BRL'})}}
-                      </p>
-                      <p class="font-weight-medium desc-detail">
-                        Estoque :
-                        {{produto.QUANTIDADE}} unidades
-                      </p>
-                      <p class="font-weight-medium desc-detail">
-                      Categoria : {{produto.NOME_C}}
-                      </p>
-                    </v-col>
-                  </v-row>
-                </v-card-text>
-              </v-card>
+              <card-produtos
+                :width-card="smAndDown ?  '180' : '200'"
+                :height-card="smAndDown ? '280' :  '345'"
+                :height-img="smAndDown ? '120' : '160'"
+                :index="index"
+                :produto="produto"
+                @detail-product-esp="detailProduct"
+              >
+              </card-produtos>
             </v-slide-group-item>
           </v-slide-group>
           </v-col>
@@ -112,6 +70,7 @@ import { useRouter } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import Detail from '@/CompositionAP/CRUD'
 import { useAppStore } from '@/store/app';
+import CardProdutos from './CardProdutos.vue';
 
 const router =
   useRouter()
@@ -120,7 +79,7 @@ const storeApp =
   useAppStore()
 
 const {
-  mobile} = useDisplay()
+  mobile, smAndDown} = useDisplay()
 
 const destaques = shallowRef([])
 const {getDestaques} = Detail()

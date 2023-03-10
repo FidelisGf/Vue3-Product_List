@@ -7,7 +7,7 @@
       @click="ativaNav"></v-app-bar-nav-icon>
         <v-toolbar-title class="hidden-sm-and-down toolbar-title"
         @click="$router.push('/')">
-          <p class="mt-1 desc-detail">
+          <p class="mt-0 desc-detail">
             {{appN.getEmpresa}}
           </p>
         </v-toolbar-title>
@@ -16,17 +16,17 @@
 
         <v-btn @click="$router.push('/')"
         class="text-sm-body-1 hidden-sm-and-down desc-detail"
-        prepend-icon="mdi-home" color="white">
+        prepend-icon="mdi-home" >
           Inicio
         </v-btn>
 
         <v-btn @click="$router.push('/produtos')"
         class="text-sm-body-1 hidden-sm-and-down desc-detail"
-        prepend-icon="mdi-store" color="white">Loja</v-btn>
+        prepend-icon="mdi-store" >Loja</v-btn>
 
         <v-btn @click="$router.push('/carrinho')"
         class="text-sm-body-1 hidden-sm-and-down desc-detail"
-        prepend-icon="mdi-cart" color="white">
+        prepend-icon="mdi-cart">
           <v-badge
           v-show="(counter > 0)"
           class="mt-1 mr-3"
@@ -39,7 +39,7 @@
 
         <v-btn @click="$router.push('/login')"
         class="text-sm-body-1 hidden-sm-and-down desc-detail"
-        prepend-icon="mdi-account" color="white">Conta</v-btn>
+        prepend-icon="mdi-account" >Conta</v-btn>
       </div>
     </v-app-bar>
     <v-navigation-drawer
