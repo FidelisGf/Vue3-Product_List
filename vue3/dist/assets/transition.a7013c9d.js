@@ -1,0 +1,1 @@
+import{A as i,as as p,k as c,ad as m}from"./index.bfab535e.js";const l=i({transition:{type:[Boolean,String,Object],default:"fade-transition",validator:o=>o!==!0}},"transition"),y=(o,s)=>{let{slots:n}=s;const{transition:t,...a}=o,{component:r=m,...e}=typeof t=="object"?t:{};return p(r,c(typeof t=="string"?{name:t}:e,a),n)};export{y as M,l as m};
