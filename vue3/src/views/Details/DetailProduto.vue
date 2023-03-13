@@ -4,172 +4,159 @@
     :style="isNull(storeApp.getTemas.SECUNDARIA)
     ? '' : storeApp.getTemas.SECUNDARIA"
   >
-    <v-row class="d-flex
-    justify-space-between mt-0 mt-md-0
-    flex-column flex-sm-row mt-n4">
-        <v-col class="mt-md-n6" cols=12>
+
+
+    <v-row class="d-flex flex-row justify-space-between justify-xl-start">
+      <v-col cols="12" class="mt-n6">
           <v-btn icon @click="returnRoute"
           class="ml-md-n1" variant="text" >
             <v-icon color="white">
               mdi-arrow-left
             </v-icon>
           </v-btn>
-        </v-col>
-        <v-col cols="12" md="12" lg="12"
-        class="d-flex flex-md-row
-        flex-column-reverse ">
-          <v-row class="d-flex">
-            <v-col  cols="12" md="4" lg="2" xl="2"
-            class="d-flex flex-md-column flex-row ">
-              <div class="ml-lg-0 ml-md-8 ml-xl-5
-              ml-n4 d-flex justify-center flex-row flex-md-column"
-               v-for="(cor, index) in produto.CORES" :key="cor.ID"
+      </v-col>
+      <v-col  cols="12" md="4" lg="2" xl="3"
+      class="d-flex flex-md-column flex-row ">
+        <div class="ml-lg-0 ml-md-8 ml-xl-5
+        ml-n4 d-flex justify-center flex-row flex-md-column"
+         v-for="(cor, index) in produto.CORES" :key="cor.ID"
+        >
+          <v-sheet
+            :color="cor.HASH"
+            height="45"
+            width="45"
+            rounded
+            @click="saveCor(cor.HASH, index)"
+            active
+            class="ml-7 mt-md-2 mt-0 cores-selec
+            d-flex justify-center align-center"
+          >
+          <v-icon
+            v-if="choosen[index] == true"
+            color="green"
+          >
+            mdi-check
+          </v-icon></v-sheet>
+        </div>
+      </v-col >
+      <v-col cols="12" md="5" lg="5" xl="4" class="d-flex
+        justify-md-start justify-center ml-n4">
+        <div class="d-flex justify-center
+        justify-lg-start">
+         <ImageZoom
+            :img-normal="produto.IMAGE"
+            :scale="'2.0'"
+            :min_height_md_lg="'230px'"
+            :max_height_md_lg="'348px'"
+            :max_height="'330px'"
+            :min_height="'180px'"
+            :max_height_xl="'400px'"
+            :min_height_xl="'348px'"
+         >
+         </ImageZoom>
+        </div>
+
+      </v-col>
+          <v-col cols="12"  md="12" lg="5" xl="5" class="d-flex justify-center
+          flex-column">
+            <p class="desc-detail
+            text-md-h6 text-body-2
+            font-weight-bold ml-md-n3 text-white
+            d-flex justify-center justify-lg-start">
+              {{produto.NOME}}
+              ({{parseFloat(produto.VALOR).
+                toLocaleString('pt-br',{style: 'currency',
+                currency: 'BRL'})}})
+              [{{produto.ESTOQUE}}] {{produto.medida.NOME}}(s).
+            </p>
+            <div class="d-flex justify-lg-start
+            justify-center mt-n4 mt-md-0 mt-lg-n2
+            ml-md-n6  div-rating">
+              <v-rating
+                class="mt-4"
+                v-model="produto.AVALIACAO"
+                bg-color="orange-lighten-1"
+                color="#FFD700"
+                disabled
+                half-increments
               >
-                <v-sheet
-                  :color="cor.HASH"
-                  height="45"
-                  width="45"
-                  rounded
-                  @click="saveCor(cor.HASH, index)"
-                  active
-                  class="ml-7 mt-md-2 mt-0 cores-selec
-                  d-flex justify-center align-center"
-                >
-                <v-icon
-                  v-if="choosen[index] == true"
-                  color="green"
-                >
-                  mdi-check
-                </v-icon></v-sheet>
-              </div>
-            </v-col >
-            <v-col cols="12" md="5" lg="5" xl="5" class="d-flex
-              justify-md-start justify-center">
-              <div class="d-flex justify-center
-              justify-md-center
-              justify-lg-center">
-               <ImageZoom
-                  :img-normal="produto.IMAGE"
-                  :scale="'2.0'"
-                  :min_height_md_lg="'230px'"
-                  :max_height_md_lg="'348px'"
-                  :max_height="'330px'"
-                  :min_height="'180px'"
-                  :max_height_xl="'400px'"
-                  :min_height_xl="'348px'"
-               >
-               </ImageZoom>
-              </div>
+              </v-rating>
+              <v-tooltip
+                activator="parent"
+                location="start"
 
-            </v-col>
-            <v-col cols="12" md="12" lg="5" >
-              <v-row>
-                <v-col cols="12" class="d-flex justify-center
-                flex-column">
-                  <p class="desc-detail
-                  text-md-h6 text-body-2
-                  font-weight-bold ml-md-n3 text-white
-                  d-flex justify-center justify-lg-start">
-                    {{produto.NOME}}
-                    ({{parseFloat(produto.VALOR).
-                      toLocaleString('pt-br',{style: 'currency',
-                      currency: 'BRL'})}})
-                    [{{produto.ESTOQUE}}] {{produto.medida.NOME}}(s).
-                  </p>
-                  <div class="d-flex justify-lg-start
-                  justify-center mt-n4 mt-md-0 mt-lg-n2
-                  ml-md-n6  div-rating">
-                    <v-rating
-                      class="mt-4"
-                      v-model="produto.AVALIACAO"
-                      bg-color="orange-lighten-1"
-                      color="#FFD700"
-                      disabled
-                      half-increments
-                    >
-                    </v-rating>
-                    <v-tooltip
-                      activator="parent"
-                      location="start"
+                >Popularidade do item
+              </v-tooltip>
+            </div>
+            <v-btn @click="chooseColor(false)"
+             class="desc-detail
+             text-black ml-sm-n2
+             ml-0 mt-4 mt-md-3 btns-detail" rounded>
+              <v-icon
+                left
+                dark
+                class="mr-6"
+              >
+                mdi-cart
+              </v-icon>
+              <p class="mr-5">Adicionar ao Carrinho</p>
 
-                      >Popularidade do item
-                    </v-tooltip>
-                  </div>
-                  <v-btn @click="chooseColor(false)"
-                   class="desc-detail
-                   text-black ml-sm-n2
-                   ml-0 mt-4 mt-md-3 btns-detail" rounded>
-                    <v-icon
-                      left
-                      dark
-                      class="mr-6"
-                    >
-                      mdi-cart
-                    </v-icon>
-                    <p class="mr-5">Adicionar ao Carrinho</p>
-
-                  </v-btn>
-                  <v-btn  @click="chooseColor(true)"
-                   class=" desc-detail text-black
-                   ml-sm-n2 ml-0 mt-5  btns-detail"
-                    rounded>
-                    <v-icon
-                      left
-                      dark
-                      class="mr-10"
-                    >
-                      mdi-shopping-outline
-                    </v-icon>
-                    <p class="mr-16">Comprar Agora</p>
-                  </v-btn>
-                  <v-btn @click="goWhats"  rounded
-                  class="text-black ml-sm-n2 ml-0 mt-5 btns-detail">
-                    <v-icon
-                      left
-                      dark
-                      class="ml-3 "
-                    >
-                      mdi-whatsapp
-                    </v-icon>
-                    <p class="ml-6 mt-n1 desc-detail">
-                      Tirar duvidas sobre o
-                      item
-                    </p>
-                  </v-btn>
-
-                </v-col>
-
-              </v-row>
-            </v-col>
-            <v-col cols="12" md="12" lg="12" class="d-flex
-            justify-start mt-lg-8 mt-0 ">
-              <div class="d-flex flex-column
-              ml-0 ml-lg-10 text-detail ">
-                <p
-                  class="text-justify
-                  text-caption text-grey-lighten-3
-                  text-md-body-1 ml-1
-                  font-weight-medium ml-lg-6
-                  desc-detail"
-                >
-                  {{produto.DESC}}...
-                </p>
-              </div>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-divider class="dividers" ></v-divider>
-        <v-col cols="12" md="12" class="d-flex mt-lg-6">
+            </v-btn>
+            <v-btn  @click="chooseColor(true)"
+             class=" desc-detail text-black
+             ml-sm-n2 ml-0 mt-5  btns-detail"
+              rounded>
+              <v-icon
+                left
+                dark
+                class="mr-10"
+              >
+                mdi-shopping-outline
+              </v-icon>
+              <p class="mr-16">Comprar Agora</p>
+            </v-btn>
+            <v-btn @click="goWhats"  rounded
+            class="text-black ml-sm-n2 ml-0 mt-5 btns-detail">
+              <v-icon
+                left
+                dark
+                class="ml-3 "
+              >
+                mdi-whatsapp
+              </v-icon>
+              <p class="ml-6 mt-n1 desc-detail">
+                Tirar duvidas sobre o
+                item
+              </p>
+            </v-btn>
+      </v-col>
+      <v-col cols="12" md="12" lg="12" class="d-flex
+      justify-start mt-lg-8 mt-0 ">
+        <div class="d-flex flex-column
+        ml-0 ml-lg-10 text-detail ">
+          <p
+            class="text-justify
+            text-caption text-grey-lighten-3
+            text-md-body-1 ml-1
+            font-weight-medium ml-lg-6
+            desc-detail"
+          >
+            {{produto.DESC}}...
+          </p>
+        </div>
+      </v-col>
+    </v-row>
+    <v-divider class="dividers" ></v-divider>
+    <v-row class="d-flex flex-row justify-space-between justify-xl-start">
+       <v-col cols="12" md="12" class="mt-lg-2">
             <v-slide-group
               selected-class="bg-success"
-              :show-arrows="smAndDown ? false : true"
+              :show-arrows="true"
               center-active
             >
               <v-slide-group-item
                 v-for="(produto, index) in produtos"
                 :key="produto.ID"
-
-                v-slot="{toggle, selectedClass }"
               >
                 <CardProdutos
                     :width-card="smAndDown ?  '180' : '200'"
@@ -188,7 +175,6 @@
       persistent
       v-model="dialog"
       @keydown.escape="dialog = false"
-
     >
       <ModalEscCor :produto="produto" @close="close"
       @corEsc="defineCor"
