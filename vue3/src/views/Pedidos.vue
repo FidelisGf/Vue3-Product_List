@@ -24,10 +24,10 @@
                 class="d-flex justify-space-between desc-detail"
               >
                 <p>Pedido #{{pedido.ID}}</p>
-                <v-icon v-if="pedido.APROVADO == 'T'" color="#03C03C">
+                <v-icon v-if="pedido.APROVADO == 'T'" color="#2E7D32">
                   mdi-package-variant-closed-check
                 </v-icon>
-                <v-icon v-else color="yellow">
+                <v-icon v-else color="#D84315">
                   mdi-package-variant-minus
                 </v-icon>
               </v-card-title>
@@ -62,7 +62,7 @@
                   size="x-small"
                   icon variant="text"
                 >
-                  <v-icon color="#03C03C">
+                  <v-icon color="black">
                     mdi-arrow-down
                   </v-icon>
                 </v-btn>
@@ -71,7 +71,7 @@
                   class="mt-n0 pl-0 pl-md-0"
                   size="x-small" icon variant="text"
                 >
-                  <v-icon color="#03C03C">
+                  <v-icon color="black">
                     mdi-arrow-up
                   </v-icon>
                 </v-btn>
@@ -278,6 +278,6 @@
   }
 
   .text-pendente{
-    color : #ffef09 !important;
+    color : #e96208 !important;
   }
 </style>

@@ -41,19 +41,30 @@
             center-active
               >
               <v-slide-group-item
+                v-if="!storeApp.loading"
                 v-for="produto in destaques"
                 :key="produto.ID"
-                v-slot="{toggle, selectedClass }"
               >
               <card-produtos
                 :width-card="smAndDown ?  '180' : '200'"
-                :height-card="smAndDown ? '280' :  '345'"
+                :height-card="smAndDown ? '300' :  '345'"
                 :height-img="smAndDown ? '120' : '160'"
-                :index="index"
                 :produto="produto"
+                @defineCorEsp="defineCor"
                 @detail-product-esp="detailProduct"
               >
               </card-produtos>
+            </v-slide-group-item>
+              <v-slide-group-item
+              v-else
+              v-for="(index) in 10"
+              :key="index"
+              >
+              <v-card
+                :loading="storeApp.getLoad"
+                color="black"
+              >
+              </v-card>
             </v-slide-group-item>
           </v-slide-group>
           </v-col>
@@ -71,30 +82,36 @@ import { useDisplay } from 'vuetify/lib/framework.mjs';
 import Detail from '@/CompositionAP/CRUD'
 import { useAppStore } from '@/store/app';
 import CardProdutos from './CardProdutos.vue';
-
+import CarrinhoComp from '@/CompositionAP/Carrinho';
 const router =
   useRouter()
-
 const storeApp =
   useAppStore()
-
 const {
   mobile, smAndDown} = useDisplay()
 
 const destaques = shallowRef([])
-const {getDestaques} = Detail()
+const {getDestaques, findById} = Detail()
+const {saveInCarrinho} = CarrinhoComp()
 const img_fundo = ref(null)
 const icon = ref(null)
 
-
+async function defineCor(produto){
+  let payload = {Shop : 'T'}
+  let cor = await
+  findById('getOneColorOfProduct',
+  produto.ID, payload)
+  saveInCarrinho(produto.ID, produto.VALOR, cor[0].HASH)
+}
 
 
 
 onBeforeMount(async ()=>{
     await getConfigSite()
+    await getDest()
 })
 
-getDest()
+
 
 
 

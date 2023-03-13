@@ -1,12 +1,13 @@
 <template>
   <div class="d-flex justify-center card">
 
-    <v-card max-width="500px" class="card-cad" >
+    <v-card max-width="500px"   :style="isNull(storeApp.getTemas.CARDS_PERFIL) ? '' :
+    storeApp.getTemas.CARDS_PERFIL" >
       <v-card-title class="font-weight-bold">
         {{title}}
       </v-card-title>
       <v-card-subtitle
-        class="font-weight-black text-md-subtitle-1 text-caption"
+        class="font-weight-medium text-md-subtitle-1 text-caption"
       >
           <p>As informações colocadas aqui serão confirmadas </p>
           <p>posteriormente.</p>
@@ -36,10 +37,8 @@
                   size="80"
                 >
                   <img
-
                     class="mt-0 mt-sm-0 img-cad"
                     :src="image_url"
-
                   />
                 </v-avatar>
               </div>
@@ -49,7 +48,7 @@
           <v-col cols="12" sm="12">
             <v-text-field
               v-model="user.NAME.value"
-              color="#A58CB3"
+              color="#37474F"
               label="Nome"
               :rules="NomeRules"
 
@@ -60,29 +59,29 @@
         <v-col cols="12" sm="6">
           <v-text-field
             v-model="user.EMAIL.value"
-            color="#A58CB3"
+            color="#37474F"
             label="Email"
             :rules="EmailRules"
-            dark
+
             required
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
           <v-text-field
             v-model="user.CPF.value"
-            color="#A58CB3"
+            color="#37474F"
             :rules="cpfRules"
             label="Cpf"
-            dark
+
             required
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
           <v-text-field
             v-model="user.PASSWORD.value"
-            color="#A58CB3"
+            color="#37474F"
             label="Senha"
-            dark
+
             type="password"
             :rules="pwRules"
             required
@@ -91,9 +90,9 @@
         <v-col cols="12" sm="6">
           <v-text-field
             v-model="user.CF_PASSWORD.value"
-            color="#A58CB3"
+            color="#37474F"
             label="Confirme a senha"
-            dark
+
             type="password"
             :rules="cfPwRules"
             required
@@ -104,9 +103,9 @@
     </v-form>
     </v-card-text>
     <v-card-actions class="d-flex justify-end mt-n3">
-      <v-btn variant="text" color="#FEBE10"
+      <v-btn variant="text" color="#01579B"
       @click="voltar" >Voltar</v-btn>
-      <v-btn variant="text" color="#03C03C"
+      <v-btn variant="text" color="#2E7D32"
        @click="test" >{{txtBotao}}</v-btn>
     </v-card-actions>
   </v-card>
@@ -117,6 +116,7 @@
   import { ref} from 'vue'
   import { useRouter } from 'vue-router';
   import  UserComp from '@/CompositionAP/UserComp'
+  import CrudComp from '@/CompositionAP/CRUD';
 
   const props = defineProps({
     cad : Boolean
@@ -145,9 +145,9 @@
     cpfRules,
     EmailRules,
     pwRules,
-    cfPwRules
+    cfPwRules,
   } = UserComp()
-
+  const {storeApp, isNull} = CrudComp()
 
 
 
@@ -224,7 +224,7 @@
   .arqv {
     font-size: 1.05em;
     font-weight: 500;
-    color: rgb(253, 247, 247);
+    color: rgb(59, 59, 59);
     display: inline-block;
   }
   input[type="file"]:focus + .arqv,

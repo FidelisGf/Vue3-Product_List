@@ -13,17 +13,17 @@
                 <v-card-title class="mt-2">
                   <div class="d-flex flex-sm-row flex-column">
                     <div class="d-flex flex-row">
-                      <v-icon color="white"
+                      <v-icon color="#2E7D32"
                       class="mt-sm-0 mt-n1">mdi-cart</v-icon>
                       <p class="text-md-h6
                       text-caption font-weight-bold ml-3 mt-0
                       desc-detail">Meu Carrinho...</p>
                     </div>
                   <div class="d-flex flex-row">
-                    <v-icon color="green-accent-3"
+                    <v-icon color="#2E7D32"
                       class="mt-sm-0 mt-2
                       mt-sm-n1
-                      mt-md-0 ml-0 ml-sm-6 desc-detail"
+                      mt-md-1 ml-0 ml-sm-6 desc-detail"
                     >
                       mdi-cash
                     </v-icon>
@@ -39,7 +39,7 @@
                   <v-spacer></v-spacer>
                   <v-btn @click="finalizarPedido"
                   prepend-icon="mdi-cash" variant="text"
-                  class="mt-sm-0  mt-2" color="yellow">
+                  class="mt-sm-0  mt-2" >
                       Finalizar Lista
                   </v-btn>
                   </div>
@@ -62,19 +62,19 @@
                           </div>
                             <div class="d-flex flex-column ml-3">
                               <p class="text-h5
-                              font-weight-black desc-detail">
+                              font-weight-medium desc-detail">
                                 {{produto.NOME}}
                               </p>
                               <p class="text-caption
                               text-sm-subtitle-1 desc-detail
-                              font-weight-bold">
+                              font-weight-medium">
                                 {{parseFloat(produto.VALOR).
                                   toLocaleString('pt-br',{style:
                                   'currency', currency: 'BRL'})}}
                               </p>
                               <p class="text-caption
                               text-sm-subtitle-1 desc-detail
-                              font-weight-bold">
+                              font-weight-medium">
                                 <span
                                   v-if="produto.QUANTIDADE !=
                                   'Indisponivel'"
@@ -91,7 +91,7 @@
                               <div class="d-flex flex-row">
                                 <p class="text-caption
                                 text-sm-subtitle-1
-                                font-weight-bold desc-detail">
+                                font-weight-medium desc-detail">
                                   Cor:
                                 </p>
                                 <v-sheet
@@ -108,7 +108,7 @@
                            justify-center">
                             <v-btn icon variant="text"
                             v-if="produto.QUANTIDADE != 'Indisponivel'"
-                            color="#4FFFB0"
+                            color="#2E7D32"
                             @click="addQuantidadeProduto(index)">
                               <v-icon>mdi-plus</v-icon>
                             </v-btn>

@@ -15,18 +15,18 @@
               class="d-flex flex-row"
             >
               <v-text-field
-                color="white"
+
                 label="Cupom de desconto"
                 type="text"
-                dark
+
                 v-model="NmCupom"
-                variant="outlined"
+                variant="filled"
                 placeholder="WELCOME25"
               >
               </v-text-field>
               <v-btn size="small"
               class="mt-3 ml-3"
-              color="#4FFFB0"
+              color="#2E7D32"
               variant="text"
               @click="tryCupom"
               >
@@ -62,7 +62,7 @@
         <v-btn variant="text" @click="fecharModal" color="#FF033E">
           Voltar
         </v-btn>
-        <v-btn variant="text" @click="finalizar" color="#4FFFB0">
+        <v-btn variant="text" @click="finalizar" color="#2E7D32">
           Confirmar
         </v-btn>
       </v-card-actions>

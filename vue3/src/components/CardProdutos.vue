@@ -4,7 +4,7 @@
     :height="heightCard"
     :width="widthCard"
   >
-    <v-row :key="index" >
+    <v-row >
       <v-col cols="12"
         class="img-card
         justify-center
@@ -62,6 +62,7 @@
             color="#32de84"
             icon="mdi-whatsapp"
             :size="smAndDown ? 'small' : ''"
+            @click="goWhats(produto)"
           >
           </v-btn>
         </v-col>
@@ -94,6 +95,14 @@ function detailProductEsp(id){
 function defineCor(produto){
     emit('defineCorEsp', produto)
 }
+function goWhats(produto){
+      const url = "https://api.whatsapp.com/send?phone="
+      const number = '45998463475'
+      const msg = "Boa%20Tarde%20gostaria%20de%20ter%20informações%20sobre%20o%20item%20" +
+      produto.NOME + "%20Codigo%20" + produto.ID
+      const end_url = `${url}${number}&text=${msg}`
+      window.open(end_url, '_blank').focus();
+  }
 </script>
 
 <style lang="scss" scoped>

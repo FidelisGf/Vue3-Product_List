@@ -119,10 +119,6 @@
   .princip-list{
     background-color: #e2edf6;
   }
-
-
-
-
   .auto{
       color: rgb(255, 255, 255) !important;
       font-weight: bold;

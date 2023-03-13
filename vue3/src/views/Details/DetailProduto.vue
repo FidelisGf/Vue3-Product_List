@@ -173,7 +173,7 @@
               >
                 <CardProdutos
                     :width-card="smAndDown ?  '180' : '200'"
-                    :height-card="smAndDown ? '280' :  '345'"
+                    :height-card="smAndDown ? '300' :  '345'"
                     :height-img="smAndDown ? '120' : '160'"
                     :index="index"
                     :produto="produto"
@@ -228,17 +228,17 @@
 
   const {
     findById,
-    selecionaCor,
     isNull,
     storeApp,
-    router
+    router,
+    selecionaCor
   } = Detail()
 
   const {
     getAllProdutos,
     produto,
     produtos,
-    tmpAuxiliar
+    tmpAuxiliar,
   } = ProdutoComp()
 
   const route =
@@ -296,6 +296,7 @@
     }else{
       saveInCarrinho(produto.value.ID, produto.value.VALOR,
       selectedColor.value)
+      router.push('/carrinho')
     }
   }
 
@@ -329,6 +330,7 @@
       selectedColor.value = cor
       tmpChosen.value = index
       selecionaCor()
+      //storeApp.activeSnack('Cor escolhida com sucesso !')
   }
 
   async function getProdutos(){

@@ -50,12 +50,13 @@
         </v-col>
         <v-col cols="12" class="d-flex flex-sm-row
         flex-column justify-start mt-n3 mt-sm-0">
-            <v-btn color="#018749" @click="goWhats"
+            <v-btn color="#2E7D32" @click="goWhats"
             prepend-icon="mdi-whatsapp"
             size="small" class=" ml-md-0">
               <span>Enviar mensagem agora</span>
             </v-btn>
-            <v-btn color="#00693E"
+            <v-btn color="#2E7D32"
+            @click="sendMail"
             prepend-icon="mdi-email" size="small"
             class="ml-sm-2 mt-2 mt-sm-0" >
               <span>Enviar email agora</span>
@@ -88,6 +89,10 @@
       storeApp.getIdPedido.toString()
       const end_url = `${url}${number}&text=${msg}`
       window.open(end_url, '_blank').focus();
+  }
+
+  function sendMail(){
+    window.open('mailto:jpinformaticafoz@gmail.com?subject=Pedido ' + numero_pedido.value + '&body=Gostaria de informações adicionais para o pagamento do meu pedido');
   }
 
 </script>

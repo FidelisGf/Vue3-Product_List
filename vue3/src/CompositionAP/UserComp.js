@@ -163,6 +163,7 @@ export default function UserComp(){
       cpfRules,
       EmailRules,
       pwRules,
-      cfPwRules
+      cfPwRules,
+
   }
 }
