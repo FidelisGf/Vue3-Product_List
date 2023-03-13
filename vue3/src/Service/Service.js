@@ -1,7 +1,8 @@
 import axios from "axios"
 import { useAppStore } from '@/store/app'
 
-axios.defaults.baseURL = 'http://192.168.0.132:9090/api/v1/';
+
+axios.defaults.baseURL = import.meta.env.VITE_API_ENDPOINT;
 if(localStorage.getItem('tkn') !=null || localStorage.getItem('tkn') != undefined){
   axios.defaults.headers.common['Authorization'] =
   'Bearer' + localStorage.getItem('tkn')
