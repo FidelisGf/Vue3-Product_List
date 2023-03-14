@@ -2,15 +2,15 @@
   <v-container class="fill-height"
    fluid :style="isNull(storeApp.getTemas.PRIMARIA) ? ''
    : storeApp.getTemas.PRIMARIA">
-    <v-row>
-        <v-col cols="12" :key="reni" >
+    <v-row class="line">
+        <v-col cols="12" :key="reni" class="mt-n8">
               <v-card
                   dark
                   elevation="4"
                   :style="isNull(storeApp.getTemas.CARD_PEDIDOS) ? ''
                   : storeApp.getTemas.CARD_PEDIDOS"
               >
-                <v-card-title class="mt-2">
+                <v-card-title>
                   <div class="d-flex flex-sm-row flex-column">
                     <div class="d-flex flex-row">
                       <v-icon color="#2E7D32"
@@ -267,6 +267,11 @@
   .auto{
     color : rgb(255, 252, 252) !important;
     font-weight: bold !important;
+  }
+  .line{
+    display: flex !important;
+    align-items: start !important;
+    min-height: 100vh !important;
   }
 
 

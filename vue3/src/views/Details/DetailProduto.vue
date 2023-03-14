@@ -147,30 +147,27 @@
       </v-col>
     </v-row>
     <v-divider class="dividers" ></v-divider>
-    <v-row class="d-flex flex-row justify-space-between justify-xl-start">
-       <v-col cols="12" md="12" class="mt-lg-2">
-            <v-slide-group
-              selected-class="bg-success"
-              :show-arrows="true"
-              center-active
+    <v-slide-group
+        class="mt-6 ml-n3 ml-sm-0"
+        selected-class="bg-success"
+        center-active
+        :show-arrows="smAndDown ? false : true"
+      >
+          <v-slide-group-item
+            v-for="produto in produtos"
+            :key="produto.ID"
+            v-slot="{toggle, selectedClass }"
+          >
+            <card-produtos
+              :width-card="smAndDown ?  '180' : '200'"
+              :height-card="smAndDown ? '300' :  '345'"
+              :height-img="smAndDown ? '120' : '160'"
+              :produto="produto"
+              @detail-product-esp="detailProduct"
             >
-              <v-slide-group-item
-                v-for="(produto, index) in produtos"
-                :key="produto.ID"
-              >
-                <CardProdutos
-                    :width-card="smAndDown ?  '180' : '200'"
-                    :height-card="smAndDown ? '300' :  '345'"
-                    :height-img="smAndDown ? '120' : '160'"
-                    :index="index"
-                    :produto="produto"
-                    @detail-product-esp="detailProduct"
-                >
-                </CardProdutos>
-              </v-slide-group-item>
-            </v-slide-group>
-        </v-col>
-    </v-row>
+          </card-produtos>
+        </v-slide-group-item>
+      </v-slide-group>
     <v-dialog
       persistent
       v-model="dialog"
