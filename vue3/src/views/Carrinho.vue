@@ -3,7 +3,7 @@
    fluid :style="isNull(storeApp.getTemas.PRIMARIA) ? ''
    : storeApp.getTemas.PRIMARIA">
     <v-row class="line">
-        <v-col cols="12" :key="reni" class="mt-n8">
+        <v-col cols="12" :key="reni" class="mt-n8 ml-n0">
               <v-card
                   dark
                   elevation="4"

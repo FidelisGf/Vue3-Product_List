@@ -50,12 +50,12 @@
         </v-col>
         <v-col cols="12" class="d-flex flex-sm-row
         flex-column justify-start mt-n3 mt-sm-0">
-            <v-btn color="#2E7D32" @click="goWhats"
+            <v-btn color="green-lighten-2" @click="goWhats"
             prepend-icon="mdi-whatsapp"
             size="small" class=" ml-md-0">
               <span>Enviar mensagem agora</span>
             </v-btn>
-            <v-btn color="#2E7D32"
+            <v-btn color="green-lighten-2"
             @click="sendMail"
             prepend-icon="mdi-email" size="small"
             class="ml-sm-2 mt-2 mt-sm-0" >

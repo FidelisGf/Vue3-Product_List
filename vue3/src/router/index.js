@@ -27,33 +27,18 @@ const routes = [
       {
         path: 'carrinho',
         name: 'Carrinho',
-        beforeEnter(to, from, next){
-          if(localStorage.getItem('tkn') != null ||
+        beforeEnter(to, from){
+            if(localStorage.getItem('tkn') != null &&
             localStorage.getItem('tkn') != undefined){
-              axios.defaults.headers.common['Authorization'] = 'Bearer' +
-              localStorage.getItem('tkn')
-              axios.get("/auth/validateTkn").then((res)=>{
-                next()
-              }).catch((error)=>{
-                const access_token = localStorage.getItem("tkn");
-
-                if(error.response.status == 401 &&
-                  access_token && error.response.data != 'token_invalid'){
-                  localStorage.setItem('token', error.response.data)
-
-                  axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
-                  next()
-                }else{
-                    const genericApp = useAppStore()
-                    genericApp.activeSnack('Esteja logado para isso !')
-                    next({name: 'Login'})
-                }
-              })
-          }else{
+                axios.defaults.headers.common['Authorization'] = 'Bearer' + localStorage.getItem('tkn')
+                axios.get("/auth/validateTkn").then(()=>{
+                    return {name : 'Carrinho'}
+                })
+            }else{
               const genericApp = useAppStore()
               genericApp.activeSnack('Esteja logado para isso !')
-              next('/login')
-          }
+              return {name: 'Login'}
+            }
         },
         component:() => import('@/views/Carrinho.vue')
       },
@@ -66,31 +51,18 @@ const routes = [
         path: 'login',
         name: 'Login',
         beforeEnter(to, from, next){
-          if(localStorage.getItem('tkn') != null ||
-            localStorage.getItem('tkn') != undefined){
-              axios.defaults.headers.common['Authorization'] = 'Bearer' +
-              localStorage.getItem('tkn')
-              axios.get("/auth/validateTkn").then((res)=>{
-                 next({name : 'Perfil'})
-              }).catch((error)=>{
-                const access_token = localStorage.getItem("tkn");
-
-                if(error.response.status == 401 &&
-                  access_token && error.response.data != 'token_invalid'){
-                  localStorage.setItem('tkn', error.response.data)
-
-                  axios.defaults.headers.common['Authorization'] = 'Bearer' + error.response.data
-                  next()
-                }else{
-                    const genericApp = useAppStore()
-                    genericApp.activeSnack('Esteja logado para isso !')
-                    next()
-                }
+          if(localStorage.getItem('tkn') != null &&
+          localStorage.getItem('tkn') != undefined){
+              axios.defaults.headers.common['Authorization'] = 'Bearer' + localStorage.getItem('tkn')
+              axios.get("/auth/validateTkn").then(()=>{
+                  console.log('Chegou aqui')
+                  next({name: 'Perfil'})
               })
           }else{
-              const genericApp = useAppStore()
-              genericApp.activeSnack('Esteja logado para isso !')
-              next()
+            console.log('foi aqui')
+            const genericApp = useAppStore()
+            genericApp.activeSnack('Esteja logado para isso !')
+            next()
           }
         },
         component: () => import('@/views/LoginCliente.vue')

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height"
+  <v-container class="fill-height d-flex flex-column"
   :style="isNull(storeApp.getTemas.PRIMARIA)
   ? '' : storeApp.getTemas.PRIMARIA"
   fluid>
@@ -23,13 +23,17 @@
 
         </p>
       </v-col>
+
       <v-col
         v-for="(produto, index) in produtos"
         :key="produto.ID"
-        cols="6" md="4" xl="3"
+        cols="6" :md="Object.keys(produtos).length > 3 ? 4 : 6"
+        :xl="Object.keys(produtos).length > 3 ? 3 : 6"
+
 
         class="d-flex justify-center"
       >
+
         <CardProdutos
           :width-card="smAndDown ?  '200' : '230'"
           :height-card="smAndDown ? '335':'358'"
@@ -82,6 +86,8 @@
 
   const storeApp =
   useAppStore()
+
+
 
 
   const {

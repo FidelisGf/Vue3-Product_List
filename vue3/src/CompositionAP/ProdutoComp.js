@@ -9,9 +9,16 @@ export default function ProdutoComp(){
   const lastPage = computed(()=>
       storeApp.getLastPage
   )
-  const current_page = ref(1)
-  current_page.value =
-  storeApp.getCurrent_Page
+
+  const current_page = computed({
+      get() {
+        return storeApp.getCurrent_Page;
+      },
+      set(value) {
+        storeApp.setPage(value);
+      }
+    }
+  )
 
   const produto = ref(null)
   const produtos = shallowRef([])

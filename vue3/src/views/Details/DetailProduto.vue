@@ -6,8 +6,8 @@
   >
 
 
-    <v-row class="d-flex flex-row justify-space-between justify-xl-start">
-      <v-col cols="12" class="mt-n6">
+    <v-row class="d-flex flex-row justify-space-between ">
+      <v-col cols="12" class="mt-n6" >
           <v-btn icon @click="returnRoute"
           class="ml-md-n1" variant="text" >
             <v-icon color="white">
@@ -15,7 +15,7 @@
             </v-icon>
           </v-btn>
       </v-col>
-      <v-col  cols="12" md="4" lg="2" xl="3"
+      <v-col  cols="12" md="2" lg="2" xl="2"
       class="d-flex flex-md-column flex-row ">
         <div class="ml-lg-0 ml-md-8 ml-xl-5
         ml-n4 d-flex justify-center flex-row flex-md-column"
@@ -39,10 +39,9 @@
           </v-icon></v-sheet>
         </div>
       </v-col >
-      <v-col cols="12" md="5" lg="5" xl="4" class="d-flex
-        justify-md-start justify-center ml-n4">
-        <div class="d-flex justify-center
-        justify-lg-start">
+      <v-col cols="12" md="10" lg="5" xl="4"
+      class="d-flex justify-md-start ml-lg-n4 ml-xl-0">
+        <div class="d-flex justify-center justify-lg-start">
          <ImageZoom
             :img-normal="produto.IMAGE"
             :scale="'2.0'"
@@ -51,13 +50,14 @@
             :max_height="'330px'"
             :min_height="'180px'"
             :max_height_xl="'400px'"
-            :min_height_xl="'348px'"
+            :min_height_xl="'280px'"
          >
          </ImageZoom>
         </div>
 
       </v-col>
-          <v-col cols="12"  md="12" lg="5" xl="5" class="d-flex justify-center
+          <v-col cols="12"  md="12" lg="5" xl="5"
+          class="d-flex justify-center
           flex-column">
             <p class="desc-detail
             text-md-h6 text-body-2
@@ -150,13 +150,13 @@
     <v-slide-group
         class="mt-6 ml-n3 ml-sm-0"
         selected-class="bg-success"
-        center-active
+
         :show-arrows="smAndDown ? false : true"
       >
           <v-slide-group-item
             v-for="produto in produtos"
             :key="produto.ID"
-            v-slot="{toggle, selectedClass }"
+
           >
             <card-produtos
               :width-card="smAndDown ?  '180' : '200'"
@@ -273,14 +273,18 @@
   }
 
   function chooseColor(boolean, index){
+    buy.value = boolean
     if(selectedColor.value == null){
       dialog.value = true
-      buy.value = boolean
     }else{
       saveInCarrinho(produto.value.ID, produto.value.VALOR,
       selectedColor.value)
-      router.push('/carrinho')
+      console.log(buy.value)
+      if(buy.value == true){
+        router.push('/carrinho')
+      }
     }
+    buy.value = false
   }
 
   function defineCor(e){
@@ -291,6 +295,7 @@
       if(selectedColor.value == null){
           saveCor(e.color, e.index)
       }
+
       dialog.value = false
   }
 
@@ -349,15 +354,10 @@
 
 
   async function returnRoute(){
-
-    window.location.reload();
-    router.go(-1)
+    router.back()
+    //window.location.reload();
     restart.value += 1
   }
-
-
-
-
 
 </script>
 

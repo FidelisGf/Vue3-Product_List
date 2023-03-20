@@ -52,7 +52,7 @@
         v-for="(item, i) in items"
         :key="i"
         :value="item"
-        active-color="primary"
+        active-color="black"
         class="mt-4"
         @click="getRouteMobile(item.value)"
       >

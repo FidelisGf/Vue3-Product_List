@@ -7,14 +7,14 @@ export const useProdutoStore = defineStore('produto', {
       current_page : 1,
       total_page : 2
   }),
+  persist: {
+    paths: ['current_page', 'total_page']
+  },
   actions: {
     async  getProdutos(payload){
       let data = Service.getPaginado('products', payload)
       .then((res)=>{
-
-        this.current_page = res.data.current_page
         this.total_page = res.data.last_page
-
         if(res.data.data == undefined || res.data.data == null){
           let arrayLista = null
           this.setPages(resposta)
@@ -41,8 +41,10 @@ export const useProdutoStore = defineStore('produto', {
             return error
         })
         return data
+    },
+    setPage(payload){
+        this.current_page = payload
     }
-
   },
   getters: {
     getCurrent_Page(){
