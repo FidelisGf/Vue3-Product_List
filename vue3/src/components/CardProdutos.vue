@@ -14,7 +14,7 @@
           :src="produto.IMAGE"
           :height="heightImg"
           class="img-detail"
-          @click="detailProductEsp(produto.ID)"
+          @click.prevent="detailProductEsp(produto.ID)"
           ></v-img>
       </v-col>
     </v-row>
@@ -89,7 +89,7 @@ const props = defineProps({
 const emit
 = defineEmits(['detailProductEsp', 'defineCorEsp'])
 
-function detailProductEsp(id){
+async function detailProductEsp(id){
     emit('detailProductEsp', id)
 }
 function defineCor(produto){

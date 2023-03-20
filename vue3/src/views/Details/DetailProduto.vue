@@ -149,16 +149,15 @@
     <v-divider class="dividers" ></v-divider>
     <v-slide-group
         class="mt-6 ml-n3 ml-sm-0"
-        selected-class="bg-success"
 
         :show-arrows="smAndDown ? false : true"
       >
           <v-slide-group-item
             v-for="produto in produtos"
             :key="produto.ID"
-
           >
             <card-produtos
+
               :width-card="smAndDown ?  '180' : '200'"
               :height-card="smAndDown ? '300' :  '345'"
               :height-img="smAndDown ? '120' : '160'"

@@ -157,12 +157,6 @@ function pageOffset(el) {
          || (previousHeight != noormal.offsetHeight)) {
           previousWidth = noormal.offsetWidth
           previousHeight = noormal.offsetHeight
-          component.$emit("resized", {
-            width: noormal.width,
-            height: noormal.height,
-            fullWidth: noormal.naturalWidth,
-            fullHeight: noormal.naturalHeight
-          })
         }
       }, 1000)
   }
