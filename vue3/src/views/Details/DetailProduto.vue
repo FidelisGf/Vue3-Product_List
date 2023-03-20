@@ -40,17 +40,17 @@
         </div>
       </v-col >
       <v-col cols="12" md="10" lg="5" xl="4"
-      class="d-flex justify-md-start ml-lg-n4 ml-xl-0">
+      class="d-flex justify-md-start ml-lg-n4 ml-xl-0 justify-center">
         <div class="d-flex justify-center justify-lg-start">
          <ImageZoom
             :img-normal="produto.IMAGE"
             :scale="'2.0'"
             :min_height_md_lg="'230px'"
             :max_height_md_lg="'348px'"
-            :max_height="'330px'"
-            :min_height="'180px'"
-            :max_height_xl="'400px'"
-            :min_height_xl="'280px'"
+            :max_height="'310px'"
+            :min_height="'260px'"
+            :max_height_xl="'390px'"
+            :min_height_xl="'340px'"
          >
          </ImageZoom>
         </div>

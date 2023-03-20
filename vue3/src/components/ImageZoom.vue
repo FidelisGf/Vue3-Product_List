@@ -28,7 +28,7 @@
 import { ref, computed, onMounted, onUpdated, onUnmounted} from 'vue'
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 
-const {smAndDown, xlAndUp, mdAndUp} = useDisplay()
+const {smAndDown, xlAndUp, mdAndUp, smAndUp} = useDisplay()
 const zooom = ref(null)
 const normal = ref(null)
 const el = ref(null)
@@ -66,11 +66,11 @@ function pageOffset(el) {
 
   let stylesImage = computed({
         get: ()=> {
-          if(xlAndUp && props.min_height_xl !== null && props.max_height_xl
+          if(xlAndUp.value == true && props.min_height_xl !== null && props.max_height_xl
           !== null){
             return mountStyle(props.min_height_xl, props.max_height_xl)
           }
-          else if(mdAndUp && props.min_height_md_lg !== null
+          else if(mdAndUp.value == true && props.min_height_md_lg !== null
           && props.max_height_md_lg !== null){
             return mountStyle(props.min_height_md_lg, props.max_height_md_lg)
           }else{
